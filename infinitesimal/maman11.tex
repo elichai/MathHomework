@@ -19,111 +19,115 @@
 %\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
 %\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
 %\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
-
-
 \getenv[\ID]{ID}
 
 \title{אינפי 1 - ממ"ן 11}
 \author{אליחי טורקל \ID}
 \date\today
 
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
 
 \begin{document}
-	%\selectlanguage{english}
 	\maketitle %This command prints the title based on information entered above
 
-	%Section and subsection automatically number unless you put the asterisk next to them.
 	\section*{שאלה 1}
 	\subsection*{סעיף א}
 	הוכיחו כי
-	 $\forall n( (n \in \NN) \to ({2n \choose n} \leq 4^n) )$
+	 $\bm{\forall n( (n \in \NN) \to ({2n \choose n} \leq 4^n) )}$
 
 	\begin{proof}
-		$4^n = 2^{2^n}=2^{2n}=(1+1)^{2n}$
-		ולפי משפט 1.34 (נוסחת הבינום של ניוטון): \\
-		\[
-			(1+1)^{2n} = \sum_{i=0}^{2n}{{2n \choose i}1^{2n-i}1^i} = \sum_{i=0}^{2n}{2n \choose i} = {2n \choose n} + \sum_{\substack{i=0 \\ i \neq n}}^{2n}{2n \choose i} \geq {2n \choose n}
-		\]
-		ולכן $4^n \geq {2n \choose n}$.
-	\end{proof}
-
-	%\clearpage %Gives us a page break before the next section. Optional.
-	\subsection*{סעיף ב}
-הוכיחו כי
-	 $\forall n( (n \in \NN) \to ( {2n \choose n} \geq \frac{4^n}{2n+1} ) )$
-	\begin{proof}
-נוכיח באינדוקציה על n+1 \\
-בסיס האינדוקציה
-		$n = 1 \to {2 \choose 1} \geq \frac{4^1}{2+1} = 2 \geq 1 \frac{1}{3}$ \\
-נניח שהטענה נכונה בעבור n (הנחת האינדוקציה):
-		${2n \choose n} \geq \frac{4^n}{2n+1}$ \\
-נוכיח בעבור $n + 1$ \\
-		\
-		\[
-			{2(n+1) \choose n+1} \geq \frac{4^{n+1}}{2(n+1)+1} \iff
-			{2n + 2 \choose n + 1} \geq \frac{4^{n+1}}{2n + 3}
-		\]
-		\[ \frac{4^{n+1}}{2n + 3} = \frac{4 \cdot 4^n}{2n+3} = 4 \cdot \frac{4^n}{2n+3} \]
-עפ"י נוסחת המקדמים הבינומים
-		\[
-			{2n + 2 \choose n + 1} = \frac{(2n+2)!}{(n+1)! \cdot (2n+2-n-1)!} =
-			\frac{(2n+2)!}{(n+1)! \cdot (n+1)!} =
-			\frac{(2n+2) \cdot (2n+1) \cdot (2n)!}{(n+1)^2 \cdot n! \cdot n!}
-		\]
-		\[ {2n \choose n}  = \frac{(2n)!}{n! \cdot n!} \]
-		\[
-			\frac{(2n+2) \cdot (2n+1)}{(n+1)^2} \cdot \frac{(2n)!}{n! \cdot n!} =
-			\frac{(2n+2) \cdot (2n+1)}{(n+1)^2} \cdot {2n \choose n}
-		\]
-
-השבר השמאלי הוא בבירור חיובי כי נתון לנו ש n טבעי. ולכן עפ"י הנחת האינדוקציה ואקסיומה 1.35.4 נכפיל את 2 הצדדים של הנחת האינדוקציה בשבר הנ"ל
-		\[
-			{2n \choose n} \cdot \frac{(2n+2) \cdot (2n+1)}{(n+1)^2} \geq
-			\frac{4^n}{2n+1} \cdot \frac{(2n+2) \cdot (2n+1)}{(n+1)^2}
-		\]
-		\[
-			\frac{4^n}{\cancel{2n+1}} \cdot \frac{2 \cdot \cancel{(n+1)} \cdot \cancel{(2n+1)}}{(n+1)\cancel{^2}} =
-			\frac{4^n \cdot 2}{n+1} =
-			\frac{4^n \cdot 2 \cdot 2}{2(n+1)} =
-			\frac{4^{n+1}}{2n+2}
-		\]
-		ובגלל ש n טבעי ובעזרת טענה 1.36 מתקבל ש
-		$2n + 3 > 2n + 2$.
-		בשבר חיובי, במידה ומגדילים את המכנה אז השבר כולו קטן
-		$\frac{4^{n+1}}{2n+2} \geq \frac{4^{n+1}}{2n+3}$
+		\[ 4^n = 2^{2^n}=2^{2n}=(1+1)^{2n} \]
+		ולפי משפט 1.34 (נוסחת הבינום של ניוטון):
+		\begin{align*}
+			(1+1)^{2n} &= \sum_{i=0}^{2n}{{2n \choose i}1^{2n-i}1^i} \\[1em]
+			&= \sum_{i=0}^{2n}{2n \choose i} \\[1em]
+			&= {2n \choose n} + \sum_{\substack{i=0 \\ i \neq n}}^{2n}{2n \choose i} \geq {2n \choose n} \\
+		\end{align*}
 		ולכן
-		${2(n+1) \choose n+1} \geq \frac{4^{n+1}}{2(n+1)+1}$
-
-
+		$\bm{4^n \geq {2n \choose n}}$
 	\end{proof}
 
+
+	\subsection*{סעיף ב}
+	הוכיחו כי
+	 $\bm{\forall n( (n \in \NN) \to ( {2n \choose n} \geq \frac{4^n}{2n+1} ) )}$
+
+	 \begin{proof}
+		\nl
+		נוכיח באינדוקציה על n+1 \\
+		בסיס האינדוקציה
+		$n = 1$
+		\[
+			{2 \choose 1} \geq \frac{4^1}{2+1} = 2 \geq 1 \frac{1}{3}
+		\]
+נניח שהטענה נכונה בעבור n (הנחת האינדוקציה):
+		$\bm{{2n \choose n} \geq \frac{4^n}{2n+1}}$ \\
+נוכיח בעבור $n + 1$
+		\begin{align*}
+			{2(n+1) \choose n+1} \geq &\frac{4^{n+1}}{2(n+1)+1} \\[1em]
+			{2n + 2 \choose n + 1} \geq &\frac{4^{n+1}}{2n + 3} \\[1em]
+			=&\frac{4 \cdot 4^n}{2n+3}
+			=4 \cdot \frac{4^n}{2n+3}
+		\end{align*}
+עפ"י נוסחת המקדמים הבינומים
+		\begin{alignat*}{2}
+			{2n + 2 \choose n + 1} &=
+			\frac{(2n+2)!}{(n+1)! \cdot (2n+2-n-1)!}
+			&&=\frac{(2n+2)!}{(n+1)! \cdot (n+1)!} \\[1em]
+			&=\frac{(2n+2) \cdot (2n+1) \cdot (2n)!}{(n+1)^2 \cdot n! \cdot n!}
+			&&=\frac{(2n+2) \cdot (2n+1)}{(n+1)^2} \cdot \frac{(2n)!}{n! \cdot n!} \\[1em]
+			&=\frac{(2n+2) \cdot (2n+1)}{(n+1)^2} \cdot {2n \choose n}
+			&& \Leftarrow \bigg( {2n \choose n} = \frac{(2n)!}{n! \cdot n!} \bigg)
+		\end{alignat*}
+
+		השבר השמאלי הוא בהכרח חיובי כי נתון לנו ש n טבעי.
+ולכן עפ"י הנחת האינדוקציה ואקסיומה 1.35.4 נכפיל את 2 הצדדים של הנחת האינדוקציה בשבר הנ"ל
+		\begin{align*}
+			{2n \choose n} \cdot \frac{(2n+2) \cdot (2n+1)}{(n+1)^2} \geq
+			&\frac{4^n}{2n+1} \cdot \frac{(2n+2) \cdot (2n+1)}{(n+1)^2} \\
+			=&\frac{4^n}{\cancel{2n+1}} \cdot \frac{2 \cdot \cancel{(n+1)} \cdot \cancel{(2n+1)}}{(n+1)\cancel{^2}} \\
+			=&\frac{4^n \cdot 2}{n+1}
+			=\frac{4^n \cdot 2 \cdot 2}{2(n+1)} =
+			\frac{4^{n+1}}{2n+2}
+		\end{align*}
+		ובגלל ש n טבעי ובעזרת טענה 1.36 מתקבל ש
+		$\bm{2n + 3 > 2n + 2}$.
+		בשבר חיובי,
+		במידה ומגדילים את המכנה אז השבר כולו קטן
+		$\bm{\frac{4^{n+1}}{2n+2} \geq \frac{4^{n+1}}{2n+3}}$
+		ולכן
+		$\bm{{2(n+1) \choose n+1} \geq \frac{4^{n+1}}{2(n+1)+1}}$
+	\end{proof}
+
+	\pagebreak
 	\section*{שאלה 2}
 	יהיו
-	$a,b \in \RR \land b \neq 0$
+	$\bm{a,b \in \RR \land b \neq 0}$
 	\subsection*{סעיף א}
 	הוכיחו ש
-	$|a-b| \leq b^2 \Rightarrow |\frac{a}{b}| \leq |b| + 1$
+	$\bm{|a-b| \leq b^2 \Rightarrow |\frac{a}{b}| \leq |b| + 1}$
 
 	\begin{proof}
 
 		כל מספר ממשי בריבוע הוא אי שלילי, ולכן ניתן להפוך את $b^2$ ל $|b^2|$ ואז לפי טענה 1.48 $|b \cdot b| = |b|b|$ ולאחר מכן נחלק ב $|b|$ שהוא מספר חיובי (עפ"י הנתון וטענה 1.48.1) ונקבל
 		\[ \frac{|a-b| }{|b|} \leq |b| \]
 		ולפי תכונות הערך המוחלט ושאלה 39.ד:
-		\[
-			|b| \geq \Big| \frac{a-b}{b} \Big| \Rightarrow
-		 	|b| \geq  \Big| \frac{a}{b}-1 \Big|
-		 \]
-		 ועפ"י טענה 1.49(אי שוויון המשולש)
-		 \[
-		 	\Big| \frac{a}{b}-1 \Big| \geq
-		 	\bigg| \Big| \frac{a}{b} \Big| - |1| \bigg| \geq
-		 	\Big| \frac{a}{b} \Big| - |1| \]
-		 \[
-		 	|b| \geq \Big| \frac{a}{b} \Big| -1 \Rightarrow
-		 	|b| + 1 \geq \Big| \frac{a}{b}  \Big| \Rightarrow
-		 	\Big| \frac{a}{b} \Big| \leq |b| + 1
-		  \]
-
+		\begin{align*}
+			|b| \geq \Big| \frac{a-b}{b} \Big|
+			\geq  \Big| \frac{a}{b}-1 \Big|
+			&\overset{(1)}{\geq}
+		 	\bigg| \Big| \frac{a}{b} \Big| - |1| \bigg|
+			 \overset{(2)}{\geq}
+		 	\Big| \frac{a}{b} \Big| - |1| \\
+			 &\Downarrow \\
+			|b| &\geq \Big| \frac{a}{b} \Big| -1 \\
+			|b| + 1 &\geq \Big| \frac{a}{b}  \Big| \Rightarrow
+			\Big| \frac{a}{b} \Big| \leq |b| + 1
+		\end{align*}
+		(1) - עפ"י טענה 1.49(אי שוויון המשולש) \\
+		(2) - עפ"י טענה 1.48(תכונות הערך המוחלט)
 	\end{proof}
 
 	\subsection*{סעיף ב}
@@ -142,6 +146,7 @@
 		\]
 	\end{proof}
 
+	\pagebreak
 	\section*{שאלה 3}
 	\subsection*{סעיף א}
 	פתרו את האי שוויון
@@ -192,6 +197,7 @@
 	$0 \leq x \leq 1 \iff [0,1]$
 	\end{proof}
 
+	\pagebreak
 	\subsection*{סעיף ב}
 	פתרו את המשוואות הבאות
 	\begin{enumerate}[i]
@@ -207,20 +213,24 @@
 		\item $\lfloor x^2 \rfloor = 3$
 		\begin{proof}
 			עפ"י טענה 1.64 (תכונת החלק השלם)
-			\[3 \leq x^2 < 4\]
-			\[ x^2 < 4 \Rightarrow  -2 < x < 2 \]
-			\[ x^2 \geq 3 \Rightarrow  x \geq \sqrt{3} \lor x \leq - \sqrt{3} \]
-			\[\Downarrow\]
-			\[ -2 < x \leq -\sqrt{3} \lor \sqrt{3} \leq x < 2  \iff
-				(-2, -\sqrt{3}] \cup [\sqrt{3}, 2)
-			\]
+			\[ 3 \leq x^2 < 4 \]
+			\begin{gather*}
+				\begin{flalign*}
+					&(x \geq \sqrt{3} \lor x \leq - \sqrt{3}) \Leftarrow x^2 \geq 3
+					&x^2 < 4 \Rightarrow  (-2 < x < 2) &&
+				\end{flalign*} \\
+				\Downarrow \\
+				(-2 < x \leq -\sqrt{3}) \lor (\sqrt{3} \leq x < 2)  \iff
+					(-2, -\sqrt{3}] \cup [\sqrt{3}, 2)
+			\end{gather*}
 		\end{proof}
 	\end{enumerate}
 
+	\pagebreak
 	\section*{שאלה 4}
 	\subsection*{סעיף א}
 	תהי קבוצה $A \subseteq \RR$ צפופה בקטע $(1, \infty)$ .הוכיחו שהקבוצה
-	 $B = \bigg\{ \dfrac{a}{n} \bigg| a \in A, n \in \NN \bigg\}$
+	 $\bm{B = \bigg\{ \dfrac{a}{n} \bigg| a \in A, n \in \NN \bigg\}}$
 	 צפופה בקטע $(0,1)$
 
 	 יהי $x,y \in (0,1)$ כך ש $y > x$ נוכיח שקיים $b \in B$ כך ש $x < b < y$ כלומר, שקיימים $a \in A, n \in \NN$ כך ש $x < \frac{a}{n} < y$
@@ -239,7 +249,7 @@
  	תשובה:
  	קיימים $x,y \in I$ המקיימים $x < y$ ככה שלכל $a \in A$ מתקיים $x \geq a$ או $a \geq y$
  	ומוצרן:
- 	$\exists x,y \in I(x< y \rightarrow \forall a \in A (a \geq y \lor a \leq x))$
+ 	$\bm{\exists x,y \in I(x< y \rightarrow \forall a \in A (a \geq y \lor a \leq x))}$
 
  	\subsection*{סעיף ג}
  	תהי $A \subseteq (1, \infty)$ הוכיחו שהקבוצה
@@ -248,11 +258,14 @@
  	\begin{proof}
  		נוכיח כי קיימים $x, y \in [0,1]$ ככה שלכל $c \in C$ מתקיים $x \geq c \lor c \geq y$.
  		נסתכל על
- 		$n \in \NN, a \in A$  \ $c = \frac{a}{n^2(a+1)}$
+ 		$n \in \NN, a \in A$  \ $\bm{c = \frac{a}{n^2(a+1)}}$
  		\begin{enumerate}[I]
 			\item אם $n = 1$ אז
-			$c = \frac{a}{1^2(a+1)} = \frac{a + 1 - 1}{a + 1} = 1 - \frac{1}{a+1}$
-
+			\[
+				c = \frac{a}{1^2(a+1)}
+				  = \frac{a + 1 - 1}{a + 1}
+				  = 1 - \frac{1}{a+1}
+			\]
 			ובגלל ש A מוכלת בתוך $(1, \infty)$ ו $a \in A$ אז $a > 1$ ולכן בגלל שיש לנו את a במכנה של שבר שלילי, ניקח את ה a הקטן ביותר ע"מ לקבל את ה c הקטן ביותר האפשרי. ולכן נציב $a = 1$:
 			\[ c > 1 - \frac{1}{1+1} \iff c > \frac{1}{2} \]
 
