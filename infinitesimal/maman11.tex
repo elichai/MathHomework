@@ -1,0 +1,275 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{polyglossia}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+
+
+\getenv[\ID]{ID}
+
+\title{אינפי 1 - ממ"ן 11}
+\author{אליחי טורקל \ID}
+\date\today
+
+
+\begin{document}
+	%\selectlanguage{english}
+	\maketitle %This command prints the title based on information entered above
+
+	%Section and subsection automatically number unless you put the asterisk next to them.
+	\section*{שאלה 1}
+	\subsection*{סעיף א}
+	הוכיחו כי
+	 $\forall n( (n \in \NN) \to ({2n \choose n} \leq 4^n) )$
+
+	\begin{proof}
+		$4^n = 2^{2^n}=2^{2n}=(1+1)^{2n}$
+		ולפי משפט 1.34 (נוסחת הבינום של ניוטון): \\
+		\[
+			(1+1)^{2n} = \sum_{i=0}^{2n}{{2n \choose i}1^{2n-i}1^i} = \sum_{i=0}^{2n}{2n \choose i} = {2n \choose n} + \sum_{\substack{i=0 \\ i \neq n}}^{2n}{2n \choose i} \geq {2n \choose n}
+		\]
+		ולכן $4^n \geq {2n \choose n}$.
+	\end{proof}
+
+	%\clearpage %Gives us a page break before the next section. Optional.
+	\subsection*{סעיף ב}
+הוכיחו כי
+	 $\forall n( (n \in \NN) \to ( {2n \choose n} \geq \frac{4^n}{2n+1} ) )$
+	\begin{proof}
+נוכיח באינדוקציה על n+1 \\
+בסיס האינדוקציה
+		$n = 1 \to {2 \choose 1} \geq \frac{4^1}{2+1} = 2 \geq 1 \frac{1}{3}$ \\
+נניח שהטענה נכונה בעבור n (הנחת האינדוקציה):
+		${2n \choose n} \geq \frac{4^n}{2n+1}$ \\
+נוכיח בעבור $n + 1$ \\
+		\
+		\[
+			{2(n+1) \choose n+1} \geq \frac{4^{n+1}}{2(n+1)+1} \iff
+			{2n + 2 \choose n + 1} \geq \frac{4^{n+1}}{2n + 3}
+		\]
+		\[ \frac{4^{n+1}}{2n + 3} = \frac{4 \cdot 4^n}{2n+3} = 4 \cdot \frac{4^n}{2n+3} \]
+עפ"י נוסחת המקדמים הבינומים
+		\[
+			{2n + 2 \choose n + 1} = \frac{(2n+2)!}{(n+1)! \cdot (2n+2-n-1)!} =
+			\frac{(2n+2)!}{(n+1)! \cdot (n+1)!} =
+			\frac{(2n+2) \cdot (2n+1) \cdot (2n)!}{(n+1)^2 \cdot n! \cdot n!}
+		\]
+		\[ {2n \choose n}  = \frac{(2n)!}{n! \cdot n!} \]
+		\[
+			\frac{(2n+2) \cdot (2n+1)}{(n+1)^2} \cdot \frac{(2n)!}{n! \cdot n!} =
+			\frac{(2n+2) \cdot (2n+1)}{(n+1)^2} \cdot {2n \choose n}
+		\]
+
+השבר השמאלי הוא בבירור חיובי כי נתון לנו ש n טבעי. ולכן עפ"י הנחת האינדוקציה ואקסיומה 1.35.4 נכפיל את 2 הצדדים של הנחת האינדוקציה בשבר הנ"ל
+		\[
+			{2n \choose n} \cdot \frac{(2n+2) \cdot (2n+1)}{(n+1)^2} \geq
+			\frac{4^n}{2n+1} \cdot \frac{(2n+2) \cdot (2n+1)}{(n+1)^2}
+		\]
+		\[
+			\frac{4^n}{\cancel{2n+1}} \cdot \frac{2 \cdot \cancel{(n+1)} \cdot \cancel{(2n+1)}}{(n+1)\cancel{^2}} =
+			\frac{4^n \cdot 2}{n+1} =
+			\frac{4^n \cdot 2 \cdot 2}{2(n+1)} =
+			\frac{4^{n+1}}{2n+2}
+		\]
+		ובגלל ש n טבעי ובעזרת טענה 1.36 מתקבל ש
+		$2n + 3 > 2n + 2$.
+		בשבר חיובי, במידה ומגדילים את המכנה אז השבר כולו קטן
+		$\frac{4^{n+1}}{2n+2} \geq \frac{4^{n+1}}{2n+3}$
+		ולכן
+		${2(n+1) \choose n+1} \geq \frac{4^{n+1}}{2(n+1)+1}$
+
+
+	\end{proof}
+
+	\section*{שאלה 2}
+	יהיו
+	$a,b \in \RR \land b \neq 0$
+	\subsection*{סעיף א}
+	הוכיחו ש
+	$|a-b| \leq b^2 \Rightarrow |\frac{a}{b}| \leq |b| + 1$
+
+	\begin{proof}
+
+		כל מספר ממשי בריבוע הוא אי שלילי, ולכן ניתן להפוך את $b^2$ ל $|b^2|$ ואז לפי טענה 1.48 $|b \cdot b| = |b|b|$ ולאחר מכן נחלק ב $|b|$ שהוא מספר חיובי (עפ"י הנתון וטענה 1.48.1) ונקבל
+		\[ \frac{|a-b| }{|b|} \leq |b| \]
+		ולפי תכונות הערך המוחלט ושאלה 39.ד:
+		\[
+			|b| \geq \Big| \frac{a-b}{b} \Big| \Rightarrow
+		 	|b| \geq  \Big| \frac{a}{b}-1 \Big|
+		 \]
+		 ועפ"י טענה 1.49(אי שוויון המשולש)
+		 \[
+		 	\Big| \frac{a}{b}-1 \Big| \geq
+		 	\bigg| \Big| \frac{a}{b} \Big| - |1| \bigg| \geq
+		 	\Big| \frac{a}{b} \Big| - |1| \]
+		 \[
+		 	|b| \geq \Big| \frac{a}{b} \Big| -1 \Rightarrow
+		 	|b| + 1 \geq \Big| \frac{a}{b}  \Big| \Rightarrow
+		 	\Big| \frac{a}{b} \Big| \leq |b| + 1
+		  \]
+
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	הוכיחו ש
+	$\big( \frac{a + |a|}{2} \big)^2 + \big( \frac{a - |a|}{2} \big)^2 = a^2$
+	\begin{proof}
+		אם $a > 0$
+		\[
+			\Big( \frac{a+a}{2} \Big)^2 + \Big( \frac{a-a}{2} \Big) ^2 =
+			\Big( \frac{\cancel{2}a}{\cancel{2}} \Big)^2 + \cancel{\Big( \frac{0}{2} \Big)^2} = a^2
+		\]
+				אם $a \geq 0$
+		\[
+		\Big( \frac{a-a}{2} \Big)^2 + \Big( \frac{a-(-a)}{2} \Big) ^2 =
+		\cancel{\Big( \frac{0}{2} \Big)^2} + \Big( \frac{\cancel{2}a}{\cancel{2}} \Big)^2 = a^2
+		\]
+	\end{proof}
+
+	\section*{שאלה 3}
+	\subsection*{סעיף א}
+	פתרו את האי שוויון
+	$\lfloor |x+1| - |x| \rfloor \geq x^2$
+	\begin{proof}
+		נפריד את האי שוויון לתחומים
+		\begin{enumerate}[I]
+			\item אם $x \geq 0$ אז $x + 1 > 0$
+			\[
+				\lfloor x + 1 - x \rfloor \geq x^2 \Rightarrow
+				\lfloor 1 \rfloor \geq x^2 \Rightarrow
+				1 \geq x^2 \Rightarrow
+				-1 \leq x \leq 1
+			\]
+				מכיוון שאנחנו בתחום של $x \geq 0$ אז נקבל $0 \leq x \leq 1$
+			\item אם $-1 \leq x < 0$ אז $x+1 > 0$
+			\[
+				\lfloor x + 1 + x \rfloor \geq x^2 \Rightarrow
+				\lfloor 2x+1 \rfloor \geq x^2
+			\]
+			עפ"י טענה 1.64.1 (תכונות החלק השלם)
+			\[
+				2x + 1 \geq \lfloor 2x + 1 \rfloor \geq x^2 \Rightarrow
+				-x^2 + 2x + 1 \geq 0
+			\]
+			עפ"י נוסחת השורשים:
+			$ax^2 + bx + c = 0 \Rightarrow \frac{-b \pm \sqrt{b^2 -4ac}}{2c}$
+			\[
+			\frac{-2 \pm \sqrt{4+4}}{-2} =
+			\frac{\cancel{-2}}{\cancel{-2}} \pm \frac{\cancel{2}\sqrt{2}}{\cancel{2}} =
+			1 \pm \sqrt{2}
+			 \]
+			 \[ 1 - \sqrt{2} \leq x \leq 1 + \sqrt{2} \]
+			 מכיוון שאנחנו בתחום של $x > 0$ ניקח את האופציה שתתן לנו את המספר הקטן ביותר $1 - \sqrt{2}$ ונציב
+			 \[
+			 	\lfloor2 \cdot (1 - \sqrt{2}) + 1 = \lfloor 2 - 2\sqrt{2} \rfloor = \lfloor 1 - \sqrt{2} \rfloor = 0
+			 \]
+ 			 אז המספר הקטן ביותר נותן לנו $x=0$ והתחום הוא $x<0$ ולכן אין פתרון בתחום
+ 			 \item אם $x \leq -1$ אז $x + 1 \leq 0$
+ 			 \[
+ 			 	\lfloor -x -1 +x \rfloor \geq x^2 \Rightarrow
+ 			 	\lfloor -1 \rfloor \geq x^2 \Rightarrow
+ 			 	-1 \geq x^2
+ 			 \]
+ 			 ול $-1 \geq x^2 $ אין פתרון, ולכן אין פתרון בתחום.
+		\end{enumerate}
+	אם נאחד את כל התחומים נקבל את הפתרון
+	$0 \leq x \leq 1 \iff [0,1]$
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	פתרו את המשוואות הבאות
+	\begin{enumerate}[i]
+		\item $\lfloor x \rfloor^2 = 16$
+		\begin{proof}
+			\[
+				\lfloor x \rfloor^2 = 16 \Rightarrow
+				\lfloor x \rfloor = \sqrt{16} = \pm 4
+			\]
+			עפ"י טענה 1.64 (תכונת החלק השלם)
+			\[4 \leq x < 5 \lor -4 \leq x < -3 \iff [-4, -3) \cup [4,5) \]
+		\end{proof}
+		\item $\lfloor x^2 \rfloor = 3$
+		\begin{proof}
+			עפ"י טענה 1.64 (תכונת החלק השלם)
+			\[3 \leq x^2 < 4\]
+			\[ x^2 < 4 \Rightarrow  -2 < x < 2 \]
+			\[ x^2 \geq 3 \Rightarrow  x \geq \sqrt{3} \lor x \leq - \sqrt{3} \]
+			\[\Downarrow\]
+			\[ -2 < x \leq -\sqrt{3} \lor \sqrt{3} \leq x < 2  \iff
+				(-2, -\sqrt{3}] \cup [\sqrt{3}, 2)
+			\]
+		\end{proof}
+	\end{enumerate}
+
+	\section*{שאלה 4}
+	\subsection*{סעיף א}
+	תהי קבוצה $A \subseteq \RR$ צפופה בקטע $(1, \infty)$ .הוכיחו שהקבוצה
+	 $B = \bigg\{ \dfrac{a}{n} \bigg| a \in A, n \in \NN \bigg\}$
+	 צפופה בקטע $(0,1)$
+
+	 יהי $x,y \in (0,1)$ כך ש $y > x$ נוכיח שקיים $b \in B$ כך ש $x < b < y$ כלומר, שקיימים $a \in A, n \in \NN$ כך ש $x < \frac{a}{n} < y$
+	 \begin{proof}
+	 	\[
+	 		x < \frac{a}{n} < y \Rightarrow
+	 		xn < a < yn
+	 	 \]
+	 	 עפ"י מסקנה 1.61 לכל $c > 0$ קיים $n \in \NN$ ככה ש
+	 	 $1 < cn \Leftarrow \frac{1}{n} < c$
+	 	 ולכן $1 < xn < a < yn$ ומכאן $x < \frac{a}{n} < y$.
+	 \end{proof}
+
+ 	\subsection*{סעיף ב}
+ 	נסחו את המשפט A אינה צפופה בקטע I בלי להשמש ב "לא". \\
+ 	תשובה:
+ 	קיימים $x,y \in I$ המקיימים $x < y$ ככה שלכל $a \in A$ מתקיים $x \geq a$ או $a \geq y$
+ 	ומוצרן:
+ 	$\exists x,y \in I(x< y \rightarrow \forall a \in A (a \geq y \lor a \leq x))$
+
+ 	\subsection*{סעיף ג}
+ 	תהי $A \subseteq (1, \infty)$ הוכיחו שהקבוצה
+ 	$C = \bigg\{ \dfrac{a}{n^2(a+1)} \bigg| a \in A, n \in \NN \bigg\}$
+ 	אינה צפופה בקטע $[0,1]$
+ 	\begin{proof}
+ 		נוכיח כי קיימים $x, y \in [0,1]$ ככה שלכל $c \in C$ מתקיים $x \geq c \lor c \geq y$.
+ 		נסתכל על
+ 		$n \in \NN, a \in A$  \ $c = \frac{a}{n^2(a+1)}$
+ 		\begin{enumerate}[I]
+			\item אם $n = 1$ אז
+			$c = \frac{a}{1^2(a+1)} = \frac{a + 1 - 1}{a + 1} = 1 - \frac{1}{a+1}$
+
+			ובגלל ש A מוכלת בתוך $(1, \infty)$ ו $a \in A$ אז $a > 1$ ולכן בגלל שיש לנו את a במכנה של שבר שלילי, ניקח את ה a הקטן ביותר ע"מ לקבל את ה c הקטן ביותר האפשרי. ולכן נציב $a = 1$:
+			\[ c > 1 - \frac{1}{1+1} \iff c > \frac{1}{2} \]
+
+			\item  אם $n \geq 2$
+			\[ c = \frac{1}{n^2} \cdot \frac{a}{a+1} \]
+			נשים לב ש
+			$\frac{a}{a+1} < 1 \Leftarrow 1 < a < a + 1$
+			ולכן נבחר a ככה ש $\frac{a}{a+1}$ הוא 1, ונבחר $n = 2$ וככה נקבל את המספר המקסימלי ש c יכול להיות
+
+			\[ c = \frac{a}{n^2(a+1)} < \frac{1}{n^2} \cdot 1 \leq \frac{1}{2^2} \leq \frac{1}{4} \]
+			ולכן
+			$c > \frac{1}{2} \lor c \leq \frac{1}{4}$
+			עכשיו ניקח x,y שנמצאים בדיוק בין רבע לחצי, לדוגמא
+			$x = \frac{1}{3}, y = \frac{2}{5}$
+			שניהם נמצאים ב $[0,1]$ ומקיימים $y > x$. אבל בגלל שלכל $c \in C$ מתקיים
+			 $c > \frac{1}{2} \lor c \leq \frac{1}{4}$ ובנוסף גם x וגם y גדולים מחצי וקטנים מרבע אזי לא קיים c שמקיים $x < c < y$
+		\end{enumerate}
+ 	\end{proof}
+
+\end{document}

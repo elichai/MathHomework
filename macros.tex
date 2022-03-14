@@ -1,0 +1,13 @@
+\def\NN{\mathbb{N}}
+\def\RR{\mathbb{R}}
+
+\ExplSyntaxOn
+
+\NewDocumentCommand{\getenv}{om}
+{
+  \sys_get_shell:nnN{ kpsewhich ~ --var-value ~ #2 }{}#1
+}
+
+\ExplSyntaxOff
+
+%environments
