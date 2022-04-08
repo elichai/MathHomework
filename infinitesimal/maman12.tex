@@ -1,0 +1,470 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{polyglossia}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+
+\title{אינפי 1 - ממ"ן 12}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+	\section*{שאלה 1}
+	\subsection*{סעיף א}
+	הוכיחו ישירות מהגדרת הגבול בלשון $\epsilon, N$:
+	$\bm{\lmf} \frac{3n^2-4}{n^2-4} = 3$
+
+	\begin{proof}
+		לכל $\epsilon > 0$ נגדיר
+		$N = \bigg\lceil \sqrt{4 + \frac{8}{\epsilon}}\bigg\rceil$
+		כך שלכל $n$ טבעי המקיים $n > N$ מתקיים \\
+		\begin{align*}
+			\bigg|  \frac{3n^2-4}{n^2-4} - 3 \bigg| < \epsilon \\
+			\bigg|  \frac{3n^2-4}{n^2-4} - 3 \bigg| =
+			\bigg|  \frac{3n^2-4 -3n^2 + 12}{n^2-4} \bigg| =
+			\bigg|  \frac{8}{n^2-4} \bigg| \overset{\text{טענה 1.48}}=
+			\frac{8}{|n^2-4|} \\
+			4 + \frac{8}{\epsilon} =
+			\sqrt{4 + \frac{8}{\epsilon}}^2 < n^2
+			\Leftarrow
+			\sqrt{4 + \frac{8}{\epsilon}} \leq N < n
+			\text{עפ"י ההגדרה } \\
+			n^2 - 4 = |n^2-4|
+			\text{ ולפיכך }
+			0 < \frac{8}{\epsilon} \leq 4 + \frac{8}{\epsilon} - 4 < n^2 - 4
+			\text{ועל כן } \\
+			\text{נציב חזרה בנוסחאת הגבול} \\
+			\frac{8}{|n^2-4|} = \frac{8}{n^2-4} < \epsilon
+			\overset{\text{טענה 1.42}}\Rightarrow
+			\frac{n^2-4}{8} > \frac{1}{\epsilon}
+			\Rightarrow
+			n^2 > 4 + \frac{8}{\epsilon}
+			\Rightarrow
+			n > \sqrt{4 + \frac{8}{\epsilon}}
+		\end{align*}
+		וע"פ ההגדרה שלנו של $N = \bigg\lceil \sqrt{4 + \frac{8}{\epsilon}}\bigg\rceil$
+		ושל $n > N$
+		הראנו שהאי שוויוןן $\bigg|  \frac{3n^2-4}{n^2-4} - 3 \bigg| < \epsilon$ מתקיים כנדרש בהגדרת הגבול
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	\begin{enumerate}[(i)]
+		\item תהי $(a_n)$ סידרה ויהי $L \in \RR$ נסחו בלשון $\epsilon, N$
+		 את הטענה $\bm{\lmf}a_n \neq L$ \\
+		 פתרון: \\
+קיים $\epsilon > 0$ כך שלכל $N \in \NN$ קיים $n > N$ המקיים $|a_n-L| \geq \epsilon$
+
+	\item נסחו בלשון $\epsilon, N$ שהסדרה $(a_n)$ מתבדרת\\
+	פתרון: \\
+לכל $L \in \RR$ 	קיים $\epsilon > 0$ כך שלכל $N \in \NN$ קיים $n > N$ המקיים $|a_n-L| \geq \epsilon$
+	\end{enumerate}
+
+	\subsection*{סעיף ג}
+	הוכיחו בלשון $\epsilon, N$ שהסדרה $a_n = \langle \sqrt{n} \rangle$ מבתדרת.
+	\begin{proof}
+		נוכיח כי
+		לכל $L \in \RR$ 	קיים $\epsilon > 0$ כך שלכל $N \in \NN$ קיים $n > N$ המקיים $|a_n-L| \geq \epsilon$. \\
+		נסתכל קודם על התכונות של $\langle x \rangle = x - \lfloor x \rfloor$, לפי תכונות החלק השלם:
+		\begin{equation} \label{lemma:1}
+			\lfloor x \rfloor \leq x < \lfloor x \rfloor + 1 \iff
+			0 \leq x - \lfloor x \rfloor < 1 \iff
+			0 \leq \langle x \rangle < 1
+		\end{equation}
+		עכשיו נסתכל בנפרד על המקרים $L = 1$ ו $L \neq 1$
+		\begin{enumerate}
+			\item אם $L = 1$, נגדיר $\epsilon = |\langle\sqrt{n}\rangle - 1|$
+			עפ"י התכונות שהראנו ב \ref{lemma:1} מתקיים \\
+			 $0 \leq \langle \sqrt{n} \rangle < 1$ ולפיכך$^\dag$
+			  מתקבל $\epsilon = |\langle \sqrt{n} \rangle - 1| > 0$
+			כנדרש בהגדרת הגבול, ועכשיו נראה ש $|a_n - L| \geq \epsilon$, ע"י הצבת $L$, $\epsilon$ ו $a_n$:
+			\[
+				|\langle\sqrt{n}\rangle - 1| \geq |\langle\sqrt{n}\rangle - 1|
+			\]
+			ניתן לראות כי כאשר $L=1$ האי שוויון מתקיים לכל $n$ ובפרט לכל $N \in \NN$ קיים $n > N$ המקיים את האי שוויון.
+			ועל כן $L = 1$ אינו גבול של הסדרה.
+
+			\item אם $L \neq 1$ נגדיר $\epsilon = |1 - L|$, בגלל ש $L \neq 1$ וגם בגלל תכונות הערך המוחלט מתקבל $\epsilon > 0$ כנדרש.
+			עכשיו נראה ש $|a_n - L| \geq \epsilon$ ע"י הצבת $a_n, \epsilon$:
+			\[
+				\big| \langle \sqrt{n} \rangle - L\big| \geq \big|1 - L\big| \Rightarrow
+				\big| \sqrt{n} - \lfloor \sqrt{n} \rfloor -L \big| \geq \big| 1 - L \big|
+			\]
+			עפ"י תכונות החלק השלם $x - 1 <\lfloor x \rfloor$ ועל כן:
+			\[
+				\big| \sqrt{n} - \lfloor \sqrt{n} \rfloor -L \big| \geq
+				\big| \sqrt{n} - (\sqrt{n} - 1) -L \big| \geq |1 - L|
+			\]
+כאן ניתן לראות כי כאשר $L \neq 1$ האי שוויון מתקיים לכל $n$ ובפרט לכל $N \in \NN$ קיים $n > N$ המקיים את האי שוויון.
+ועל כן $L \neq 1$ אינו גבול של הסדרה.
+		\end{enumerate}
+אם נשלב את המקרים, נראה שלכל $L$ קיים $\epsilon > 0$ כך שלכל $N \in \NN$ קיים $n > N$ המקיים $|\langle \sqrt{n} \rangle - L| \geq \epsilon$ כנדרש, ועל כן הסדרה מתבדרת.
+	\end{proof}
+
+$\dag$ ניתן לראות כי אם $0 \leq x < 1$ מתקיים, אזי $|x - 1| \geq 0$ עפ"י הגדרת הערך המוחלט,
+ובנוסף $|x-1| \neq 0$ כי $|x-1|=0$ אם"ם $x=1$ ועל פי הנתון $x < 1$ ולפיכך מתקבל $|x-1| > 0$
+
+\pagebreak
+\section*{שאלה 2}
+חשבו את הגבולות שלהלן אם הם קיימים \\
+
+טענת עזר:
+\begin{equation} \label{lemma:2}
+\begin{aligned}
+\text{ עפ"י האריתמטיקה של גבולות וע"פ משפט 1.18 מתקיים: }
+k \in \NN
+\text{לכל } \\
+\lmf\frac{c}{n^k} =
+\lmf c \cdot \prod_{i=1}^{i<k}{\lmf\frac{1}{n}} =
+c \cdot \prod_{i=1}^{i<k}{0} = c \cdot 0 = 0
+\end{aligned}
+\end{equation}
+\subsection*{סעיף א}
+\[ \lmf \frac{2n^3-5n^5 + 9}{2n^4 - 4n^7 - \pi} \]
+פתרון:
+\begin{align*}
+	&\frac{2n^3-5n^5 + 9}{2n^4 - 4n^7 - \pi} =
+	\frac{1}{n^2} \cdot \frac{2n^5 - 5n^7 + 9n^2}{2n^4 - 4n^7 - \pi} =
+	\frac{1}{n^2}\cdot \frac{\frac{2}{n^2} - 5 + \frac{9}{n^5}}{\frac{2}{n^3} - 4 - \frac{\pi}{n^7}} \\
+	&\lmf \Bigg(\frac{1}{n^2}\cdot \frac{\frac{2}{n^2} - 5 + \frac{9}{n^5}}{\frac{2}{n^3} - 4 - \frac{\pi}{n^7}} \Bigg) \ontop{(a)}=
+	\lmf\frac{1}{n^2}\cdot \frac{\lmf\frac{2}{n^2} - \lmf5 + \lmf\frac{9}{n^5}}{\lmf\frac{2}{n^3} - \lmf4 - \bm{\lmf}\frac{\pi}{n^7}}
+	\overset{\text{(b)}}= \\
+	&0\cdot \frac{0 - \lmf5 + 0}{0 - \lmf4 - 0} \overset{\text{(c)}}=
+	0\cdot \frac{0 - 5 + 0}{0 - 4 - 0} =
+	0 \cdot \frac{5}{4} = 0
+\end{align*}
+(a) -
+עפ"י משפט 2.28 האריתמטיקה של גבולות \\
+(b) -
+עפ"י טענת עזר \ref{lemma:2} \\
+(c) -
+עפ"י טענה 2.11
+
+\subsection*{סעיף ב}
+\[ \lmf \frac{2n^3-5n^5 + 9}{2n^4 - 4n^5 - \pi} \]
+פתרון:
+\begin{align*}
+	&\lmf \Bigg( \frac{2n^3-5n^5 + 9}{2n^4 - 4n^5 - \pi} \Bigg) \ontop{(a)}=
+	\lmf \Bigg( \frac{\frac{2}{n^2}-5 + \frac{9}{n^5}}{\frac{2}{n} - 4 - \frac{\pi}{n^5}} \Bigg) \ontop{(b)}= \\
+	&\frac{\lmf\frac{2}{n^2} - \lmf 5 + \lmf\frac{9}{n^5}}{\lmf\frac{2}{n} - \lmf4 - \lmf\frac{\pi}{n^5}} \ontop{(c)}=
+	\frac{0 - \lmf 5 + 0}{0 - \lmf4 - 0} \overset{\text{(d)}}=
+	\frac{0 - 5 + 0}{0 - 4 - 0} =
+	\frac{5}{4}
+\end{align*}
+(a) -
+נחלק את המונה והמכנה ב $n^5$ ($n$ טבעי ולכן גדול מאפס) \\
+(b) -
+עפ"י משפט 2.28 האריתמטיקה של גבולות \\
+(c) -
+עפ"י טענת עזר \ref{lemma:2} \\
+(d) -
+עפ"י טענה 2.11
+
+\subsection*{סעיף ג}
+\[ \lmf \sqrt{n^2 + 2n} - \sqrt{n^2 - 2n} \]
+פתרון: \\
+$n^2 - 2n \geq 0$ אחרת $\sqrt{n^2 - 2n}$ לא יהיה מוגדר,
+ ובנוסף, בגלל ש $n \in \NN$ מתקיים $n^2 + 2n > n^2 - 2n \geq 0$ ולכן
+ $\sqrt{n^2 + 2n} > 0$
+ מה שאומר שמותר לנו לחלק בביטוי הנל:
+ \begin{align*}
+	&\sqrt{n^2 + 2n} - \sqrt{n^2 - 2n} \ontop{(a)}=
+	\frac{(\sqrt{n^2 + 2n} - \sqrt{n^2 - 2n}) \cdot (\sqrt{n^2 + 2n} + \sqrt{n^2 - 2n})}{\sqrt{n^2 + 2n} + \sqrt{n^2 - 2n}} \ontop{(b)} = \\
+	&\frac{\sqrt{n^2 + 2n}^2 - \sqrt{n^2 - 2n}^2}{\sqrt{n^2 + 2n} + \sqrt{n^2 - 2n}} =
+	\frac{n^2 + 2n - n^2 + 2n}{\sqrt{n^2 + 2n} + \sqrt{n^2 - 2n}} =
+	\frac{4n}{\sqrt{n^2 + 2n} + \sqrt{n^2 - 2n}} = \\
+	&\frac{4n}{\sqrt{n^2 \cdot (1 + \frac{2}{n})} + \sqrt{n^2 \cdot ( 1 - \frac{2}{n} )}} =
+	\frac{4\cancel{n}}{\cancel{n} \cdot \Big(\sqrt{1 + \frac{2}{n}} + \sqrt{1 - \frac{2}{n}} \Big)} =
+	\frac{4}{\sqrt{1 + \frac{2}{n}} + \sqrt{1 - \frac{2}{n}}}
+ \end{align*}
+נחשב את הגבולות של השורשים בנפרד בעזרת משפט הסנדוויץ':
+\begin{align*}
+	\forall n \in \NN \Rightarrow 1 &\leq \sqrt{1 + \frac{2}{n}} \leq 1 +  \frac{2}{n} \\
+	\lmf 1 \ontop{(c)}= 1, \qquad \qquad
+	&\lmf \Big(1 + \frac{2}{n} \Big) \ontop{(d)}=
+	\lmf 1 + \lmf \frac{2}{n} \ontop{(a,c)}=
+	1 + 0 = 1 \\
+	&\Downarrow \\
+	\lmf &\sqrt{1 + \frac{2}{n}} = 1
+\end{align*}
+באותה צורה נחשב גם לשורש השני:
+\begin{align*}
+	\forall n \ontop{(f)}> 2 \in \NN \Rightarrow 1 &\leq \sqrt{1 - \frac{2}{n}} \leq 1 -  \frac{2}{n} \\
+	\lmf 1 \ontop{(c)}= 1, \qquad \qquad
+	&\lmf \Big(1 - \frac{2}{n} \Big) \ontop{(d)}=
+	\lmf 1 - \lmf \frac{2}{n} \ontop{(a,c)}=
+	1 - 0 = 1 \\
+	&\Downarrow \\
+	\lmf &\sqrt{1 - \frac{2}{n}} = 1
+\end{align*}
+עכשיו נציב את הגבולות חזרה בסדרה:
+\begin{align*}
+	&\lmf \Bigg(\frac{4}{\sqrt{1 + \frac{2}{n}} + \sqrt{1 - \frac{2}{n}}} \Bigg) \ontop{(d)}=
+	\frac{\lmf4}{\lmf\sqrt{1 + \frac{2}{n}} + \lmf\sqrt{1 - \frac{2}{n}}} = \\
+	&\frac{\lmf4}{1 + 1} \ontop{(c)}=
+	\frac{4}{2} = 2
+ \end{align*}
+ ועל כן:
+ \[ \lmf \sqrt{n^2 + 2n} - \sqrt{n^2 - 2n} = 2 \]
+(a) -
+נחלק ב $\sqrt{n^2 + 2n} + \sqrt{n^2 - 2n}$ ונכפיל את המונה באותו ביטוי\\
+(b) -
+עפ"י חוקי קפל מקוצר, טענה 1.33\\
+(c) -
+עפ"י טענה 2.11\\
+(d) -
+עפ"י משפט 2.28 האריתמטיקה של גבולות \\
+(e) -
+עפ"י טענת עזר \ref{lemma:2} \\
+(f) -
+מותר להגביל ל $n > 2$ כי זה עדיין מקיים "כמעט לכל $n$".
+
+\subsection*{סעיף ד}
+\[ \lmf \sqrt[n]{2^n - n^2} \]
+פתרון: \\
+נתחיל בלהראות שהסדרה אכן מוגדרת ברוב איבריה, ע"י להראות שכמעט לכל $n$ מתקיים $2^n - n^2 \geq 0$
+\[
+	\lmf \frac{n^2}{2^n} \ontop{(a)}= 0, \qquad
+	\lmf 1 \ontop{(b)}= 1
+\]
+
+ולכן, כמעט לכל $n$ מתקיים:
+\[
+	\frac{n^2}{2^n} \ontop{(c)} < 1 \Rightarrow
+	n^2 < 2^n \Rightarrow
+	2^n - n^2 > 0
+\]
+ולפיך הסדרה מוגדרת לכמעט כל $n$, עכשיו נראה את הגבול שלה:
+עכשיו נוכיח את גבול הסדרה, בעזרת מה שהראנו קודם, ניתן לראות ש
+$\frac{n^2}{2^n} < \frac{1}{2} \Leftarrow 0 < \frac{1}{2}$
+, ולכן נקבל:
+\[
+ 	0 < \frac{n^2}{2^n} < \frac{1}{2} \Rightarrow
+	\frac{1}{2} < 1 - \frac{n^2}{2^n} < 1 \Rightarrow
+	\frac{1}{\sqrt[n]{2}} < \sqrt[n]{1 - \frac{n^2}{2^n}} < 1 \Rightarrow
+	\frac{2}{\sqrt[n]{2}} < 2 \cdot \sqrt[n]{1 - \frac{n^2}{2^n}} < 2
+\]
+נפתח את הסדרה:
+\[
+	\sqrt[n]{2^n - n^2} =
+	\sqrt[n]{2^n \cdot \Big( 1 - \frac{n^2}{2^n} \Big)} =
+	2 \cdot \sqrt[n]{1 - \frac{n^2}{2^n}}
+\]
+נשלב את שניהם ונקבל:
+$\frac{2}{\sqrt[n]{2}} < \sqrt[n]{2^n - n^2} < 2$
+ועכשיו נוכיח לפי משפט הסנדוויץ,
+\[
+	\lmf \frac{2}{\sqrt[n]{2}} \ontop{(d)} =
+	\frac{\lmf 2}{\lmf \sqrt[n]{2}} \ontop{(b) (e),} =
+	\frac{2}{1} = 2 \\
+	\lmf 2 \ontop{(b)} = 2
+\]
+ולפיכך מתקבל ש $\lmf \sqrt[n]{2^n - n^2} = 2$
+(a) -
+מסקנה 2.49 \\
+(b) -
+טענה 2.11 \\
+(c) - 0 < 1 \\
+(d) -
+עפ"י משפט 2.28 האריתמטיקה של גבולות \\
+(e) -
+טענה 2.34
+
+\subsection*{סעיף ה}
+\[ \lmf \frac{n}{n+2} \sum_{k=1}^n \frac{k}{k+3} \]
+פתרון:
+\[
+	\lmf \frac{n}{n+2} \sum_{k=1}^n \frac{k}{k+3} \ontop{(a)}=
+	\lmf\frac{n^2}{n+2}  \lmf \frac{1}{n} \sum_{k=1}^n \frac{k}{k+3}
+\]
+נגדיר $a_i = \frac{n}{n+3}$ ונקבל $\frac{1}{n}\sum_{k=1}^n a_k$ שהיא סדרת הממוצעים החשבוניים של $(a_n)$,
+ונפתור את גבול הסדרה:
+\[
+ \lmf a_n =
+ \lmf \frac{n}{n+3} =
+ \lmf \frac{n + 3 - 3}{ n +3} =
+ \lmf 1 - \lmf \frac{3}{n+3}  \ontop{(c) (b),}=
+ \lmf 1  - 0 \ontop{(d)}= 1
+\]
+ועל כן, לפי משפט 2.51 מתקיים:
+\[
+	\lmf \frac{1}{n}\sum_{k=1}^n a_k =
+	\lmf a_k =
+	\lmf \frac{n}{n+3} = 1
+\]
+ובנוסף
+\begin{align*}
+	&\lmf\frac{n^2}{n+2} \ontop{(a)}=
+	\lmf n \cdot \lmf \frac{n + 2 -2}{n+2} =
+	\lmf n \cdot \lmf 1 - \frac{2}{n+2} \ontop{(e)}= \\
+	&\infty \cdot \lmf 1 - \frac{2}{n+2} \ontop{(d) (c),}=
+	\infty \cdot 1 - 0 \ontop{(f)}= \infty
+\end{align*}
+(a) -
+ משפט 2.28 האריתמטיקה של גבולות \\
+(b) -
+משפט 2.17 \\
+(c) -
+עפ"י טענת עזר \ref{lemma:2} \\
+(d) -
+טענה 2.11 \\
+(e) -
+טענה 2.37 \\
+(f) -
+משפט 2.43 האריתמטיקה של גבולות אינסופיים
+
+\pagebreak
+\section*{שאלה 3}
+יהיו $(a_n)$ ו $(b_n)$ סדרות כך שמתקיים $\lmf (a_n b_n) = 1$
+\subsection*{סעיף א}
+אם כמעט כל איברי $a_n$ חיוביים, אז כמעט כל איברי $b_n$ חיוביים
+\begin{proof}
+	עפ"י משפט 2.28 האריתמטיקה של גבולות מתקבל ש  \\
+	$\lmf(a_n b_n) = \lmf a_n \cdot \lmf b_n$ \\
+	עפ"י הנתון שכמעט כל איברי $a_n$ חיוביים, מתקבל מהגדרת הגבול ש $\lmf a_n > 0$. \\
+ובנוסף, עפ"י טענה 1.40 $\lmf a_n \cdot \lmf b_n$ הוא חיובי(1 הוא מספר חיובי), אם ורק אם אחת משתי האופציות הבאות מתקיימות: \\
+	או ש $\lmf a_n > 0 \land \lmf b_n > 0$ או ש $\lmf a_n < 0 \land \lmf b_n < 0$.
+	ולפיכך בהכרח מתקיים ש $\lmf b_n > 0$ וע"פ הגדרת הגבול זה אומר שכמעט כל איברי $b_n$ חיוביים.
+\end{proof}
+
+\subsection*{סעיף ב}
+אם $(a_n)$ ו $(b_n)$ סדרות חיוביות, אז אחת מהן מתכנסת
+פתרון: \\
+זה לא נכון, נפריך ע"י דוגמא נגדית,
+\[
+	a(n) =
+	\begin{cases}
+		1 & \text{ if  } n \text{ even is } \\
+		\frac{1}{2} & \text{ if  } n \text{ odd is } \\
+	\end{cases}
+	b(n) =
+	\begin{cases}
+		1 & \text{ if  } n \text{ even is } \\
+		2 & \text{ if  } n \text{ odd is } \\
+	\end{cases}
+\]
+אפשר להסתכל על זה גם ככה: $a_n = (\frac{1}{1 + (n \mod 2)}),\  b_n = (1 + (n \mod 2))$ \\
+בגלל ש $n \in \NN$ אזי הסדרות חיוביות כנדרש. \\
+אם נסתכל על $a_n \cdot b_n$ נראה שכאשר $n$ הוא זוגי מתקבל: $a_n b_n = 1 \cdot 1 = 1$ וכאשר הוא אי זוגי: $a_n b_n = \frac{1}{2} \cdot 2 = 1$
+ועל כן $\lmf a_n b_n = 1$ כנדרש.
+\\
+נוכיח שהן מתבדרות בדרך השלילה:
+\begin{enumerate}
+	\item נניח שקיים $L \in \RR$ כך ש $\lmf a_n = L$, עפ"י הגדרת הגבול, קיים $N$ כך שלכל $n > N$ מתקיים
+	$|a_n - L| < 0.5$. \\
+יהי $n_1 > N$ מספר זוגי, ויהי $n_2 > N$ מספר אי זוגי.
+	מתקיים: \\
+	$|a_{n_1} - L| = |1 - L| < 0.5$ וגם $|a_{n_2} - L| = |0.5 - L| < 0.5$ \\
+	ולפי אי שוויון המשולש:
+	\[ 1.5 \leq d(1, L) + d(L, 0.5) < 0.5+0.5=1 \]
+	וזו סתירה, ולפיכך אף $L$ אינו גבולה לסדרה, והינה מתבדרת.
+
+	\item נניח שקיים $L \in \RR$ כך ש $\lmf b_n = L$, עפ"י הגדרת הגבול, קיים $N$ כך שלכל $n > N$ מתקיים
+	$|b_n - L| < 0.5$. \\
+יהי $n_1 > N$ מספר זוגי, ויהי $n_2 > N$ מספר אי זוגי.
+	מתקיים: \\
+	$|b_{n_1} - L| = |1 - L| < 0.5$ וגם $|a_{n_2} - L| = |2 - L| < 0.5$ \\
+	ולפי אי שוויון המשולש:
+	\[ 3 \leq d(1, L) + d(L, 2) < 0.5+0.5=1 \]
+	וזו סתירה, ולפיכך אף $L$ אינו גבולה לסדרה, והינה מתבדרת.
+\end{enumerate}
+
+לסיכום, הראינו ש $a_n$ וגם $b_n$ חיוביות ומתבדרות, אך $(a_n \cdot b_n)$ היא חיובית ומתכנסת.
+
+
+\subsection*{סעיף ג}
+אם $\lmf b_n = \infty$ אז $\lmf a_n = 0$
+\begin{proof}
+	נסתכל על השוויון:
+	$\bm{a_n = \frac{a_n \cdot b_n}{b_n}}$
+	השוויון מוגדר היטב מכיוון שלפי הגדרת שאיפה לאינסוף, נגדיר $M=0$ ולכן קיים $N \in \NN$ כל שלכל $n > N$ מתקיים $b_n > 0$
+	גבול השוויון:
+	\[
+		\lmf a_n = \lmf \frac{a_n \cdot b_n}{b_n} \overset{2.28}=
+		\frac{\lmf a_n b_n}{\lmf b_n} =
+		\frac{1}{\infty} \overset{2.43}= 0
+	\]`'
+\end{proof}
+
+\subsection*{סעיף ד}
+$\lmf a_n = 0 \Rightarrow \lmf b_n = \infty$
+פתרון: \\
+הטענה לא נכונה, עפ"י משפט 2.43 סעיף ו היא מתקיימת אם $a_n > 0$,
+אז נבחר:
+\begin{align*}
+	a_n = -\frac{1}{n} \overset{(2.10, 2.11)}\Rightarrow \lmf a_n = 0,
+	\qquad &\qquad
+	b_n = -n \overset{(2.37, 2.39)}\Rightarrow \lmf b_n = -\infty \\
+	a_n \cdot b_n = -\frac{1}{n} \cdot -n &= 1 \overset{(2.11)}\Rightarrow \lmf (a_n b_n) = 1
+\end{align*}
+הראינו, שקיימות סדרות $a_n, b_n$ כך ש $\lmf (a_n b_n) = 1$ , $\lmf a_n = 0$
+אבל $\lmf b_n = - \infty \neq \infty$
+
+\pagebreak
+\subsection*{סעיף ה}
+אם $a_n$ סדרה חיובית, אז קיים $N \in \NN$ כך שלכל $n > N$ מתקיים $b > \frac{1}{2a_n}$
+\begin{proof}
+נתון לנו ש $\lmf (a_n b_n) = 1$, וגם ש $a_n$ חיובית, וע"כ $a_n > 0$
+עפ"י הגדרת הגבול נגדיר $\epsilon = 0.5$ וקיים $N \in \NN$ כך שלכל $n > N$ מתקיים
+\[
+	|a_nb_n - 1| < 0.5 \overset{(1.46)}\Rightarrow -0.5 < a_nb_n - 1 < 0.5 \Rightarrow  0.5 < a_nb_n \Rightarrow b_n > \frac{0.5}{a_n} \Rightarrow b_n > \frac{1}{2a_n}
+\]
+\end{proof}
+
+\subsection*{סעיף ו}
+אם $(a_n)$ חיובית ואפסה, אז $\lmf b_n = \infty$
+\begin{proof}
+	טענה זו נובעת ישירות ממשפט 2.43, האריתמטיקה של גבולות אינסופיים, סעיף ו
+\[
+	\lmf b_n = \lmf \frac{a_n b_n}{a_n} \overset{2.28/2.43}=
+	\frac{\lmf a_n b_n}{\lmf a_n} = "\frac{1}{0}" \ontop{(2.43 ו)}=
+	\infty
+\]
+\end{proof}
+
+\subsection*{סעיף ז}
+אם $\lmf |a_n| = 1$ אז $\lmf |b_n| = 1$
+\begin{proof}
+	נתחיל בלהוכיח את הטענת עזר הבאה: $\bm{\lmf} |a_n| = \big|\bm{\lmf} a_n \big|$: \\
+	\begin{equation} \label{lemma:3}
+		\begin{aligned}
+			\lmf a_n = L \Rightarrow
+			\forall \epsilon \exists N, n> N, |a_n-L|<\epsilon \\
+			\big||a_n| - |L|\big| \leq |a_n-L| < \epsilon \Rightarrow
+			\big||a_n| - |L|\big| < \epsilon
+		\end{aligned}
+	\end{equation}
+	הראנו שלכל $\epsilon > 0$ קיים $N \in \NN$ כך שלכל $n > N$ מתקיים $\big| |a_n| - |L| \big|$ כלומר
+	$\lmf |a_n| = |\lmf a_n|$.
+	ועל כן:
+\begin{align*}
+	&\lmf |(a_n b_n)| \overset{(1.48)}=
+	\lmf (|a_n| \cdot |b_n|) \overset{(2.28)}=
+	\lmf |a_n| \cdot \lmf |b_n| \overset{\ref{lemma:3}\text{למה }}= \\
+	&\big| \lmf a_n \big| \cdot \big| \lmf b_n \big| = |1|
+\end{align*}
+ולמשוואה $|1| \cdot |x| = 1$ יש 2 פתרונות $x = 1, x = -1$ ששניהם שקולים ל $x = |1|$.
+\end{proof}
+\end{document}
