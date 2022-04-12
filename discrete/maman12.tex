@@ -25,7 +25,7 @@
 \getenv[\ID]{ID}
 \newtheorem{lemma}{טענת עזר}
 
-\title{בדידה - ממ"ן 11}
+\title{בדידה - ממ"ן 12}
 \author{אליחי טורקל \ID}
 \date\today
 
@@ -111,6 +111,7 @@ $A \mathcal{S} B \land B \mathcal{S} C \to A \mathcal{S} C$, ו $\mathcal{S}$ ה
 הקבוצות המקסימליות לגבי היחס $\set{3,4}, \set{1,3,4}, \set{2,3,4}, \set{1,2,3,4} :\mathcal{S}$.
 \end{enumerate}
 
+	\pagebreak
 	\section*{שאלה 2}
 
 	\subsection*{סעיף א}
@@ -187,5 +188,283 @@ $A \mathcal{S} B \land B \mathcal{S} C \to A \mathcal{S} C$, ו $\mathcal{S}$ ה
 ניתן לראות גם כי שלשת מחלקות אלה אכן מגדירות חלוקה של $A$ בגלל שאחת מגדירה את כל הנקודות שבקו ישר, אחת מגדירה את כל הנקודות שמעליו, והשלישית מגדירה את כל הנקודות שמתחתיו.
 ועל כן הן זרות זו לזו, ואיחודן הוא המישור כולו.
 \subsection*{סעיף ב}
+על הקבוצה
+$B = (0, \infty) \times (0, \infty)$ מגדירים יחס $\mathcal{S}: \forall \ang{a, b}, \ang{c, d} \in B, \ang{a, b} \mathcal{S} \ang{c,d})$
+אם ורק אם $\frac{ab}{a^2 + b^2} < \frac{cd}{c^2 + d^2}$
+\begin{enumerate}
+	\item \begin{enumerate}
+		\item הוכיחו ש $\forall a,b > 0, a \neq b \to \ang{a,b}\mathcal{S}\ang{a,a}$
+		\begin{proof}
+			נציב את האיברים באי שוויון ונקבל:
+			\begin{align*}
+				\frac{ab}{a^2 + b^2} < \frac{a^2}{a^2 + a^2} \Rightarrow
+				\frac{ab}{a^2 + b^2} < \frac{1}{2} \Rightarrow
+				2ab < a^2 + b^2 &\Rightarrow \\
+				a^2 + b^2 - 2ab > 0 &\Rightarrow
+				(a-b)^2 > 0
+			\end{align*}
+			כל מספר בריבוע גדול או שווה לאפס ולכן קל לראות שהביטוי $(a-b)^2 > 0$ מתקיים לכל  $a \neq b$  ולפיכך היחס $\ang{a,b} \SS \ang{a,a}$ מתקיים כנדרש.
+		\end{proof}
+		\item הוכיחו ש $n$ מספר טבעי כך ש $\ang{1, 1/n}\SS\ang{a,b} \Leftarrow \frac{1}{n} < \frac{ab}{a^2 + b^2}$
+		\begin{proof}
+			נציב בתנאי ונקבל: $\frac{\frac{1}{n}}{1 + \frac{1}{n^2}} < \frac{ab}{a^2 + b^2}$
+			בנוסף אנו יודעים ש \\
+			$\forall a > 0, b > 1 \Rightarrow a > \frac{a}{b}$, ובגלל שבנתון  $n \in \NN$ ומחלקים ב $n$ אז $n \neq 0$ ולכן גדול מאחד.
+			ולפיכך מתקיים $\frac{\frac{1}{n}}{1 + \frac{1}{n^2}} < \frac{1}{n}$ ועל כן עפ"י הנתון מתקיים:
+			\[
+				\frac{\frac{1}{n}}{1 + \frac{1}{n^2}} < \frac{1}{n} < \frac{ab}{a^2 + b^2} \Rightarrow
+				\frac{\frac{1}{n}}{1 + \frac{1}{n^2}} < \frac{ab}{a^2 + b^2}
+			\]
+			כנדרש לפי הגדרת היחס $\ang{1, 1/n} \SS \ang{a,b}$.
+		\end{proof}
+	\end{enumerate}
+	\item הוכיחו ש $\SS$ הוא יחס חלקי: \\
+	גם טרנזיטיביות וגם אנטי רפלקסיביות נובעים ישירות מהגדרת $>$ כיחס סדר.
+	\begin{enumerate}
+		\item טרנזיטיביות -
+		\begin{align*}
+			& \forall \ang{a, b}, \ang{c,d}, \ang{e,f} \in A, \ang{a,b}\SS\ang{c,d}, \ang{c,d}\SS\ang{e,f}  \\
+			& \Rightarrow	\frac{ab}{a^2 + b^2} < \frac{cd}{c^2 + d^2} \land
+			\frac{cd}{c^2 + d^2} < \frac{ef}{e^2 + f^2} \ontop{(a)}\Rightarrow
+			\frac{ab}{a^2 + b^2} < \frac{ef}{e^2 + f^2}
+		\end{align*}
+		(a) -
+		הגרירה נובעת ישירות מהגדרת היחס $>$ כיחס סדר. \\
+		ועל כן היחס $\SS$ הוא יחס טרנזיטיבי.
+		 \item אנטי רפלקסיבי -
+		 \[
+			\forall \ang{a, b} \in A,
+			\ang{a, b}\SS\ang{a, b} \Rightarrow \frac{ab}{a^2 + b^2} < \frac{ab}{a^2 + b^2}
+		 \]
+		 אי שוויון זה לעולם לא יכול להתקיים מתוך הגדרת $>$ כיחס אנטי רפלקסיבי.
+		 ועל כן $\SS$ הוא יחס אנטי רפלקסיבי
+		 \item ע"מ להראות שהוא יחס סדר חלקי ולא מלא נראה שהיחס אינו משווה:
+		 \[
+			 \forall \ang{a,b}, \ang{b,a} \in A,
+			 \ang{a,b} \neq \ang{b,a},
+			 \ang{a,b}\SS\ang{b,a} \Rightarrow
+			 \frac{ab}{a^2+b^2} < \frac{ba}{b^2+a^2}
+		 \]
+		 אי שוויון זה לעולם לא יתקיים בגלל שפעולות החיבור והכפל הינן חילופיות בשדה הממשיים, והיחס $<$ הוא יחס סדר וע"כ אנטי רפלקסיבי.
+	\end{enumerate}
+	\item מיצאו את כל האיברים המקסימליים והמינימליים ב $B$ ביחס לסדר $\SS$:
+	\begin{enumerate}
+		\item איברים מינימליים: \\
+		 הראנו קודם שלכל $a, b, a \neq b$ מתקיים $\ang{a,b} \SS, \ang{a,a}$ ולפיכך אף $\ang{a,a}$ לא יכול להיות מינימלי. \\
+		בנוסף הראנו ש $\ang{1, 1/n}\SS\ang{a,b}$ וע"כ גם אף $\ang{a,b}$ אינו מינימלי, ולפיכך אין איברים מינימלים.
+		\item איברים מקסימלים: \\
+		גם כאן הראנו קודם  שלכל $a,b, a \neq b$ מתקיים $\ang{a,b} \SS, \ang{a,a}$ ולפיכך $\ang{a,b}$ לא מקסימלי.
+		אפשר להגיד אותו דבר על $\ang{1, 1/n}$, אבל זה מקרה פרטי שכלול בתוך $\ang{a,b}$. \\
+		אך כאן אין לנו טענה שמראה ש $\ang{a,a}$ אינו מקסימלי, וע"כ ננסה לראות לכל $\ang{a,a}$ קיימים $\ang{b,c} \in B, b \neq c$ כך ש $\ang{a,a}\SS \ang{b,c}$:
+		\begin{align*}
+			\frac{a^2}{a^2 + a^2} < \frac{bc}{b^2 + c^2} \Rightarrow
+			&\frac{1}{2} < \frac{bc}{b^2 + c^2} \Rightarrow
+			\frac{1}{2} < \frac{bc}{b^2 + c^2} \Rightarrow \\
+			&b^2 + c^2 < 2bc \Rightarrow
+			b^2 + c^2 - 2bc < 0 \Rightarrow
+			(b-c)^2 < 0
+		\end{align*}
+		בסתירה עם הנתון ש $b \neq c$ (כל מספר בריבוע ששונה מאפס גדול מאפס). \\
+		ועל כן כל האיברים $\ang{a,a} \in B$ הם איברים מקסימלים ב $B$ לגבי הסדר $\SS$.
+	\end{enumerate}
+\end{enumerate}
+
+\pagebreak
+\section*{שאלה 3}
+$f: \NN \to \NN$
+\subsection*{סעיף א}
+הוכיחו ש $f$ היא חד-חד-ערכית אם ורק אם לכל שתי קבוצות אינסופיות שונות $A,B \subseteq \NN$ מתקיים $f[A] \neq f[B]$.
+\begin{proof}
+	נוכיח כל כיוון בנפרד:
+	\begin{enumerate}
+		\item כיוון אחד: נניח ש $f$ חד חד ערכית, \\
+		נניח בדרך השלילה ש $f[A] = f[B]$ אזי לכל $x \in A$ קיים $y \in B$ כך ש  $f(x) = f(y)$,
+		ובנוסף לכל $y \in B$ קיים $x \in A$ כך ש $f(x) = f(y)$, \\
+		ובגלל שהנחנו ש $f$ חד חד ערכית, אזי $x = y$
+		ומכאן נובע שלכל $x \in A$ קיים $y \in B$ כך ש $x=y$
+		ולכל $y \in B$ קיים $x \in A$ כך ש $x=y$, בסתירה עם הנתון ש $A \neq B$.
+		ולפיכך מתקבל ש $f[A] \neq f[B]$.
+
+		\item כיוון שני: נניח ש $f[A] \neq f[B]$,\\
+		נניח בדרך השלילה ש $f$ אינה חד-חד-ערכית, קיימים $x, y \in \NN, x \neq y$ כך ש $f(x) \neq f(y)$,
+		נראה שהקבוצה $\NN\sub \set{x}$ מכילה את $y$ ועל כן $f[\NN\sub\set{x}]$ מכילה את $f(y)=f(x)$
+		מכאן ניתן לראות שכל דמות ב $f[\NN\sub\set{x}]$ נמצאת גם ב $f[\NN]$ ועל כן $f[\NN] = f[\NN\sub\set{x}]$
+		בסתירה להנחה ש $f[A] \neq f[B]$ לכל שתי קבוצות אינסופיות שונות. \\
+		ולפיכך מתקבל ש $f$ חד-חד ערכית.
+	\end{enumerate}
+\end{proof}
+
+\subsection*{סעיף ב}
+הוכיחו ש $f$ היא פונקציה על אם ורק אם לכל שתי קבוצות אינסופיות שונות $A,B \in \NN$ מתקיים $f^{-1}[A] \neq f^{-1}[B]$.
+\begin{proof}
+	נוכיח כל כיוון בנפרד:
+	\begin{enumerate}
+		\item כיוון אחד: נניח ש $f$ היא על, \\
+		נניח בדרך השלילה ש $f^{-1}[A] = f^{-1}[B]$, מכאן נקבל ש
+		$f(f^{-1}(A)) = f(f^{-1}(B))$ (הדמות של פונקציה מעל מקורות שווים היא שווה),
+		ולפי משפט 3.8 בגלל ש $f$ היא על נקבל ש $A=B$ בסתירה עם הנתון. \\
+		ולפיכך $f^{-1}[A] \neq f^{-1}[B]$ כנדרש.
+
+		\item כיוון שני: נניח ש $f^{-1}[A] \neq f^{-1}[B]$, \\
+		נניח בדרך השלילה ש $f$ אינה על,
+		לכן קיים $y \in \NN$ כך שלכל $x \in \NN$ $f(x) \neq y$ (אין לו מקור)
+		ועל כן מתקיים: $f^{-1}[\set{y}] \cup f^{-1}[\NN \sub \set{y}] = \emptyset \cup f^{-1}[\NN \set{y}]$
+		(בגלל שאין ל $y$ מקור אז מתקיים $f^{-1}[\set{y}]=\emptyset$)
+		ולפי שאלה 6,ה מתקבל ש: $f^{-1}[\set{y} \cup \NN \sub \set{y}] = f^{-1}[\NN \sub \set{y}]$
+		ועל כן $f^{-1}[\NN] = f^{-1}[\NN \sub \set{y}] \Rightarrow \NN = \NN \sub \set{y}$
+		משמע סתירה. \\
+		ולפיכך מתקבל ש $f$ היא על כנדרש.
+	\end{enumerate}
+\end{proof}
+
+
+\pagebreak
+\section*{שאלה 4}
+\subsection*{סעיף א}
+$\ZZ^* = \ZZ \sub \set{0}$,
+נתונה $f: \QQ \times \ZZ^* \to \QQ \times \ZZ^*$ המוגדרת כך: \\
+$\forall q \in \QQ, n \in \ZZ^*, f\ang{q,n} = \ang{\frac{q}{n}, n}$.
+\begin{enumerate}
+	\item הוכיחו ש $f$ היא חד-חד-ערכית ועל:
+	\begin{proof} \nl
+		\begin{enumerate}
+			\item נוכיח שהיא על:
+			יהי $p \in \QQ, n \in \ZZ^*$, נראה שלכל $\ang{p, n}$ יש מקור מהצורה: $\ang{pn, n}$ ע"י להציב בפונקציה:
+			\[
+				f\ang{pn, n} = \ang{n \cdot \frac{pn}{n}, n} = \ang{p, n}
+			\]
+			ולפיכך, לכל תמונה יש מקור, משמע שהתמונה שווה לטווח משמע שהפונקציה היא על.
+
+			\item נוכיח שהיא חד-חד-ערכית:
+			יהי $p,q \in \QQ, n,m \in \ZZ^*$
+			נוכיח שאם $f\ang{p,m} = f\ang{q,n}$ אז $\ang{p,m} = \ang{q,n}$
+			\[
+				f\ang{p,m} = f\ang{q,n} \iff
+				\ang{\frac{p}{m}, m} = \ang{\frac{q}{n}, n}
+			\]
+			לפי הגדרת יחס השוויון על זוגות סדורים, נקבל ש $n = m$ וגם $\frac{q}{m} = \frac{p}{n}$ ולכן
+			$p = q \iff \frac{p}{n} = \frac{q}{n} \iff \frac{p}{m} = \frac{q}{n}$
+			ועל כן אנו רואים שבהכרח $m = n \land p = q \iff \ang{p,m} = \ang{q,n}$ \\
+			ולפיכך לכל תמונה יש מקור אחד ויחיד, ועל כן $f$ היא חד חד ערכית.
+		\end{enumerate}
+		ובכך הראנו ש $f$ היא חד חד ערכית ועל.
+	\end{proof}
+	\item מיצאו את $f^{-1}$:  \\
+	בעקבות ההוכחה שלנו ש $f$ היא חד-חד-ערכית ועל, מתקבל שיש לה הופכי, נציג את ההופכי ונוכיח את נכונותו:
+	$f^{-1}\ang{q,n} = \ang{qn,n}$. \\
+	נוכיח באמצעות משפט 3.25:
+	\[
+		f^{-1}(f\ang{q,n}) = f^{-1}\ang{\frac{q}{n}, n} =
+		\ang{n \cdot \frac{q}{n}, n} = \ang{q,n}
+	\]
+	ולפיכך הראנו ש $f^{-1} \circ f = I_{Q \times \ZZ^*}$ והוכחנו את נכונות ההופכי.
+\end{enumerate}
+\pagebreak
+\subsection*{סעיף ב}
+נתונות הפונקציות: $g,h: \ZZ \times \ZZ \to \ZZ \times \ZZ$ המוגדרות כך: $\ang{x,y} \in \ZZ \times \ZZ$, \\
+$h\ang{x,y} = \ang{x + 3y, x + 5y}, \ g\ang{x,y} = \ang{2x + 3y, 3x + 5y}$
+הוכיחו שרק אחת משתיהן היא הפיכה ומיצאו את ההופכי.
+\begin{enumerate}
+	\item נתחיל בלהוכיח ש $h$ אינה הפיכה ע"י להראות שהיא לא על:
+	\begin{proof}
+		נוכיח שלזוג $\ang{1,2}$ מהטווח של $h$ אין מקור בתחום:
+		\begin{align*}
+			&\begin{cases}
+				x + 3y = 1\\
+				x + 5y = 2 \\
+			\end{cases}
+			\Rightarrow
+			\begin{array}{l}
+				x = 1 - 3y\\
+				x = 2 - 5y \\
+			\end{array}
+			\Rightarrow \\
+			&1 - 3y = 2 - 5y
+			\Rightarrow
+			2y = 1
+			\Rightarrow
+			y = \frac{1}{2} \not \in \ZZ
+		\end{align*}
+		ניתן לראות שלזוג $\ang{1,2}$ לא יכול להיות מקור ב $\ZZ \times \ZZ$ כי לא קיים $y \in \ZZ$ שעונה על ההגדרה של $h$.
+		ולכן הפונקציה אינה על ומכאן שאינה הפיכה.
+	\end{proof}
+
+	\pagebreak
+	\item
+	\begin{enumerate}
+		\item נוכיח ש $g$ היא חד-חד-ערכית:
+		\begin{proof}
+			יהי $\ang{a,b}, \ang{c,d} \in \ZZ \times \ZZ$ כך ש $g\ang{a,b} = g\ang{c,d}$
+			נראה שבהכרח $\ang{a,b} = \ang{c,d}$:
+			\begin{align*}
+				&g\ang{a,b} = g\ang{c,d} \overset{g}\Rightarrow
+				\ang{2a + 3b, 3a + 5b} = \ang{2c + 3d, 3c + 5d} \\
+				&\ontop{(a)}\Rightarrow
+				\begin{cases}
+					2a + 3b = 2c + 3d \\
+					3a + 5b = 3c + 5d \\
+				\end{cases}
+				\ontop{(b)}\Rightarrow
+				\begin{cases}
+					6a + 9b = 6c + 9d \\
+					6a + 10b = 6c + 10d \\
+				\end{cases}
+				\ontop{(c)}\Rightarrow
+				0a + 1b = 0c + 1d \\
+				&\Rightarrow
+				\boxed{b = d}
+				\ontop{(d)}\Rightarrow
+				2a + 3b = 2c + 3b \Rightarrow
+				2a = 2c \Rightarrow
+				\boxed{a = c}
+			\end{align*}
+			ובעקבות זה שהוכחנו ש $b = d$ וגם $a = c$ מתקבל ש $\ang{a,b} = \ang{c,d}$ כנדרש. \\
+			ולפיכך $g$ הינה חד-חד-ערכית. \\
+		\end{proof}
+		\item נוכיח ש $g$ היא על:
+		\begin{proof}
+			יהי $\ang{a,b} \in \ZZ\times\ZZ$ זוג סדור מהטווח של $g$, נראה שיש להם מקור $\ang{m,n}$ ונוכיח שהוא נמצא בתחום:
+			\begin{align*}
+				&g\ang{m,n} = \ang{a,b} \overset{g}\Rightarrow
+				\begin{cases}
+					2m + 3n = a \\
+					3m + 5n = b \\
+				\end{cases} \ontop{(b)}\Rightarrow
+				\begin{cases}
+					6m + 9n = 3a \\
+					6m + 10n = 2b \\
+				\end{cases} \\
+				&\ontop{(c)}\Rightarrow
+				0m + 1n = 2b - 3a \Rightarrow
+				\boxed{n = 2b - 3a \ontop{(e)}\in \ZZ}
+				\ontop{(d)}\Rightarrow
+				2m + 3(2b - 3a) = a \\
+				&\Rightarrow
+				2m + 6b - 9a = a \Rightarrow
+				2m = 10a - 6b \Rightarrow
+				\boxed{m = 5a - 3b \ontop{(e)}\in \ZZ}
+			\end{align*}
+			הראנו כאן שגם $m \in \ZZ$ וגם $n \in \ZZ$ מכאן ש $\ang{m,n} \in \ZZ\times\ZZ$ שזה תחום הפונקציה, ועל כן לכל זוג סדור $\ang{a,b}$ בטווח הפונקציה, קיים זוג סדור $\ang{m,n}$ בתחומה כך ש $g\ang{m,n} = \ang{a,b}$. \\
+			ולפיכך $g$ הינה פונקציה על.
+		\end{proof}
+	\end{enumerate}
+	הוכחנו ש $g$ היא חד חד ערכית ועל, וע"כ לפי משפט 3.8 $g$ היא הפיכה. \\ \nl
+	(a) - עפ"י הגדרת השוויון על אי זוגות סדורים. \\
+	(b) - נכפיל את המשוואה הראשונה ב 3 והשניה ב 2. \\
+	(c) - נחסר את המשוואות. \\
+	(d) - נציב חזרה במשוואה הראשונה. \\
+	(e) - התוצאה של חיסור מספרים שלמים הינה מספר שלם. \\
+	\item $g^{-1}\ang{x,y} = \ang{5x-3y, 2y-3x}$
+	נוכיח את נכונותו באמצעות משפט 3.25:
+	\begin{align*}
+		g^{-1}(g\ang{x,y}) &= g^{-1}\ang{2x+3y, 3x + 5y} \\
+		&=\ang{5(2x+3y)-3(3x + 5y), 2(3x + 5y) - 3(2x+3y)} \\
+		&= \ang{10x+15y -9x -15y, yx + 10y -6x -9y} =
+		\ang{x, y}
+	\end{align*}
+	לפיכך הראנו ש $g^-1 \circ g = I_{\ZZ \times \ZZ}$ והוכחנו את נכונות ההופכי.
+\end{enumerate}
+
+
 
 \end{document}
