@@ -1,0 +1,436 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{polyglossia}
+\usepackage{fontspec}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\newfontface\niceee{Brush Script MT}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\newtheorem{lemma}{טענת עזר}
+\title{אלגברה לינארית - ממ"ן 12}
+\author{אליחי טורקל \ID}
+\date\today
+
+\DeclareFontFamily{OT1}{cmrx}{}
+\DeclareFontShape{OT1}{cmrx}{m}{n}{<->cmr10}{}
+\let\saveLongrightarrow\Longrightarrow
+\makeatletter
+\renewcommand*{\Longrightarrow}{%
+    \mathrel{\rlap{\fontfamily{cmrx}\fontencoding{OT1}\selectfont=}%
+    \hphantom{\saveLongrightarrow}%
+    \llap{$\m@th\Rightarrow$}}}
+\makeatother
+
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+	\section*{שאלה 1}
+	נתונה המטריצה הבאה מעל $\RR$:
+	$A = \begin{pmatrix}
+		1 & 0 & 2 & 3 \\
+		2 & -1 & 3 & 6 \\
+		1 & 4 & 4 & 0 \\
+	\end{pmatrix}$. \\
+	מצאו מטריצה $R$ קנונית ומטריצה $P$ הפיכה כך ש $R = PA$. \\
+	פתרון: \\
+	ע"מ למצאו מטריצה $R$ קנונית ומטריצה $P$ הפיכה שמקיימות $R = PA$, נשתמש בהכללה של טענה 3.9.9 הנתונה. \\
+	נדרג את $A$ ובמקביל נפעיל את אותן פעולות שורה על מטריצת היחידה, ולכן המטריצה שתתקבל מהפעולות על מטריצת היחידה תהיה הפיכה עפ"י מסקנה 3.9.5.\\
+	ובנוסף המטריצה שתתקבל מדירוג מטריצת $A$ היא בהכרח שקולת שורה ל $A$ והכפל של $A$ עם $P$ יתן לנו אותה.
+	\begin{align*}
+		\left( A | I \right) =
+		&\left( \begin{array}{cccc|cccc}
+			1 & 0 & 2 & 3   & 1 & 0 & 0 \\
+			2 & -1 & 3 & 6  & 0 & 1 & 0 \\
+			1 & 4 & 4 & 0   & 0 & 0 & 1 \\
+		\end{array} \right)
+		\overset{R_2 \rightarrow R_2 - 2R_1}{\underset{R_3 \rightarrow R_3 - R_1}\Longrightarrow}
+		\left( \begin{array}{cccc|cccc}
+			1 & 0 & 2 & 3    & 1 & 0 & 0 \\
+			0 & -1 & -1 & 0  & -2 & 1 & 0 \\
+			0 & 4 & 2 & -3   & -1 & 0 & 1 \\
+		\end{array} \right) \\
+		\overset{R_3 \rightarrow R_3 + 4R_2}{\Longrightarrow}
+		&\left( \begin{array}{cccc|cccc}
+			1 & 0 & 2 & 3    & 1 & 0 & 0 \\
+			0 & -1 & -1 & 0  & -2 & 1 & 0 \\
+			0 & 0 & -2 & -3  & -9 & 4 & 1 \\
+		\end{array} \right)
+		\overset{R_1 \rightarrow R_1 + R_3}{\underset{R_2 \rightarrow R_2 - 0.5R_3}\Longrightarrow}
+		\left( \begin{array}{cccc|cccc}
+			1 & 0 & 0 & 0     & -8 & 4 & 1 \\
+			0 & -1 & 0 & 1.5  & 2.5 & 1 & -0.5 \\
+			0 & 0 & -2 & -3   & -9 & 4 & 1 \\
+		\end{array} \right) \\
+		\overset{R_2 \rightarrow -R_2}{\underset{R_3 \rightarrow -0.5R_3}\Longrightarrow}
+		&\left( \begin{array}{cccc|cccc}
+			1 & 0 & 0 & 0     & -8 & 4 & 1  \\
+			0 & 1 & 0 & -1.5  & -2.5 & 1 & 0.5  \\
+			0 & 0 & 1 & 1.5   & 4.5 & -2 & -0.5  \\
+		\end{array} \right)
+	\end{align*}
+$P=\begin{pmatrix}
+	-8 & 4 & 1
+	-2.5 & 1 & 0.5
+	4.5 & -2 & -0.5
+\end{pmatrix}$ והיא הפיכה בגלל שהיא התקבלה כתוצאה מהפעלת פעולות שורה אלמנטריות על מטריצת היחידה, ועל כן היא מטריצה אלמנטרית. \\
+$R = \begin{pmatrix}
+	1 & 0 & 0 & 0
+	0 & 1 & 0 & -1.5
+	0 & 0 & 1 & 1.5
+\end{pmatrix}$ ניתן לראות ש $R$ מדורגת וקנונית, ו $R = PA$ בגלל ש $P = \varphi(I), R = \varphi(I)A$, אבל ניתן לבדוק זאת גם בעזרת כפל מטריצות.
+
+	\pagebreak
+	\section*{שאלה 2}
+	תהיינה $A,B,C,D$ מטריצות מסדר $n\times n$ המקיימות $ABCD = I$.
+	הוכחו שמתקיים $ABCD=DABC=CDAB=BCDA=I$
+	\begin{proof}
+		נוכיח כל שוויון בנפרד:
+		\begin{enumerate}
+			\item עפ"י משפט 4.5.2 $(ABC)\cdot(D) = I = (D)\cdot ABC = DABC$
+			\item עפ"י משפט 4.5.2 $(AB)\cdot(CD) = I = (CD)\cdot AB = CDAB$
+			\item עפ"י משפט 4.5.2 $(A)\cdot(BCD) = I = (A)\cdot BCD = ABCD$
+		\end{enumerate}
+		ולפיכך $ABCD = DABC = CDAB = ABCD = I$
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 3}
+תהיינה $A_n,B_n$ מטריצות ריבועיות מאותו סדר. נתון ש $A$ לא סימטרית ו $B$ סימטרית.
+הוכיחו שלא קיימת מטריצה $P$ הפיכה המקיימת $P^t = P^{-1}$ וגם $B = P^{-1}AP$
+
+\begin{proof}
+	נניח בשלילה שקיימת מטריצה $P$ הפיכה המקיימת את התכונות, ונגיע לסתירה:
+	\begin{align*}
+		B = P^{-1}AP \ontop{(a)}\Rightarrow
+		B^t = P^t A^t P^{{-1}^t} \ontop{(b)}=
+		P^{-1} A^t {P^t}^t \ontop{(c)}=
+		P^{-1} A^t P
+	\end{align*}
+	עפ"י ההגדרה ש $B$ סימטרית נובע כי $B = B^t$ ועל כן $P^{-1}A P=P^{-1} A^t P$
+	נפתח את השוויון הנ"ל עוד:
+	\begin{alignat*}{2}
+		&P^{-1}A P &&= P^{-1} A^t P \\
+		\ontop{(d)}\Rightarrow
+		&P P^{-1}A P &&= P P^{-1} A^t P \\
+		\ontop{(e)}\Rightarrow
+		&P P^{-1}A P &&= PP^{-1} A^t P P^{-1} \\
+		\ontop{(f)}\Rightarrow
+		&IAI &&= IA^tI \\
+		\ontop{(g)}\Rightarrow
+		&A &&= A^t
+	\end{alignat*}
+	קיבלנו ש $A = A^t$ בסתירה עם הנתון ש $A$ אינה סימטרית, \\
+	ולפיכך, לא קיימת מטריצה $P$ הפיכה המקיימת $B = P^{-1}AP \land P^t = P^{-1}$.
+\end{proof}
+\nl
+(a) - נשחלף את המטריצה. \\
+(b) - נתון ש $P^t = P^{-1}$ .\\
+(c) - עפ"י טענה 3.2.4. \\
+(d) - נכפיל ב $P$ משמאל. \\
+(e) - נכפיל ב $P^{-1}$ מימין. \\
+(f) - עפ"י טענה 3.8.2 נקבל ש $P P^{-1} = I$. \\
+(g) - עפ"י מסקנה 3.5.4.
+
+	\pagebreak
+	\section*{שאלה 4}
+יהיו $a_1, \dots, a_n \in \RR$ שונים מ 0. נתונה המטריצה מסדר $n \times n$:
+\[ A = \begin{pmatrix}
+	 0 & a_1 & 0 & \dots & 0 \\
+	 0 & 0 & a_2 & \dots & 0 \\
+	 \vdots & \vdots & \ddots & \ddots & \vdots \\
+	 0 & 0 & 0 & \dots & a_{n-1} \\
+	 a_n & 0 & \dots & 0 & 0 \\
+\end{pmatrix} \]
+הוכיחו, ללא חישוב של $A^{-1}$ ש $A$ הפיכה, ולאחר מכן חשבון את $A^{-1}$.
+\begin{proof}
+	ניתן לראות שאם נתחיל בשורה האחרונה, ונחליף אותה עם השורה מעליה, ואז נחליף את האחת לפני האחרונה עם זאת שמעליה,
+	ונעשה ככה עד השורה הראשונה, נקבל מטריצה אלכסונית עם $a_n$ בשורה הראשונה $a_1$ בשניה וכן הלאה עד ש $a_{n-1}$ באחרונה.
+	מטריצה זו הינה שקולת שורה למטריצה המקורית, כי החלפת שורות זו פעולת שורה אלמנטרית, ובנוסף נתון לנו ש $a_i \neq 0$
+	ולפיכך עפ"י שאלה 3.8.5 מתקבל ש $A$ הפיכה. \\
+	עפ"י אותה שאלה מתקבל גם שההופכי של $A$ היא:
+	\[ A^{-1} = \begin{pmatrix}
+		\frac{1}{a_n} & 0 & \dots & 0 & 0 \\
+		0 & \frac{1}{a_1} & 0 & \dots & 0 \\
+		0 & 0 & \frac{1}{a_2} & \dots & 0 \\
+		\vdots & \vdots & \ddots & \ddots & \vdots \\
+		0 & 0 & 0 & \dots & \frac{1}{a_{n-1}} \\
+   \end{pmatrix} \]
+\end{proof}
+
+
+	\pagebreak
+	\section*{שאלה 5}
+	תהיינה $A,B$ מטריצות ממשיות מסדר $n \times n$ כך ש $B^2 A = -2B^3$ וגם $B^3 + AB^2 = 3I$.
+	הוכיחו ש $A,B$ הפיכות ובטאו את $A^{-1}, B^{-1}$ באמצעות $B$.
+	\begin{proof}
+		נתחיל בלהראות ש $B$ הפיכה, אם ניקח את המשוואה השניה: \\
+		$B^3 + AB^2 = 3I \Rightarrow (\frac{1}{3}(B+A))B^2 = I$
+		נקבל לפי מסקנה 4.5.2 ש $B^2$ ולכן גם $B$ הפיכה (כי $(B^2)^{-1}B^2 = I = ((B^2)^{-1}B)B = I$). \\
+		עכשיו נראה ש $A$ הפיכה, ע"י להכפיל את המשוואה הראשונה ב $(B^2)^{-1}$, שזה מתאפשר כי הוכחנו ש $B^2$ הפיכה, ונקבל:
+		$A = -2B$, ולפי משפט 3.8.4 מכפלה של מטריצה הפיכה בסקאלר השונה מאפס (2-) היא גם הפיכה, ולפיכך $A$ הפיכה. \\
+		עכשיו נציב חזרה את $A$ ע"מ לבטא את ההופכי של המטריצות באמצעות $B$: \\
+		נציב $A=-2B$ ב $(\frac{1}{3}(B+A))B^2 = I$ ונקבל:
+		\[
+			\frac{1}{3}(B-2B)B^2 =
+			\frac{1}{3}B^{3} = I \ontop{(נכפיל ב $B^{-1}$)}\Rightarrow
+			\boxed{B^{-1} = \frac{1}{3}B^2}
+		\]
+		ונחשב את ההופכי של $A$ באמצעות ההופכי של $B$ ובעזרת משפט 3.8.4:
+		\[
+			A = -2B \ontop{3.8.4}\Rightarrow
+			A^{-1} = -2^{-1}B^{-1} =
+			-0.5\frac{1}{3}B^2 \Rightarrow
+			\boxed{A^{-1} = -\frac{1}{6}B^2}
+		\]
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 6}
+	\subsection*{סעיף א}
+	חשבו את הדטרמיננטה הבאה:
+	$D_n = \left|\begin{array}{ccccccc}
+		1 & 1 & . & . & . & 1 & 1 \\
+		1 & 1 & . & . & . & 1 & 2 \\
+		. & . & . & . & 1 & 3 & 1 \\
+		. & . & . & . & 4 & 1 & 1 \\
+		. & . & . & . & . & . & . \\
+		1 & 1 & n-1 & 1 & . & . & 1 \\
+		1 & n & 1 & . & . & . & 1 \\
+	\end{array}\right|$
+
+	פתרון: \\
+	נתחיל בלחסר מכל שורה במטריצה אחרי הראשונה את השורה הראשונה, פעולה זו לא משנה את הדטרמיננטה לפי משפט 4.3.6:
+	\[
+		\left|\begin{array}{ccccccc}
+			1 & 1 & . & . & . & 1 & 1 \\
+			1 & 1 & . & . & . & 1 & 2 \\
+			. & . & . & . & 1 & 3 & 1 \\
+			. & . & . & . & 4 & 1 & 1 \\
+			. & . & . & . & . & . & . \\
+			1 & 1 & n-1 & 1 & . & . & 1 \\
+			1 & n & 1 & . & . & . & 1 \\
+		\end{array}\right|
+		\overset{R_i \rightarrow R_i - R_1}{\underset{\forall i, i = 2, i < n}\Longrightarrow}
+		\left|\begin{array}{ccccccc}
+			1 & 1 & . & . & . & 1 & 1 \\
+			0 & 0 & . & . & . & 0 & 1 \\
+			. & . & . & . & 0 & 2 & 0 \\
+			. & . & . & . & 3 & 0 & 0 \\
+			. & . & . & . & . & . & . \\
+			0 & 0 & n-2 & 0 & . & . & 0 \\
+			0 & n-1 & 0 & . & . & . & 0 \\
+		\end{array}\right|
+	\]
+	אם נשתמש במשפט הפיתוח לפי עמודה ונבחר את עמודה אחד, נקבל: \\
+	$\left| D_n \right| = \bm{\sum_{i=1}^n} (-1)^{i+1}a_{i,1} \left|D_{i,1}^M \right|$.
+	ניתן לראות, כי כל $i > 1$ מתקיים $a_{i,1} = 0$, ועל כן כל האיברים בסכום מתאפסים חוץ מהראשון, ואנו מקבלים:
+	$\left| D_n \right| = \left| D_{i,1}^M \right|$. \\
+	עכשיו במטריצה $D_{i,1}^M$ נחליף בין השורה האחרונה והראשונה, אחת לפני האחרונה והשניה וכן הלאה עד שנקבל את החצי התחתון של האלכסון בחצי העליון של המטריצה:
+	\[
+		D_{i,1}^M =
+		\left|\begin{array}{ccccccc}
+			0   & .   & . & . & 0 & 1 \\
+			0   & .   & . & 0 & 2 & 0 \\
+			.   & .   & . & 3 & 0 & 0 \\
+			.   & .   & . & . & . & . \\
+			0   & n-2 & 0 & . & . & 0 \\
+			n-1 & 0 & .   & . & . & 0 \\
+		\end{array}\right|
+		\overset{R_i \leftrightarrow R_{n-i}}{\underset{\forall i, i = 1, i \leq \lfloor n/2 \rfloor}\Longrightarrow}
+		c \cdot
+		\left|\begin{array}{ccccccc}
+			n-1 & 0 & .   & . & . & 0 \\
+			0   & n-2 & 0 & . & . & 0 \\
+			.   & .   & . & . & . & . \\
+			.   & .   & . & 3 & 0 & 0 \\
+			0   & .   & . & 0 & 2 & 0 \\
+			0   & .   & . & . & 0 & 1 \\
+		\end{array}\right|
+	\]
+	לפי משפט 4.3.2 אנחנו צריכים להכפיל את הדטרמיננטה ב $-1$ בכל פעם שמחליפים 2 שורות אחת בשניה,
+	נסתכל על הלולאה שכתבנו ע"מ למצוא את $c$,
+	במידה וכמות השורות היא זוגית, נחליף $n/2$ שורות, אך ההחלפה האחרונה תהיה של שורה בעצמה, ועל כן ברור שהמטריצה לא תשתנה, אז נספור זאת כ $n/2-1$ החלפות שורה. \\
+	אך כאשר מספר השורות הוא אי זוגי, נחליף $\lfloor n / 2 \rfloor = (n-1)/2$ שורות.  \\
+	לסיכום: $
+	c =
+	\begin{cases}
+		(-1)^{n/2 - 1} & \text{ if } n-1 \text{ even is } \\
+		(-1)^{(n-1)/2} & \text{ if } n-1 \text{ odd is } \\
+	\end{cases}
+	$. \\
+	למטריצה שקיבלנו אנחנו יכולים לחשב דטרמיננטה בקלות בעזרת משפט 4.3.8 בגלל שהיא משולשית עילית, ובגלל שהאלכסון מכיל את כל המספרים שבין $1$ ל $n-1$ אזי: \\
+	\boxed{\left| D_n \right| = \left| D_{i,1}^M \right| = c \cdot (n-1)!}
+
+
+	\subsection*{סעיף ב}
+	יהיו $a_1, \dots, a_n$ מספרים ממשיים. נגדיר:
+	\[
+	\Delta_1 = \left| \begin{array}{ccccc}
+		a_1 & a_1^2 & \dots & a_1^{n-1} & 1 \\
+		a_2 & a_2^2 & \dots & a_2^{n-1} & 1 \\
+		\vdots & \vdots & \ddots & \vdots & \vdots \\
+		a_{n-1} & a_{n-1}^2 & \dots & a_{n-1}^{n-1} & 1 \\
+		a_n & a_n^2 & \dots & a_n^{n-1} & 1 \\
+	\end{array}	\right|
+	\text{ ו- }
+	\Delta = \left| \begin{array}{ccccc}
+		a_1 & a_1^2 & \dots & a_1^{n-1} & 1 + a_1^n \\
+		a_2 & a_2^2 & \dots & a_2^{n-1} & 1 +  a_2^n \\
+		\vdots & \vdots & \ddots & \vdots & \vdots \\
+		a_{n-1} & a_{n-1}^2 & \dots & a_{n-1}^{n-1} & 1 + a_{n-1}^n \\
+		a_n & a_n^2 & \dots & a_n^{n-1} & 1 + a_n^n \\
+	\end{array}	\right|
+	\]
+	הוכיחו שאם $\Delta = 0$ ו- $\Delta_1 \neq 0$ אז המכפלה $\prod_{i=1}^{i<n}a_i$ שווה ל $1$ או $-1$.
+	\begin{proof}
+		עפ"י משפט 4.3.4 מתקבל:
+		\[
+			\Delta
+			 =
+			 \Delta_1
+			 +
+			 \left| \begin{array}{ccccc}
+				a_1 & a_1^2 & \dots & a_1^{n-1} & a_1^n \\
+				a_2 & a_2^2 & \dots & a_2^{n-1} & a_2^n \\
+				\vdots & \vdots & \ddots & \vdots & \vdots \\
+				a_{n-1} & a_{n-1}^2 & \dots & a_{n-1}^{n-1} & a_{n-1}^n \\
+				a_n & a_n^2 & \dots & a_n^{n-1} & a_n^n \\
+			\end{array}	\right|
+		\]
+		על המטריצה הימנית נעשה כמה פעולות: \\
+		א. בעזרת משפט 4.3.3 נחלק כל שורה ב $a_i$ המתאים. \\
+		ב. בעזרת משפט 4.3.2 נחליף בין העמודה הראשונה לשניה, השניה השלישית וכן הלאה.
+		\begin{align*}
+			 \left| \begin{array}{ccccc}
+				a_1 & a_1^2 & \dots & a_1^{n-1} & a_1^n \\
+				a_2 & a_2^2 & \dots & a_2^{n-1} & a_2^n \\
+				\vdots & \vdots & \ddots & \vdots & \vdots \\
+				a_{n-1} & a_{n-1}^2 & \dots & a_{n-1}^{n-1} & a_{n-1}^n \\
+				a_n & a_n^2 & \dots & a_n^{n-1} & a_n^n \\
+			\end{array}	\right|
+			\overset{R_i \leftrightarrow \frac{1}{a_i}R_i}{\underset{\forall i, i = 1, i < n}\Longrightarrow}
+			\prod_{i=1}^{i<n}a_i
+			&\left| \begin{array}{ccccc}
+				1 & a_1 & \dots & a_1^{n-2} & a_1^{n-1} \\
+				1 & a_2 & \dots & a_2^{n-1} & a_2^{n-1} \\
+				\vdots & \vdots & \ddots & \vdots & \vdots \\
+				1 & a_{n-1} & \dots & a_{n-1}^{n-2} & a_{n-1}^{n-1} \\
+				1 & a_n & \dots & a_n^{n-2} & a_n^{n-1} \\
+			\end{array}	\right| \\
+			\overset{C_{n-i+1} \leftrightarrow C_{n-i}}{\underset{\forall i, i = 1, i < n-1}\Longrightarrow}
+			(-1)^{n-1}
+			\prod_{i=1}^{i<n}a_i
+			&\left| \begin{array}{ccccc}
+				a_1 & \dots & a_1^{n-2} & a_1^{n-1} & 1 \\
+				a_2 & \dots & a_2^{n-1} & a_2^{n-1} & 1 \\
+				\vdots & \vdots & \ddots & \vdots & \vdots \\
+				a_{n-1} & \dots & a_{n-1}^{n-2} & a_{n-1}^{n-1} & 1 \\
+				a_n & \dots & a_n^{n-2} & a_n^{n-1} & 1 \\
+			\end{array}	\right| =
+			(-1)^{n-1}
+			\prod_{i=1}^{i<n}a_i
+			\Delta_1
+		\end{align*}
+		לפיכך מתקבל ש
+		\[
+			\Delta = 0 =
+			\Delta_1 + (-1)^{n-1} \prod_{i=1}^{i<n}a_i \Delta_1  =
+			\Delta_1(1 + (-1)^{n-1} \prod_{i=1}^{i<n}a_i) \Rightarrow
+			(-1)^{n-1} \prod_{i=1}^{i<n}a_i = -1
+		\]
+		ניתן לראות שכאשר $n-1$ הוא אי זוגי אזי $(-1)^{n-1}=-1$ ולכן $\prod_{i=1}^{i<n}a_i = 1$
+		וכאשר $n-1$ זוגי אזי $(-1)^{n-1}=1$ ולכן $\prod_{i=1}^{i<n}a_i = -1$. \\
+		ובכך הוכחנו ש $\prod_{i=1}^{i<n}a_i$ בהכרח שווה ל $1$ או $-1$ כנדרש.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 7}
+	תהיינה $A,B \in \mathbf{M}_3(\RR)$ כך ש $A^t = -A$.
+
+	\subsection*{סעיף א}
+	הוכיחו שקיים פתרון לא טריוויאלי למערכת $(A^2B)\mathbf{x} = \mathbf{0}$
+	\begin{proof}
+		לפי הנתון ש $A^t = -A$ נסתכל על הדטרמיננטה של $A$: \\
+		לפי משפט 4.3.1
+		$\pip{A} = \pip{A^t}$ ולפי הנתון מתקבל ש
+		$\pip{A} = \pip{-A}$ לפי משפט 4.3.3 נקבל ש
+		$\pip{A} = (-1)^3 \cdot \pip{A} = -\pip{A}$
+		וכידוע, המספר הממשי היחיד ששוה לנגדי שלו הוא $0$, ועל כן $\pip{A} = 0$. \\
+		עכשיו נחשב את הדטרמיננטה של המטריצה $A^2B$: \\
+		לפי משפט 4.5.1
+		$\pip{A^2B} = \pip{A}^2 \cdot \pip{B}$
+		ולפי מה שהוכחנו עכשיו נקבל ש:
+		$\pip{A^2B} = 0^2 \cdot \pip{B} = 0$ \\
+		ולפיכך לפי משפט 3.10.6 מתקבל ש $A^2B$ אינה הפיכה ושלמשוואה $(A^2B)\mathbf{x} = \mathbf{0}$ קיים פתרון לא טריוויאלי(סעיף ה).
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	נניח ש $B^t = B$ וששתי המטריצות $B,A \neq [0]$, האם המטריצה $(A+B)^2$ בהכרח סימטרית? \\
+
+	פתרון: \\
+	המטריצה $(A+B)^2$ לא בהכרח סימטרית נראה באמצעות דוגמא:
+	\[
+		A = \begin{pmatrix}
+			0 & 0 & 1 \\
+			0 & 0 & 1 \\
+			-1 & -1 & 0 \\
+		\end{pmatrix}
+		\text{ ו- }
+		B = B^t = \begin{pmatrix}
+			1 & 0 & 1 \\
+			0 & 1 & 0 \\
+			1 & 0 & 1 \\
+		\end{pmatrix}
+		\]
+		ניתן לראות ש $B = B^t$ כנדרש, ובנוסף $A^t = -A$:
+		$A^t = -A = \begin{pmatrix}
+				0 & 0 & -1 \\
+				0 & 0 & -1 \\
+				1 & 1 & 0 \\
+			\end{pmatrix}$
+		כנדרש. \\
+		עכשיו נסתכל על $(A+B)^2$:
+		\[
+			(A+B)^2 = \begin{pmatrix}
+				1 & 0 & 2 \\
+				0 & 1 & 1 \\
+				0 & -1 & 1\\
+			\end{pmatrix}^2 =
+			\begin{pmatrix}
+				1 & -2 & 4 \\
+				0 & 0 & 2 \\
+				0 & -2 & 0 \\
+			\end{pmatrix}
+			\text{ ובנוסף }
+			((A+B)^2)^t = \begin{pmatrix}
+				1 & 0 & 0 \\
+				-2 & 0 & -2 \\
+				4 & 2 & 0 \\
+			\end{pmatrix}
+		\]
+		ולפיכך הצגנו מטריצות $A,B$ אשר מקיימות $B^t = B \land A^t = -A$  אך $(A+B)^2$ אינו סמטרי.
+\end{document}
