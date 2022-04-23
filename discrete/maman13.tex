@@ -1,0 +1,253 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the chA \mathcal{R} Acter \varnothing
+\usepackage{polyglossia}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\newtheorem{lemma}{טענת עזר}
+\newtheorem{remark}{הערה}
+
+\title{בדידה - ממ"ן 13}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+	\section*{שאלה 1}
+	מיצאו את עוצמות כל אחת מהקבוצות הבאות
+	\subsection*{סעיף א}
+	קבוצת כל המספרים הממשיים בקטע $(0,1)$ אשר בפיתוח שלהם כשבר עשרוני אינסופי מופיעות רק הספרות $0$ ו $1$ ומימין לכל ספרה שהיא 0 מופיעה תמיד הספרה 1.
+	\begin{proof}
+		נקרא לקבוצה הנתונה $A$, ונציג פונקציות חד חד ערכיות בין הכיוונים:
+		\begin{enumerate}
+			\item כיוון אחד, נציג פונקציה חח"ע: $f: A \to (0,1)$ כך: \\
+			נסתכל על המספר כסדרה של רצפי אחדות המופרדים בספרה 0, נסכם את הרצף הראשון ע"מ לקבל את תחילת המספר הממשי שלנו, ואז נשים אפס, נסכם את הרצף הבא, ונשים עוד אפס וכן הלאה,
+			לדוגמא: $f(0.1111111111110110..) = 0.12020..$ וגם $f(0.0101110..) = 0.01030..$,
+			ניתן לראות שפונקציה זאת היא חד חד ערכית, מכיוון שבין כל מספר למספר אנחנו שמים 0 להפרדה ולכן לא יכולים להיות 2 איברים שונים ב $A$ עם אותו מספר ממשי. \\
+			(הערה: לאחר שסיימתי, הבנתי שאפשר גם להגדיר $f(x) = x$ שהיא פונקציה חח"ע מ $A$ ל $(0,1)$)
+			\item בכיוון השני נציג פונקציה חח"ע $g: (0,1) \to A$ כך:\\
+			כל ספרה $a$ במספר הממשי נהפוך לרצף של $a+1$ אחדות שבסופו נשים 0 (הוספת האחד היא כדי להתמודד עם אפסים), ובכך נקבל איבר יחודי ב $a$,
+			לדוגמא: \\
+			$g(0.012004..) = 0.1011011101010111110..$ וגם $g(0.90..) = 0.1111111111010..$
+			גם כאן, אפשר לראות שלכל מקור ב $g$ נקבל תמונה שונה ב $A$ ולכן הפונקציה חד חד ערכית.
+		\end{enumerate}
+		עפ"י הגדרת הסדר בין עוצמות נקבל מהפונקציה $f$ ש $A \vartriangleleft (0,1)$ ומהפונקציה $g$ נקבל $(0,1) \vartriangleleft A$ ולפי משפט קנטור-ברנשטיין נקבל ש $|(0,1)| \sim |A|$,
+		ובדוגמא ב $4.4$ הראנו ש $|(0,1)| = \aleph$ ולפיכך $|A| = \aleph$
+	\end{proof}
+	\pagebreak
+	\subsection*{סעיף ב}
+	$\set{\ang{x, y\sqrt{2}} \in \QQ \times \RR | x + y = 1}$
+	\begin{proof}
+		ניתן לראות כי הגדרת הקבוצה שקולה להגדרה הבאה: $A = \set{\ang{x, (1-x)\sqrt{2}} | x \in \QQ}$ בעזרת הצבת $y$ בהתאם למשוואה הנתונה. \\
+		עכשיו נציג פונקציה חח"ע ועל $f: A \to \QQ$ כך: $f(x) = \ang{x, (1-x)\sqrt{2}}$ וההופכית שלה: $f^{-1}(\ang{x,y}) = x$,
+		ולפיכך לפי הגדרה 4.1 נקבל ש $A \sim \QQ$ ובהתאם למשפט 4.4 $|A| = \QQ = \aleph_0$.
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	$A = \set{\ang{x,y,z} \in \QQ \times \RR \times \RR | x + y + z = 1}$
+	\begin{proof}
+		$A$ מייצג שלשה סדורה של $\QQ \times \RR \times \RR$ עם אילוץ. ידוע ש $\QQ \subset \RR$ ועל כן $A \subset \RR \times \RR \times \RR$
+		ולפי הכללה אינדוקטיבית של טענה 4.16 נקבל $\RR^3 \sim \RR$. \\
+		עכשיו נסתכל על תת הקבוצה של $A$ $B = \set{\ang{0, y, 1-y} | y \in \RR}$, ונראה פונקציה חח"ע ועל $f: B \to \RR$ בעזרת: $f(x) = \ang{0,x,1-x}$ ו $f^{-1}(\ang{x,y,z}) = y$
+		ולפי הגדרה 4.1 נקבל ש $B \sim \RR$
+		לסיכום הראנו ש $B \subset A \subset \RR^3$ וגם ש $\RR^3 \sim B \sim \RR$ ולכן לפי משפט הסנדוויץ $A \sim \RR$
+		ולפיכך $|A| = \aleph$
+	\end{proof}
+
+	\subsection*{סעיף ד}
+	$A = \PP(\QQ \cap (11^{-10}, 10^{-10}))$
+	\begin{proof}
+		ניתן לראות כי בין כל שני מספרים רציונלים קיימים אינסוף מספרים רציונלים, (ע"י למשל להמשיך לחצות את המרחק שבין המספרים).
+		ולכן במקטע $(\frac{1}{11^{10}}, \frac{1}{10^{10}})$ ישנם אינסוף מספרים רציונלים. \\
+		ועל כן, בגלל ש $|\QQ| = \aleph_0$ ובעזרת משפט 4.5 נקבל שגם $|A| = \aleph_0$.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 2}
+	פונקציה $f: \RR \to \RR$ נקראת ריבועית אם קיימים $a,b,c \in \RR$, $a \neq 0$ כך ש  \\
+	$f(x) = ax^2 + bx + c$ נסמן:
+	$A$ קבוצת הפונקציות הריבועיות.  \\
+	$B = \set{f \in A | f(0) \in \QQ}$, $C = \set{f \in A | f[\QQ] \subseteq \QQ}$. \\
+	מצאו את היחסים  "="/">" בין כל העוצמות הבאות: $|A|, |B|, |C|, |\PP(B)|, |\PP(C)|$. \\
+	פתרון:
+	\begin{enumerate}
+		\item ממבט ראשון לכאורה זה בעייתי, כי הפונקציה הריבועית אינה על, אך השאלה מדברת על \textbf{קבוצת הפונקציות} תחת שלשה סדורה,
+		ועל כן, נראה שקיימת פונקציה חח"ע ועל הממפה בין השלשה הסדורה $\RR\sub\set{0}\times \RR \times \RR$ ל $A$,
+		היא מקבלת $\ang{a,b,c}$ ומחזירה $f_{\ang{a,b,c}}(x) = ax^2 + bx + c$ וקל לראות שכל שינוי בשלשה הסדורה יוביל לפונקציה אחרת (למשל הוספת 1 ל $c$ יביא לנו $ax^2 + bx + c + 1 \neq ax^2 + bx + c$).
+		ועל כן לפי הגדרה 4.1 $|A| = |\RR\sub\set{0}\times \RR \times \RR|$. \\
+		ע"מ למצוא את העוצמה נציג פונקציה חח"ע $f : \RR \to \RR\sub\set{0}\times \RR \times \RR$ והיא $f(x) = \ang{1,0,x}$.
+		ולכן לפי הגדרת הסדר בין עוצמות $\RR \vartriangleleft \RR\sub\set{0}\times \RR \times \RR$
+		בנוסף נציג פונקציה חח"ע $g: \RR\sub\set{0}\times \RR \times \RR \to \RR^3$ והיא: $g(\ang{a,b,c}) = \ang{a,b,c}$.
+		ולכן לפי הגדרת הסדר בין עוצמות $\RR\sub\set{0}\times \RR \times \RR \vartriangleleft \RR^3$. \\
+		כמו מקודם, אנו יודעים כי $\RR \sim \RR^3$ ולפיכך לפי משפט קנטור-ברנשטיין \\
+		$\RR\sub\set{0}\times \RR \times \RR \sim \RR$
+		ולפיכך $|A| = \aleph$.
+		\item $B$ היא תת קבוצה של $A$ עם האילוץ ש $f(0) \in \QQ$ אם נציב 0 בפונקציה הריבועית נראה ש $f(0) = c$
+		ועל כן ב $B$ מתקיים $c \in \QQ$ ולפיכך $B$ מוגדרת מעל השלשה $\RR\sub\set{0} \times \RR \times \QQ$
+		נסתכל על התת קבוצה הבאה: $H = \set{ f \in B| a = 1, c = 0} \subset B$ ונגדיר פונקציה חח"ע ועל מ $\RR$ על $H$:
+		$g(b) = (f(x) = x^2 + bx)$ ולפיכך $H \sim \RR$, ובסעיף הקודם הוכחנו ש $A \sim \RR$ וגם $H \subset B \subset A$ ולפיכך לפי משפט הסנדוויץ מתקבל ש $|B| = \aleph$.
+
+		\pagebreak
+		\item $C$ היא גם תת קבוצה של $A$ עם האילוץ שלכל $x \in \QQ$ מתקיים $x(x) \in \QQ$.
+		נסתכל על תכונות המקיימות פונקציות כאלה:
+		גם כאן $f(0) \in \QQ$ ולכן $c \in \QQ$, התנאי חייב להתקיים לכל $x$ ובפרט על $x=1, -1$ ולכן נסתכל על:
+		\begin{alignat*}{2}
+			f(-1) = a - b + c = &\mu \in \QQ, \quad f(1) = a + b + c = \nu \in \QQ \\
+			&a = \mu + b - c &&(1) \\
+			&\Rightarrow
+			\mu + b - c + b + c = \nu \\
+			&\Rightarrow
+			2b = \nu - \mu &&(2)
+		\end{alignat*}
+		במשוואה $(2)$ ניתן לראות כי $2b$ שווה לחיסור שני מספרים רציונלים, ועל כן ${b \in \QQ}$ ואחכ במשוואה $(1)$ ניתן לראות כי $a$ שווה לפעולה לינארית על 3 מספרים רציונלים ועל כן גם $a \in \QQ$.
+		ולפיכך $C$ היא קבוצת כל הפונקציות הריבועיות כאשר \\
+		${\ang{a,b,c} \in \QQ\sub\set{0} \times \QQ \times \QQ}$
+		וישנה פונקציה חח"ע ועל בין $C$ לבין השלשה הסדורה (הפונקציה שמקבלת $\ang{a,b,c}$ ומחזירה את הפונקציה הריבועית, וההופכית שלה מקבלת את הפונקציה הריבועית ומחזירה את המקדמים).
+		ולפיכך $C \sim \QQ\sub\set{0} \times \QQ \times \QQ$. \\
+		וגם $f: \QQ\sub\set{0} \times \QQ \times \QQ \to \QQ^3$ חח"ע ע"י $f(\ang{a,b,c}) = \ang{a,b,c}$
+		ולכן \\ ${\QQ\sub\set{0}\times \QQ \times \QQ \vartriangleleft \QQ^3}$.
+
+		ובנוסף הפונקציה $f: \QQ \to \QQ\sub\set{0} \times \QQ \times \QQ$ חח"ע ע"י $f(x) = \ang{1,0,x}$
+		ולכן $\QQ \vartriangleleft\QQ\sub\set{0} \times \QQ \times \QQ$
+		ובנוסף לפי הגדרת כפל עוצמות ובגלל טענה 4.37 \\
+		${\QQ^3 = |\QQ| \cdot |\QQ| \cdot |\QQ| = \aleph_0}$.
+		ולכן לפי משפט קנטור-ברנשטיין:  \\
+		${|C|=|\QQ\sub\set{0} \times \QQ \times \QQ| = \aleph_0}$.
+		\item ממשפט 4.42 $|\PP(B)| = |2^B| = 2^|B| = 2^\aleph = \aleph'$
+		\item ממשפט 4.42 $|\PP(C)| = |2^C| = 2^|C| = 2^\aleph_0 = \aleph$
+	\end{enumerate}
+	לסיכום: הראינו ש $|A| = \aleph$, $|B| = \aleph$, $|C| = \aleph_0$, $|\PP(B)| = \aleph'$, $|\PP(C)| = \aleph$
+	ולכן $|C| < |B| = |A| = |\PP(C)| < |\PP(B)|$.
+
+
+	\pagebreak
+
+	\section*{שאלה 3}
+	יהיו $A,B,C$ קבוצות כך ש $C = A \cup B$, $A \cap B = \emptyset$
+
+	\subsection*{סעיף א}
+	הוכיחו שהפונקציה $f: \PP(C) \to \PP(A) \times \PP(B)$ המוגדרת ע"י $f(X) = \ang{X \cap A, X \cap B}$
+	לכל $X \in \PP(C)$ היא הפיכה, והסיקו כי $2^{|A \cup B|} = 2^{|A|} \cdot 2^{|B|}$
+
+	\begin{proof}
+		נראה ש $f$ היא חח"ע ועל. \\
+		נתחיל בלהגדיר לכל $X \in \PP(C)$, $f(X) = \ang{X_1, X_2}$.
+		\begin{remark} \label{remark:1}
+			נבחין כי לפי הנתון כל איבר ב $\PP(C)$ הוא תת קבוצה של $C$ (לפי הגדרת קבוצת החזקה),
+			ו $C$ היא איחוד $A$ ו $B$, ועל כן כל איבר בתת הקבוצה בהכרח נמצא ב $A$ או ב $B$.
+		\end{remark}
+		\begin{enumerate}
+			\item נניח בדרך השלילה ש $f$ אינה חח"ע.
+			ועל כן קיימים $Z \in \PP(C)$, $Y \in \PP(C)$ כך ש $Z \neq Y$ וגם $f(Z) = f(Y)$,
+			ולפי הגדרת שוויון על זוגות סדורים מתקיים $Z \cap A = Y \cap A$, ולכן לכל $x \in Z \cap A$ מתקיים $x \in Y \cap A$,
+			וגם $Z \cap B = Y \cap B$ ולכן לכל $x \in Z \cap B$ מתקיים $x \in Y \cap B$. \\
+			ובגלל שלכל $x \in Y$ או $x \in Z$ מתקיים $x \in A$ או $x \in B$ \ref{remark:1}
+			לכן כל איבר ב $Y$ וכל איבר ב $Z$ נמצאים או בחיתוך עם $A$ או בחיתוך עם $B$.
+			ומכאן ביחד עם שוויון החיתוכים נובע כי לכל $x \in Y$ מתקיים $x \in Z$ ולכן $Y = Z$ בסתירה עם ההנחה ש $Y \neq Z$, ועל כן $f$ חח"ע.
+
+			\item נראה ש $f$ היא על:
+			לפי הנתון $C$ מכילה את כל איברי $A$ ואת כל איברי $B$,
+			ועל כן לכל תת קבוצה $X \subseteq A$ ותת קבוצה $Y \subseteq B$
+			מתקיים $X \cup Y \subseteq C$,
+			ולפי הגדרת קבוצת החזקה, נקבל שלכל $X \in \PP(A)$ ו $Y \in \PP(B)$ קיים $Z = X \cup Y \in \PP(C)$.
+			ולפיכך לכל זוג סדור $\ang{X,Y}$ כאשר $X \in \PP(A)$ ו $Y \in \PP(B)$ קיים $Z \in \PP(C)$
+			המקיים $Z \cap A = X$ ו $Z \cap B = Y$ ועל כן לכל תמונה יש מקור, ולפיכך $f$ על.
+		\end{enumerate}
+		הוכחנו ש $f$ היא חח"ע, והוכנו שהיא על, ועל כן לפי הגדרה 3.8 נקבל ש $f$ הפיכה. \\
+		נתון לנו כי $A$ ו $B$ זרות זו לזו, ולכן לפי 4.9.1 נקבל ש $|A \cup B| = |A| + |B|$
+		ולפי משפט 4.42 נקבל ש $|\PP(A \cup B)| = 2^{|A \cup B|} = 2^{|A| +|B|}$ ולפי חוקי חזקות $2^{|A| +|B|} = 2^{|A|} \cdot 2^{|B|}$.
+	\end{proof}
+
+	\pagebreak
+	\subsection*{סעיף ב}
+	בחרו קבוצות $A, B$ והשתמשו בסעיף א ע"מ להוכיח כי:
+	\begin{enumerate}
+		\item $\aleph \cdot \aleph = \aleph$
+		\item $\aleph' \cdot \aleph' = \aleph'$
+	\end{enumerate}
+	\begin{proof} \leavevmode
+		\begin{enumerate}
+			\item נגדיר $A = \set{x \geq 0 | x \in \ZZ}$, $B = \set{x < 0 | x \in \ZZ}$, קל לראות כי $A \cap B = \emptyset$ ו $A \cup B = \ZZ$,
+			ולפי סעיף א הוכחנו כי $|\PP(A \cup B)| = |2^{|A \cup B|} = 2^{|A|} \cdot 2^{|B|}$  ולפי משפט 4.4 $\ZZ$ וכל תת קבוצה שלה הינן בנות מניה, על כן נקבל ש:
+			$2^{\aleph_0} = 2^{\aleph_0} \cdot 2^{\aleph_0}$ ולפי טענה 4.14 $\PP(A) = \set{0,1}^A = 2^A$ לכן
+			$\set{0,1}^{\aleph_0} = \set{0,1}^{\aleph_0} \cdot \set{0,1}^{\aleph_0}$
+			ולפי טענה 4.1 $\set{0,1}^{\aleph_0} = \aleph$
+			לפיכך $\aleph = \aleph \cdot \aleph$.
+
+			\item נגדיר $A = \set{x \geq 0 | x \in \RR}$, $B = \set{x > 0 | x \in \RR}$, קל לראות כי $A \cap B = \emptyset$ ו $A \cup B = \RR$,
+			לפי סעיף א $2^{|A \cup B|} = 2^{|A|} \cdot 2^{|B|}$
+			ולפי משפט 4.7 ושאלה 11 $|A \cup B| = |A| = |B| = \aleph$
+			ולכן $2^\aleph = 2^\aleph \cdot 2^\aleph$, ועפ"י הפסקה הרשומה לפני סעיף 4.7 ש $|\PP(\aleph)| = 2^{\aleph} = \aleph'$ נקבל כי $\aleph' = \aleph' \cdot \aleph'$.
+		\end{enumerate}
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 4}
+	\subsection*{סעיף א}
+	יהי $a \in \RR$ כך ש $a + \frac{1}{a} \in \ZZ$ הוכיחו באינדוקציה שלכל $n$ טבעי
+	מתקיים $a^n + \frac{1}{a^n} \in \ZZ$.
+	\begin{proof}
+		נשתמש בעקרון האינדוקציה המורכבת. \\
+		\textbf{בסיס האינדוקציה:} $n=0 \Rightarrow a^0 + \frac{1}{a^0} = 2 \in \ZZ$, ו
+		$n=1 \Rightarrow a^1 + \frac{1}{a^1} = a + \frac{1}{a} \in \ZZ$ מתקיים לפי הנתון. \\
+		\textbf{הנחת האינדוקציה:} נניח ש $a^m + \frac{1}{a^m} \in \ZZ$ מתקיים לכל $n > m > 1$ \\
+		\textbf{צעד האינדוקציה:} נוכיח בעבור $n = m+1$: \\
+		לפי הנתון $x = a + \frac{1}{a}$ מספר שלם, ולפי הנחת האינדוקציה $y = a^m + \frac{1}{a^m}$ מספר שלם, ועל כן כפלם הינו מספר שלם:
+		\begin{align*}
+			&(a + \frac{1}{a})(a^m + \frac{1}{a^m}) = xy \in \ZZ  \\
+			&\Rightarrow
+			a^{m+1} + \frac{1}{a^{m-1}} + a^{m-1} + \frac{1}{a^{m+1}} = xy \in \ZZ \\
+			&\Rightarrow
+			a^{m+1} + \frac{1}{a^{m+1}} = xy - a^{m-1} - \frac{1}{a^{m-1}} \in \ZZ
+		\end{align*}
+		ובכך הוכחנו ש $a^{n} + \frac{1}{a^{n}}$ הינו מספר שלם ומעבר האינדוקציה הושלם.
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	נתונה הפונקציה $f: [0, \infty) \to [0, \infty)$ המוגדרת ע"י $f(x) = \frac{x}{1+x}$
+	לכל $n \geq 1$ טבעי נסמן $f^{(n)}= f \circ f \circ \dots \circ f$,
+	מיצאו נוסחה כל $f^{(n)}$ והוכיחו אותה באינדוקציה לכל $n$.
+	\begin{proof}
+		נראה כי $f^{(n)} = \frac{1}{1 + n+x}$: \\
+		\textbf{בסיס האינדוקציה:} $n=0$ לא מאוד הגיוני (אם כי, אפשר להשתמש באותם חוקים של כפל ולהגדיר כי $f^{(0)}=I$ וגם אז הכלל שנתנו יתקיים) ועל כן נוכיח על $n=1$:
+		$f^{(1)} = \frac{x}{1+1x} = f$ \\
+		\textbf{הנחת האינדוקציה:} נניח שלכל $n > 0$ מתקיים $f^{(n)} = \frac{x}{1 + nx}$ \\
+		\textbf{צעד האינדוקציה:} נוכיח בעבור $n+1$:
+		עפ"י הגדרת ההרכבה נקבל ש $f^{(n+1)} = f(f^{(n)})$, נשתמש בהנחת האינדוקציה ונציב בפונקציה:
+		\begin{align*}
+			\frac{f^{(n)}(x)}{x + f^{(n)}(x)} &=
+			\frac{\frac{x}{1+nx}}{1+\frac{x}{1+nx}} =
+			\frac{x}{(1+nx)(1 + \frac{x}{1 + nx})} =
+			\frac{x}{1 + \frac{x}{1+nx} + nx + \frac{nx^2}{1+nx}} \\
+			&= \frac{x}{\frac{1 + nx + x + nx(1+nx) + nx^2}{1+nx}} =
+			\frac{x}{\frac{\cancel{(1+nx)}(1+(n+1)x)}{\cancel{(1+nx)}}}
+			= \frac{x}{1 + (n+1)x}
+		\end{align*}
+		והוכחנו כי $f^{(n+1)} = \frac{x}{1+(n+1)x}$ ובכך הסתיים צעד האינדוקציה.
+	\end{proof}
+
+\end{document}
