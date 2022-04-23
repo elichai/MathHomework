@@ -1,0 +1,374 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the chA \mathcal{R} Acter \varnothing
+\usepackage{polyglossia}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+
+\title{אינפי 1 - ממ"ן 13}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+	\section*{שאלה 1}
+	נגדיר $a_n = \begin{cases}
+		a_1 = 8 \\
+		a_{n+1} = 1 - \frac{5}{4a_n + 8}
+	\end{cases}$
+	\subsection*{סעיף א}
+	הוכיחו שהסדרה מוגדרת היטב
+
+	\begin{proof}
+		נוכיח באינדוקציה: ש $a_n$ תמיד מוגדר וגם ש $a_n \geq 0.5$ \\
+		\textbf{בסיס האינדוקציה:} $a_1 = \sqrt{2}$, $a_2 = 1 - \frac{5}{4\sqrt{2} + 8} \approx 0.633$, שניהם מוגדרים היטב ושניהם גדוולים מחצי. \\
+		\textbf{הנחת האינדוקציה:} נניח ש $a_n$ מוגדר היטב, וגם ש $a_n \geq 0.5$ בעבור $n \geq 2$ \\
+		\textbf{צעד האינדוקציה:} נוכיח שהטענה נכונה בעבור $n+1$, ונשתמש בהנחת האינדוקציה:
+		\begin{align*}
+			a_n \geq 0.5 \overset{\cdot 4}\Rightarrow
+			4a_n \geq 2 &\overset{+8}\Rightarrow
+			4a_n + 8 \geq 10 \ontop{(a)}\Rightarrow
+			\frac{1}{4a_n+8} \leq 0.1 \overset{\cdot -5}\Rightarrow \\
+			-\frac{5}{4a_n+8} \geq -0.5 &\overset{+1}\Rightarrow
+			1-\frac{5}{4a_n+8} \geq 0.5 \ontop{(b)}\Rightarrow
+			a_{n+1} \geq 0.5
+		\end{align*}
+		לפיכך הוכחנו שלכל $a_n$ מתקיים $a_n \geq 0.5$ ובפרט, שכל $a_n$ מוגדר היטב.
+	\end{proof} \nl
+	(a) - בגלל הנחת האינדוקציה ש $a_n \geq 0.5$ אזי שני הצדדים גדולים מאפס, וניתן להשתמש בטענה 1.42 \\
+	(b) - הגדרת הרקורסיה
+	\pagebreak
+	\subsection*{סעיף ב}
+	הוכיחו שלכל $n$, $a_n$ הוא מספר אי-רציונלי חיובי. \\
+	הראינו כבר ש $a_n$ מוגדר היטב,
+	נתחיל בלהוכיח טענה עזר: לכל $a \not \in \QQ$ מתקיים $\frac{1}{a} \not\in \QQ$:
+	\begin{equation} \label{lemma:1}
+		\begin{aligned}
+			\frac{1}{a} = \frac{p}{q}
+			\text{ המקיימים }
+			p, q \in \ZZ
+			\text{ אזי קיימים }
+			\frac{1}{a} \in \QQ
+			\text{ נניח בשלילה ש } \\
+			a \not \in \QQ
+			\text{ בסתירה עם }
+			a = \frac{q}{p} \in \QQ
+			\text{ נקבל }
+			1
+			\text{ אם נעלה את השוויוון בחזקת מינוס }
+		\end{aligned}
+	\end{equation}
+	נוכיח באינדוקציה שלכל $n$ טבעי $a_n \not\in \QQ$, נשתמש ב $\lambda$ לסמן מספר שהוא אי רציונלי, המספר עצמו ישתנה בין פעולה לפעולה, העיקר שייצג מספר אי רציונלי.
+	\begin{proof} \nl
+		\textbf{בסיס האינדוקציה:} $a_1 = \sqrt{2} \not\in \QQ$, ונראה שגם $a_2 \not\in\QQ$:
+		\begin{align*}
+			a_2 = 1 - \frac{5}{4\sqrt{2}+8} \ontop{נסמן r}\Rightarrow
+			1 - \frac{5}{4\lambda+8} \ontop{(a)}\Rightarrow
+			1 - \frac{5}{\lambda+8} \ontop{(b)}\Rightarrow
+			1 - \frac{5}{\lambda} \overset{\ref{lemma:1}}\Rightarrow
+			1 - 5 \cdot \lambda \ontop{(a,b)}\Rightarrow
+			\lambda
+		\end{align*}
+		\textbf{הנחת האינדוקציה:} נניח ש $a_n \not\in \QQ$ בעבור $n \geq 2$. \\
+		\textbf{צעד האינדוקציה:} נוכיח שהטענה נכונה בעבור $n+1$ ונשתמש בהנחת האינדוקציה ע"י להציב $a_n=r$:
+		\begin{align*}
+			a_{n+1} = 1 - \frac{5}{4\lambda+8} \ontop{(a)}\Rightarrow
+			1 - \frac{5}{\lambda+8} \ontop{(b)}\Rightarrow
+			1 - \frac{5}{\lambda} \overset{\ref{lemma:1}}\Rightarrow
+			1 - 5 \cdot \lambda \ontop{(a,b)}\Rightarrow
+			a_{n+1} = \lambda \not\in \QQ
+		\end{align*}
+		לפיכך $a_n \not\in \QQ$ לכל $n$ טבעי.
+	\end{proof} \nl
+	(a) - לפי שאלה 61, $0 \neq x \in \QQ, y \not \in \QQ \Rightarrow xy \not \in \QQ$ \\
+	(b) - לפי שאלה 61, $x \in \QQ, y \not \in \QQ \Rightarrow x + y \not \in \QQ$
+
+
+	\pagebreak
+	\subsection*{סעיף ג}
+	הוכיחו שהסדרה $(a_n)$ מתכנסת וחשבו את $\bm{\lmf{a_n}}$
+	נתחיל בלהוכיח שהסדרה הינה מונוטונית יורדת באינדוקציה:
+	\begin{proof} \nl
+		\textbf{בסיס האינדוקציה:} $a_1 = \sqrt{2} \approx 1.414$, $a_2 = 1 - \frac{5}{4\sqrt{2} + 8} \approx 0.633$ ועל כן $a_1 \geq a_2$. \\
+		\textbf{הנחת האינדוקציה:} $a_n \leq a_{n-1}$ לכל $n \geq 2$. \\
+		\textbf{צעד האינדוקציה:} נוכיח בעבור $n+1$ באמצעות הנחת האינדוקציה:
+		\begin{align*}
+			&a_n \leq a_{n-1} \overset{\cdot 4}\Rightarrow
+			4a_n \leq 4a_{n-1} \overset{+8}\Rightarrow
+			4a_n + 8 \leq 4a_{n-1} + 8 \ontop{(a)}\Rightarrow
+			\frac{1}{4a_n+8} \geq \frac{1}{4a_{n-1}+8} \\
+			&\overset{\cdot -5}\Rightarrow
+			-\frac{5}{4a_n+8} \leq -\frac{5}{4a_{n-1}+8} \overset{+1}\Rightarrow
+			1-\frac{5}{4a_n+8} \leq 1-\frac{5}{4a_{n-1}+8} \ontop{(b)}\Rightarrow
+			a_{n+1} \leq a_n
+		\end{align*}
+		לפיכך מתקבל ש $a_{n+1} \leq a_n$ או במילים אחרות, הסדרה $(a_n)$ הינה מונוטונית יורדת
+		(a) - הוכחנו כבר ש $a_n \geq 0.5$ ולכן שני הצדדים גדולים מאפס וניתן להשתמש בטענה 1.42 \\
+		(b) - הגדרת הרקורסיה
+	\end{proof}
+	עכשיו נוכיח שהסדרה חסומה:
+	\begin{proof}
+		בסעיף א' הוכחנו ש $a_n \geq 0.5$ כלומר חסומה מלרע,
+		בהוכחה מעל הוכחנו שהסדרת מונוטונית יורדת, ומהערה 2 בהגדרה 3.15 $a_n \leq a_1 = \sqrt{2}$ ולכן חסומה מלעיל.
+		לפיכך מהגדרה 3.2 מתקבל כי הסדרה $(a_n)$ חסומה.
+	\end{proof} \nl
+	הוכחנו שהסדרה $(a_n)$ מונוטונית וחסומה, ועל כן לפי משפט 3.16 היא מתכנסת. \\
+	נחשב את הגבול: $\lmf{a_n} = L$, עפ"י כלל ההזזה: $\lmf{a_{n+1}} = L$,
+	נשים לב שהראנו כבר כי $a_n \geq 0.5$ ככה ש $4a_n + 8 \geq 0$, ונשתמש באריתמתיקה של הגבולות:
+	\begin{align*}
+		&\lmf a_{n+1} = L = \lmf{1} - \lmf{\frac{5}{4a_n + 8}} = 1 - \frac{5}{4L + 8} \Rightarrow
+		L = 1 - \frac{5}{4L + 8} \Rightarrow \\
+		&(L - 1)(4L + 8) = 5 \Rightarrow
+		4L^2 + 8L - 4L - 8 = 5 \Rightarrow
+		4L^2 + 4L - 3 = 0 \\
+		&\Rightarrow
+		L = 0.5 \lor L = -1.5
+	\end{align*}
+	הראנו כבר ש $a_n \geq 0.5$ ולפי משפט 2.31 מתקבל ש $L \geq 0.5$ ולכן $L \neq -1.5$ אלא $L=0.5$ \\
+	ולסיכום $\bm{\lmf{a_n}} = 0.5$
+
+
+	\pagebreak
+	\section*{שאלה 2}
+	חשבו את הגבולות וגם את החלקיים ונמקו מדוע.
+	\subsection*{סעיף א}
+	\[
+		\lmf \frac{(-3)^{n+1} - (-2)^n + 5}{3^{n+2} + 2^n - 5}
+	\]
+	\begin{proof}
+		\begin{alignat*}{2}
+			&\lmf \frac{(-3)^{n+1} - (-2)^n + 5}{3^{n+2} + 2^n - 5} \\
+			&= \lmf \frac{-3(-3)^{n} - (-2)^n + 5}{9 \cdot 3^{n} + 2^n - 5} \\
+			&= \lmf \frac{-3(-3)^{n} - (-2)^n + 5}{9 \cdot 3^{n} + 2^n - 5}
+			&&\big\backslash \ \cdot (\frac{1}{3})^n \\
+			&= \lmf \frac{-3 \cdot (-1)^n - (-\frac{2}{3})^n + 5 \cdot (\frac{1}{3})^n}{9 + (\frac{2}{3})^n - 5 \cdot (\frac{1}{3})^n} \qquad \\
+		\end{alignat*}
+		נפצל עכשיו לשתי תתי סדרות, אחת של הזוגיים, ואחת של האי זוגיים, ביחד מכסות את הסדרה כולה.
+		\begin{alignat*}{2}
+			\lmf a_{2n} &= \lmf \frac{-3 \cdot (-1)^{2n} - (-\frac{2}{3})^{2n} + 5 \cdot (\frac{1}{3})^{2n}}{9 + (\frac{2}{3})^{2n} - 5 \cdot (\frac{1}{3})^{2n}} \qquad
+			&&\big\backslash \text{ נכניס את החזקת 2 פנימה } \\
+			&= \lmf \frac{-3 \cdot 1^n - (\frac{4}{9})^{n} + 5 \cdot (\frac{1}{9})^{n}}{9 + (\frac{4}{9})^{n} - 5 \cdot (\frac{1}{9})^{n}} \qquad
+			&&\big\backslash \ \lmf \frac{t}{n^c} = 0, \text{ האריתמטיקה של גבולות } \\
+			&= \frac{-3 - 0 + 5 \cdot 0}{9 + 0 - 5 \cdot 0}
+			= \frac{-3}{9} = \boxed{-\frac{1}{3}} \\
+			\lmf a_{2n-1} &= \lmf \frac{-3 \cdot (-1)^{2n-1} - (-\frac{2}{3})^{2n-1} + 5 \cdot (\frac{1}{3})^{2n-1}}{9 + (\frac{2}{3})^{2n-1} - 5 \cdot (\frac{1}{3})^{2n-1}} \qquad
+			&&\big\backslash \text{נוציא חזקת מינוס 1 ונכניס חזקת 2 } \\
+			&= \lmf \frac{-3 \cdot -1 \cdot (1)^{n} - \frac{3}{2}(\frac{4}{9})^{n} + 15 \cdot (\frac{1}{9})^{n}}{9 + \frac{3}{2}(\frac{4}{9})^{n} - 15 \cdot (\frac{1}{9})^{n}} \qquad
+			&&\big\backslash \text{  האריתמטיקה של גבולות, ונציב גבולות ידועים } \\
+			&= \frac{-3 \cdot -1 \cdot 1 - \frac{3}{2} \cdot 0 + 15 \cdot 0}{9 + \frac{3}{2}\cdot 0 - 15 \cdot 0}
+			= \frac{3}{9} = \boxed{\frac{1}{3}}
+		\end{alignat*}
+		 ניתן לראות כי תתי הסדרות מתכנסות לגבולות סופיים שונים, ולפיכך לפי משפט 3.25 מתקבל שלסדרה אין גבול, גם במובן הרחב. \\
+		 בגלל ששתי תתי הסדרות הנ"ל מכסות את הסדרה כולה, וגם כל תת סדרה שלהן תתכנס לגבולן (3.25)
+		 ולפיכך לפי משפט 3.30 יש לסדרה רק 2 גבולות חלקיים: $\frac{1}{3}, -\frac{1}{3}$.
+	\end{proof}
+
+	\pagebreak
+	\subsection*{סעיף ב}
+	\[
+		\lmf \frac{(-3)^{n+1} - 4^n + 5}{3^{n+2} + 2^n - 5}
+	\]
+	\begin{proof}
+		\begin{align*}
+			\lmf \frac{(-3)^{n+1} - 4^n + 5}{3^{n+2} + 2^n - 5}
+			= \lmf \frac{-3 \cdot (-3)^{n} - 4^n + 5}{9 \cdot 3^{n} + 2^n - 5}
+			\overset{\cdot (\frac{1}{3})^n}=
+			\lmf \frac{-3 \cdot (-1)^{n} - \frac{4}{3}^n + 5 \cdot (\frac{1}{3})^n}{9 + \frac{2}{3}^n - 5 \cdot (\frac{1}{3})^n}
+		\end{align*}
+		גם כאן נפצל לשתי תתי סדרות המכסות את הסדרה כולה, תת סדרה של האיברים האי זוגיים, ותת סדרה של האיברים הזוגיים.
+		\begin{alignat*}{2}
+			\lmf a_{2n} &= \lmf \frac{-3 \cdot (-1)^{2n} - \frac{4}{3}^{2n} + 5 \cdot (\frac{1}{3})^{2n}}{9 + \frac{2}{3}^{2n} - 5 \cdot (\frac{1}{3})^{2n}}
+			\quad &&\big\backslash \text{ נכניס את החזקת 2 פנימה } \\
+			&= \lmf \frac{-3 \cdot 1^n - \frac{16}{9}^{n} + 5 \cdot (\frac{1}{9})^{n}}{9 + \frac{4}{9}^{n} - 5 \cdot (\frac{1}{9})^{n}}
+			&&\big\backslash \text{ האריתמטיקה של גבולות אינסופיים, נציב גבולות ידועים} \\
+			&= "\frac{-3 \cdot 1 - \infty + 5 \cdot 0}{9 + 0 - 5 \cdot 0}"
+			= "\frac{-\infty}{9}" = \boxed{-\infty} \\
+			\lmf a_{2n-1} &= \lmf \frac{-3 \cdot (-1)^{2n-1} - \frac{4}{3}^{2n-1} + 5 \cdot (\frac{1}{3})^{2n-1}}{9 + \frac{2}{3}^{2n-1} - 5 \cdot (\frac{1}{3})^{2n-1}}
+			\quad &&\big\backslash \text{ נוציא חזקת מינוס אחד ונכניס פנימה חזקת 2 } \\
+			&= \lmf \frac{3 \cdot 1^n -\frac{4}{3} \cdot \frac{16}{9}^{n} + 15 \cdot (\frac{1}{9})^{n}}{9 + \frac{3}{2} \cdot \frac{4}{9}^{n} - 15 \cdot (\frac{1}{9})^{n}}
+			&&\big\backslash \text{ האריתמטיקה של גבולות אינסופיים, נציב גבולות ידועים} \\
+			&= "\frac{3 \cdot 1 -\frac{4}{3} \cdot \infty + 15 \cdot 0}{9 + \frac{3}{2} \cdot 0 - 15 \cdot 0}"
+			= "\frac{-\infty}{9}" = \boxed{-\infty}
+		\end{alignat*}
+		ניתן לראות כי תתי הסדרות מתכנסות לאותו גבול אינסופי, בנוסף, תתי סדרות אלה ביחד מכסות את הסדרה כולה,
+		ולפיכך לפי משפט 3.31 מתקבל כי גבול הסדרה כולה שווה לגבולן, ולכן לפי משפט 3.25 גבול זה יהיה גם הגבול של כל תתי הסדרות, ולכן אין גבולות חלקיים.
+		לסיכום, גבול הסדרה הינו $-\infty$.
+	\end{proof}
+
+	\pagebreak
+	\subsection*{סעיף ג}
+	\[
+	\lmf 2 \lfloor \frac{n}{2}\rfloor - n
+	\]
+	\begin{proof}
+		נחלק לשתי תתי סדרות המכסות את הסדרה, זוגי ואי זוגי:
+		\begin{enumerate}
+			\item זוגי - $(a_{2n}) = \lmf 2 \lfloor \frac{2n}{2}\rfloor - 2n =
+			\lmf 2 \lfloor n\rfloor - 2n$
+			ובגלל ש $n$ מספר טבעי אזי
+			$\lmf 2 \lfloor n\rfloor - n = \lmf 2n - n = \boxed{0}$
+			\item אי זוגי -
+			\begin{align*}
+				(a_{2n-1}) &= \lmf 2\lfloor \frac{2n-1}{2} \rfloor - 2n + 1 =
+				\lmf 2\lfloor n - \frac{1}{2} \rfloor - 2n + 1 \\
+				&\ontop{(a)}= \lmf 2(n-1) - 2n + 1 =
+				\lmf 2n - 2 - 2n + 1 = \boxed{-1}
+			\end{align*}
+			(a) - בגלל ש $n$ טבעי, אזי מתכונת החלק השלם $\lfloor n - 0.5 \rfloor = n - 1$.
+		\end{enumerate}
+		תתי הסדרות מתכנסות אך לגבול שונה, ולפיכך לפי 3.25 הסדרה $(a_n)$ אינה מתכנסת. \\
+		בנוסף, גם כאן תתי הסדרות הנ"ל מכסות את הסדרה כולה, ולפיכך לסדרה יש שני גבולות חלקיים: $-1$, $0$.
+	\end{proof}
+
+	\subsection*{סעיף ד}
+	\[ \lmf \frac{\sqrt[n]{n!}}{n} \]
+	\begin{proof}
+	לפי שאלה 51 ביחידה 2, כל סדרת מספרים חיוביים $(a_n)$ המקיימת $\bm\lmf \frac{a_{n+1}}{a_n} = r$ אזי $\bm\lmf \sqrt[n]{a_n} = r$. \\
+	נשתמש בזה כאן, ונגדיר $(a_n) = \frac{n!}{n^n}$, נחשב את $\bm\lmf \frac{a_{n+1}}{a_n}$ וכך נקבל את הגבול של הסדרה $\sqrt[n]{a_n} = \frac{\sqrt[n]{n}}{\sqrt[n]{n^n}} = \frac{\sqrt[n]{n!}}{n}$:
+
+	\begin{align*}
+		\frac{a_{n+1}}{a_n} &=
+		\frac{\frac{(n+1)!}{(n+1)^{n+1}}}{\frac{n!}{n^n}} =
+		\frac{(n+1)!n^n}{n!(n+1)^{n+1}} =
+		\frac{\cancel{n!}\cancel{(n+1)}n^n}{\cancel{n!}(n+1)^{n + \cancel{1}}}
+		=
+		\frac{n^n}{(n+1)^n} =
+		\left(\frac{n}{n+1}\right)^n \ontop{(a)}=
+		\frac{1}{\left( \frac{n+1}{n} \right)^n}
+	\end{align*}
+	(a) - אחד חלקי ההופכי של שבר שווה לעצמו: $(a^{-1})^{-1} = a$ \\
+	ולפי שאלה 20ג והאריתמטיקה של גבולות מתקבל ש $\bm\lmf \frac{1}{\left( \frac{n+1}{n} \right)^n} = \frac{1}{e}$,
+	 ולפיכך, כמו שהגדרנו בעזרת שאלה 51 ביחידה 2 נקבל שהגבול הזה הינו הגבול של הסדרה $\sqrt[n]{a_n}$ ששווה לסדרה המבוקשת.
+	ולפיכך $\bm\lmf \frac{\sqrt[n]{n!}}{n} = \frac{1}{e}$.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 3}
+	תהי $(a_n) = n - \sqrt{n} \lfloor \sqrt{n} \rfloor$
+	\subsection*{סעיף א}
+	הוכיחו כי הסדרה חסומה מלרע.
+	\begin{proof}
+		נשתמש בתכונות החלק השלם:
+		\begin{align*}
+			\sqrt{n} =
+			n - \sqrt{n} \sqrt{n} + \sqrt{n} =
+			n - \sqrt{n} (\sqrt{n} - 1)
+			\leq n - \sqrt{n} \lfloor \sqrt{n} \rfloor
+		\end{align*}
+		קיבלנו ש $\sqrt{n} \leq n - \sqrt{n} \lfloor \sqrt{n} \rfloor$ ובגלל ש $n$ הינו מספר טבעי אז בהכרח $\sqrt{n} \geq 0$ ולפיכך הסדרה חסומה מלרע באפס.
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	הוכיחו ש $0$ הוא גבול חלקי של $(a_n)$
+	\begin{proof}
+		נסתכל על התת סדרה המתקיימת כאשר $n = k^2$:
+		\begin{align*}
+			\lmf a_{n^2} = \lmf n^2 - \sqrt{n^2} \lfloor \sqrt{n^2} \rfloor =
+			\lmf n^2 - n \lfloor n \rfloor \overset{n \in \NN}=
+			\lmf n^2 - n^2 = \boxed{0}
+		\end{align*}
+		ולפי הגדרת הגבול החלקי, הגבול של כל תת סדרה מהווה גבול חלקי של הסדרה, ולכן $0$ הינו גבול חלקי של $(a_n)$.
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	חשבו את הגבול התחתון של הסדרה
+	\begin{proof}
+		הוכחנו בסעיף א כי כל איברי הסדרה גדולים או שווים לאפס, ובפרט כל איברי תתי הסדרות גדולים או שווים לאפס, ולכן גבולם גם הוא יהיה גדול או שווה לאפס. \\
+		בנוסף הראינו בסעיף הקודם כי לסדרה יש גבול חלקי באפס, ולפיכך הגבול הזה הינו הגבול המינימאלי.
+		$\bm{\varliminf_{n \to \infty}} a_n = 0$.
+	\end{proof}
+
+	\subsection*{סעיף ד}
+	מצאו את האינפימום של הקבוצה $\set{a_n | a_n \in \NN}$ ומצאו את המינימום של הקבוצה
+	\begin{proof}
+		הראינו כבר כי כל איברי הסדרה גדולים או שווים לאפס, נבדוק האם אפס איבר בסדרה:
+		$a_1 = 1 - \sqrt{1}\lfloor \sqrt{1} \rfloor = 1 - 1 = 0$
+		ולפיכך המינימום של הקבוצה הוא 0. \\
+		 ובגלל שכל איברי הסדרה גדולים או שווים לאפס, ובקבוצה איבר לא יכול להופיע פעמיים, אזי כל שאר איברי הסדרה גדולים ממש מאפס ולפיכך לפי טענה 3.13 האינפימום של הקבוצה הוא 0.
+	\end{proof}
+
+	\subsection*{סעיף ה}
+	יהי $\ell \in \NN$ הוכיחו שכמעט לכל $n$ מתקיים $n < \sqrt{n^2 + 2\ell} < n+1$
+	\begin{proof}
+		לכל $n > \ell$ נקבל:
+		\[
+			n^2 < n^2 + 2\ell < n^2 + 2n < (n+1)^2 \ontop{נוציא שורש}\Rightarrow
+			n < \sqrt{n^2 + 2\ell} < n+1
+		\]
+	\end{proof}
+
+	\subsection*{סעיף ו}
+	יהי $\ell \in \NN$ הוכיחו כי $\bm\lmf n(\sqrt{n^2 + 2\ell} - n) = \ell$.
+	\begin{proof}
+		\begin{align*}
+			n(\sqrt{n^2 + 2\ell} - n) &=
+			\frac{n(\sqrt{n^2 + 2\ell} - n)(\sqrt{n^2 + 2\ell} + n)}{\sqrt{n^2 + 2\ell} + n} =
+			\frac{n(n^2 + 2\ell - n^2)}{\sqrt{n^2 + 2\ell} + n} \\
+			&= \frac{n2\ell}{\sqrt{n^2 + 2\ell} + n} =
+			\frac{2\ell}{1 + \frac{\sqrt{n^2 + 2\ell}}{n}}
+		\end{align*}
+	נשתמש במשפט הסנדוויץ כדי למצוא את המכנה של השבר, בסעיך הקודם הוכחנו ש:
+	$n < \sqrt{n^2 + 2\ell} < n+1	$
+	מכאן ש $1 < \frac{\sqrt{n^2 + 2\ell}}{n} < 1 + \frac{1}{n}$
+	הגבול השמאלי קבוע ולכן $1$, והגבול הימני הוא $1 + 0 = 1$ ולפיכך לפי משפט הסנדוויץ גם האמצעי שווה לאחד. \\
+	עכשיו נמצא את הגבול:
+	\[
+		\lmf \frac{2\ell}{1 + \frac{\sqrt{n^2 + 2\ell}}{n}} = \frac{2\ell}{1 + 1} = \ell
+	\]
+	ובכך הוכחנו כי $\bm\lmf n(\sqrt{n^2 + 2\ell} - n) = \ell$
+	\end{proof}
+
+	\subsection*{סעיף ז}
+	היעזרו בטענת סעיף ו ע"מ להוכיח שכל מספר טבעי הינו גבול חלקי של $(a_n)$.
+	\begin{proof}
+		לצערי עוד מעט חצות ולא אספיק לפתור את הסעיף, אניח שהוא נכון ואשתמש בו בהמשך. \\
+		ואסיים לפתור אותו לאחר ההגשה, שיהיה	לילה טוב :) \\
+		(מקווה גם שלא היו לי יותר מידי טעויות כתיב כי לא היה לי זמן לעבור על העבודה אחרי שסיימתי)
+	\end{proof}
+
+	\subsection*{סעיף ח}
+	מצאו האם $(a_n)$ חסומה מלעיל.
+	\begin{proof}
+		עפ"י סעיף ז' כל מספר טבעי הוא גבול חלקי של $(a_n)$
+		ולכן לכל חסם מלעיל $M$ קיימת תת סדרה ש $M+1$ הוא גבולה, נוכל לפי הגדרת הגבול לבחור $\epsilon = 0.1$ וע"כ קיים $|a_n - M+1| < 0.1$ ולפי הגדרת הערך המוחלט $-0.1 < a_n - M+1 < 0.1$ ומכאן $M+0.9 < a_n < M + 1.1$ ולפיכך קיים $M < a_n$. ועל כן הסדרה לא חסומה מלעיל.
+	\end{proof}
+
+
+	\subsection*{סעיף ט}
+	חשבו את $\bm{\varlimsup_{n \to \infty}} a_n$.
+	\begin{proof}
+		הוכחנו בסעיף ח' כי הסדרה אינה חסומה מלעיל, ולפי שאלה 38 מתקבל שיש לה תת סדרה השואפת לאינסוף ולכן זה הגבול העליון שלה (כי אין באינפי גבול ה"גדול" מאינסוף)
+		$\bm{\varlimsup_{n \to \infty}} a_n = \infty$
+	\end{proof}
+
+	\subsection*{סעיף י}
+	קבעו האם קיימים סופרימום ומקסימום לקבוצה $\set{a_n | n \in \NN}$.
+	\begin{proof}
+		עפ"י הגדרה 3.7 לקבוצה שאינה חסומה מלעיל אין סופרימום.
+		וביחד עם הגדרה 3.8 לקבוצה גם אין מקסימום (אחרת היה לה סופרימום).
+	\end{proof}
+\end{document}
