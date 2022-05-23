@@ -1,0 +1,341 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the chA \mathcal{R} Acter \varnothing
+\usepackage{polyglossia}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+
+\title{אינפי 1 - ממ"ן 14}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+	\section*{שאלה 1}
+	יהיו $f$ ו $g$ פונקציות מ $\RR$ ל $\RR$ הוכיחו או הפריכו את הטענות הבאות:
+	\subsection*{סעיף א}
+	אם $f \circ g$ היא על $\RR$, אזי $f$ היא על $\RR$.
+	\begin{proof}
+		יהי $b \in \RR$ מכיוון ש $f \circ g$ היא על קיים $a \in \RR$ כך ש $b = f(g(a))$, ובגלל ש $g: \RR \to \RR$ אזי $c = g(a) \in \RR$ ולפיכך מצאנו $c \in \RR$ כך ש $b = f(c)$ ובכך הראינו, שלכל $b \in \RR$ קיים $c$ כך ש $b = f(c)$ ולכן $f$ היא על.
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	אם $f \circ g$ היא על, אזי $g$ היא על.
+	\begin{proof} \nl
+		הטענה אינה נכונה, לדוגמא:
+		$g(x) = \begin{cases}
+			x \text{  if } x > 0 \\
+			x-1 \text{  if } x \leq 0
+		\end{cases}$ ,
+		$f(x) = \begin{cases}
+			x \text{  if } x > 0 \\
+			x + 1 \text{ if } x \leq 0
+		\end{cases}$. \\
+	\begin{enumerate}
+		\item כאשר $x > 0$ נקבל $g(x) = x$ וכאשר $x \leq 0$ נקבל $g(x) = x-1$ ולכן \\
+		$(-1, 0]$ לא נמצא בתמונה של $g$, ולפיכך $g$ אינה על.
+		\item כאשר $x > 0$ נקבל $f(g(x)) = x$ וכאשר $x \leq 0$ נקבל $f(g(x)) = (x - 1) + 1 = x$ ולכן לכל $x \in \RR$ מתקיים $(f \circ g)(x) = x$ ולכן $f \circ g$ היא על.
+	\end{enumerate}
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	אם $f \circ g$ היא על ו $f$ היא חח"ע אזי $g$ היא על.
+
+	\begin{proof}
+	לפי הנתון וסעיף א נקבל ש $f$ היא חח"ע ועל, ולפיכך קיימת פונקציה $f^{-1}$ שהיא ההופכית של $f$ וגם היא חח"ע ועל. \\
+	ובנוסף נתון לנו ש $f \circ g$ היא על, ולכן לכל $b \in \RR$ קיים $c \in \RR$ ככה ש $b = f^{-1}(c)$, ובגלל ש $f \circ g$ היא על אז קיים $a \in \RR$ ככה ש $c = f(g(a))$,
+	ולכן $f^{-1}(c) = g(a) = b$ ולכן, לכל $b \in \RR$ קיים $a \in \RR$ המקיים $g(a) = b$ ולפיכך $g$ הינו על.
+	\end{proof}
+
+	\subsection*{סעיף ד}
+	אם $f \circ g$ היא מונוטונית עולה, אז $g$ היא מונוטונית.
+	\begin{proof}
+		$f(x) = g(x) = \begin{cases}
+			\frac{1}{x} \text{  if } x \neq 0 \\
+			0 \text{  if } x = 0
+		\end{cases}$
+		לפי שאלה 13 בספר, ראינו ש $g(x)$ מונוטונית יורדת בכל הקטע בה היא מוגדרת, ובגלל שהגדרנו את $x=0$ אזי הגדרנו את התחום שלה לכל $\RR$ כנדרש.
+		אבל היא כבר לא מונטונית יורדת , מכיוון ש $0 > -1$ ו $0 > \frac{1}{-1}$ $\Rightarrow$ $f(0) > f(-1)$ שזה עולה, למרות שבין איברים שאינם אפס הערך יורד כמו שרואים בשאלה 13. \\
+		אבל כאשר $x = 0$ נקבל $f(g(x)) = 0$ וכאשר $x \neq 0$ נקבל $f(g(x)) = \frac{1}{\frac{1}{x}} = x$ ולפיכך $(f \circ g)(x) = x$ לכל $x \in \RR$ וכידוע זו פונקציה מונוטונית עולה.
+	\end{proof}
+
+	\subsection*{סעיף ה}
+	אם $f \circ g$ היא מונוטונית עולה, ו $f$ היא מונוטונית יורדת, אזי $g$ היא מונוטונית יורדת
+	\begin{proof}
+		יהי $x_1, x_2 \in \RR$ בלי הגבלת הכלליות, נניח ש $x_1 > x_2$ לפי הנתון מתקבל ש $f(g(x_1)) > f(g(x_2))$,
+		יהי $y_1 = g(x_1), y_2 = g(x_2)$, בעקבות הנתון ש $f$ הינה מונוטונית יורדת, ובגלל ש $f(y_1) > f(y_2)$ מתקבל ש $y_1 < y_2$ ובעצם ש $g(x_1) < g(x_2)$ ובגלל ש $x_1 > x_2$ מתקבל ש $g$ מונוטונית יורדת.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 2}
+
+	\subsection*{סעיף א}
+	הוכיחו לפי הגדרת הגבול בנוסח קושי את הגבול: $\limf{x}{4}\sqrt{2x^2 - 7} = 5$
+	\begin{proof}
+		לכל $\varepsilon > 0$ נבחר $\delta = min\set{1, \frac{5\varepsilon}{18}} > 0$
+		כך שלכל $x$ המקיים $0 < |x - 4| < \delta$ נראה שמתקיים $\left| \sqrt{2x^2 - 7} - 5 \right| < \varepsilon$. \\
+		נתחיל בלהראות שהפונקציה מוגדרת בסביבה שבחרנו:
+		$|x-4| \leq 1 \Rightarrow 3 < x < 5$ ונראה ש $2 \cdot 3^2-7 = 47 > 0$ ולכן השורש מוגדר, והפונקציה מוגדרת בסביבה. \\
+		נשחק עם $\left| \sqrt{2x^2 - 7} - 5 \right| < \varepsilon$, נתחיל בלחלק בצמוד ששונה בהכרח מאפס (שורש הוא חיובי + 5).
+		\begin{align*}
+			\left| \sqrt{2x^2 - 7} - 5  \right| &=
+			\left| \frac{(\sqrt{2x^2 - 7} - 5)(\sqrt{2x^2 - 7} + 5)}{\sqrt{2x^2 - 7} + 5}  \right| =
+			\left| \frac{2x^2 - 32}{\sqrt{2x^2 - 7} + 5}  \right| \\
+			&= \left| \frac{2(x+4)(x-4)}{\sqrt{2x^2 - 7} + 5}  \right| =
+			 2|x-4| \frac{|x+4|}{|\sqrt{2x^2 - 7} + 5|} \ontop{(a)} <
+			 2|x-4| \frac{x+4}{5}
+		\end{align*}
+		ידוע לנו כי $|x-4| < \delta$ וגם ש $x < 5$ לכן נציב במה שקיבלנו:
+		\[
+			2|x-4| \frac{x+4}{5} <
+			2\cdot \frac{5\varepsilon}{18} \cdot \frac{5+4}{5} \leq \varepsilon
+		\]
+		והוכחנו ש $|f(x) - L| < \varepsilon$ כנדרש בהגדרת הגבול. \\
+		(a) - הראנו כבר שהמכנה חיובי,ובנוסף $x$ חיובי, ולכן ניתן להוריד את הערך המוחלט, ונקטין את המכנה ע"מ להגדיל את הערך
+	\end{proof}
+	\pagebreak
+	\subsection*{סעיף ב}
+	הוכיחו לפי הגדרת הגבול בלשון $\varepsilon, M$ את הגבול: $\bm\lmf{\frac{x+1}{\lfloor x \rfloor}} = 1$
+	\begin{proof}
+		הפונקציה מוגדרת לכל $x \neq 0$ ונסתכל על $x > 1$
+		$\left| \frac{x+1}{\lfloor x \rfloor} - 1 \right| < \varepsilon$,
+		מתכונות החלק השלם $x-1 \leq \lfloor x \rfloor$ ובגלל ש $x$ חיובי, אנו רואים כי $x+1>x-1$ ולכן המכנה תמיד גדול מהמונה, ולכן השבר כולו גדול מאחד והערך המוחלט כולו גדול מאפס.
+		ולפיכך:
+		\begin{align*}
+			&\frac{x+1}{x-1}-1 \leq \frac{x+1}{\lfloor x \rfloor} - 1 = \left|\frac{x+1}{\lfloor x \rfloor} - 1 \right| \\
+			&\frac{x+1}{x-1}-1 =
+			\frac{x-1+1+1}{x-1} -1 =
+			\frac{2}{x-1}
+		\end{align*}
+		ולכן, נגדיר $M = \frac{4}{\varepsilon} + 1$ ולכן לכל $x > M$ מתקיים: \\
+		\begin{align*}
+			\frac{2}{x-1} \ontop{(a)} < \frac{2}{\frac{4}{\varepsilon} + 1 - 1} \leq \frac{\varepsilon}{2} < \varepsilon
+		\end{align*}
+		(a) - הגדלת המכנה מקטינה את השבר.
+
+		ולפיכך הראינו שלכל $\varepsilon > 0$ קיים $M = \frac{4}{\varepsilon}+1$ כך שלכל $x > M > 1$ מתקיים $\left| \frac{x+1}{\lfloor x \rfloor} - 1 \right| < \varepsilon$ כנדרש לפי הגדרת הגבול.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 3}
+	\subsection*{סעיף א}
+	תהי $f$ פונקציה המוגדרת בקטע $(M_0, \infty)$.
+	נסטחו את הטענה "לא קיים ל $f$ גבול סופי כש $x \to \inf$": \\
+	\textbf{פתרון:}  לא קיים ל $f$ גבול סופי כש $x \to \infty$
+	\begin{enumerate}
+		\item בניסוח קושי: \\ אמ"מ קיים $\varepsilon > 0$ כך שלכל $M \in \RR$ קיים $x > M$ המקיים $|f(x)-L| \geq \varepsilon$.
+		\item בניסוח היינה: \\ אמ"מ קיימת סדרה: $\bm{(x_n)_{n=1}^\infty}$ המקיימת $\bm{\lmf x_n = \infty}$ כך ש $\bm{\lmf f(x_n) \not= L}$
+	\end{enumerate}
+
+	\subsection*{סעיף ב}
+	הוכיחו כי $L = \frac{1}{2}$ אינו הגבול של $f(x) = \ang{x}$ כש $x \to \infty$ בלשון קושי.
+	\begin{proof}
+		יהי $\varepsilon = \frac{1}{4}$, לכל $M \in \RR$ נגדיר $x = \lceil M \rceil + 1 > M$,
+		נראה ש $|\ang{x} - \frac{1}{2}| \geq \frac{1}{4}$: \\
+		$x$ הינו מספר שלם, ולכן לפי תכונת החלק השברי מתקיים $\ang{x} = 0$ ולכן:
+		\[
+			\left| \ang{x} - \frac{1}{2} \right| =
+			\left| 0 - \frac{1}{2} \right| =
+			\frac{1}{2} \geq \frac{1}{4}
+		\]
+		ובכך הוכחנו שחצי אינו הגבול של $f(x)$ כנדרש.
+	\end{proof}
+
+	\pagebreak
+
+	\subsection*{סעיף ג}
+	הוכיחו כי לא קיים ל $f(x) = \ang{x}$ גבול סופי כש $x \to \infty$ בשתי דרכים:
+	\begin{enumerate}
+		\item לפי הגדרת קושי:
+		\begin{proof}
+			לכל $L \in \RR, L \neq 0$ יהי $\varepsilon = \left| \frac{L}{2} \right|$, לכל $M \in \RR$ נגדיר $x = \lceil M \rceil + 1 > M$ ונראה ש $|\ang{x} - L| \geq \left| \frac{L}{2} \right|$: \\
+			$x$ הינו מספר שלם, ולכן לפי תכונות החלק השלם מתקיים $\ang{x} = 0$ ולכן:
+			\[
+				\left|0 - L \right| = |L| \geq \left| \frac{L}{2} \right|
+			\]
+			נוכיח בנפרד שאין גבול ב $L = 0$, יהי $\varepsilon = \frac{1}{4}$, לכל $M \in \RR$ נגדיר $x = \rceil M \rceil + \frac{1}{2} > M$ ונראה ש $|\ang{x} - 0| \geq \frac{1}{4}$: \\
+			$x$ הינו סכום של מספר שלם ושל חצי ולפיכך $\ang{x} = \frac{1}{2}$, ולכן:
+			\[
+			\left| \frac{1}{2} - 0 \right| = \frac{1}{2} \geq \frac{1}{4}
+			\]
+		\end{proof}
+
+		\item לפי הגדרת היינה אם קיימות 2 סדרות $(a_n), (b_n)$ המקיימות $\bm{\lmf a_n = \lmf b_n = \infty}$ אך $\bm{\lmf f(a_n) \neq \lmf f(b_n)}$ אזי אין ל $f$ גבול כאשר $x \to \infty$. \\
+		\begin{proof} \nl
+			תהי $(a_n) = n$ ולכן $\bm{\lmf a_n = \infty}$, ותהי $(b_n) = n + \frac{1}{3}$ \\
+			 ולכן $\bm{\lmf b_n = "\infty + \frac{1}{3}" = \infty}$. \\
+			לפי תכונת החלק השברי, לכל מספר שלם $\ang{n} = 0$ ולכן $\bm{\lmf f(a_n) = \lmf 0 = 0}$,
+			 ובנוסף לפי תכונת החלק השברי, לכל $n$ שלם מתקיים $\ang{n + \frac{1}{3}} = \frac{1}{3}$ \\
+			 ולכן $\bm{\lmf f(b_n) = \lmf \frac{1}{3} = \frac{1}{3}}$. \\
+			 אזי אין ל $f$ גבול כאשר $x \to \infty$.
+		\end{proof}
+	\end{enumerate}
+
+	\pagebreak
+	\section*{שאלה 4}
+	חשבו את הגבולות הבאים או הוכיחו שאינם קיימים:
+	\subsection*{סעיף א}
+	\[ \lim_{x \to 0} \frac{\tan 5x}{\sin 3x} \]
+	\begin{proof}
+		נגדיר סביבה נקובה $N^{*}_{\frac{\pi}{2}}(0)$, ועל כן ניתן לחלק בכפולות של $x$.
+		\[
+			\frac{\tan 5x}{\sin 3x} =
+			\frac{5x \frac{\tan 5x}{5x}}{3x \frac{\sin 3x}{3x}} =
+			\frac{5}{3} \cdot \frac{\frac{\tan 5x}{5x}}{\frac{\sin 3x}{3x}} =
+		\]
+
+		לפי שאלה 63 הגבול לכל $f(x)$ עם גבול ב $x \to 0$ ולכל $k \neq 0$ מתקיים $\bm{\lim_{x \to 0} f(x) = \lim_{x \to 0} f(kx)}$. \\
+		ולכן ביחד עם משפט 4.45 נקבל: $\bm{\lim_{x \to 0}\frac{\sin kx}{kx}} = 1$, וביחד עם שאלה 67 $\bm{\lim_{x \to 0}\frac{\tan kx}{kx}} = 1$ \\
+		ולכן בעזרת אריתמטיקה של גבולות וגבול פונקציה לינארית:
+		\[
+			\lim_{x \to 0}
+			\frac{5}{3} \cdot \frac{\frac{\tan 5x}{5x}}{\frac{\sin 3x}{3x}} =
+			\frac{5}{3} \cdot \frac{1}{1} = \frac{5}{3}
+		\]
+		לסיכום $\lim_{x \to 0} \frac{\tan 5x}{\sin 3x} = \frac{5}{3}$
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	\[ \lim_{x \to 0} \frac{\sqrt{\cos x} - \cos x}{x^2} \]
+	\begin{proof}
+		נסתכל על הסביבה הנקובה $N^{*}_{\frac{\pi}{2}}(0)$ ונקבל ש $\sqrt{\cos x} + \cos x > 0$(הנקודה שבה קוסינוס חוצה את ציר ה $x$). \\
+		ועכשיו נכפיל את המונה והמכנה בצמוד:
+		\begin{align*}
+			\frac{\sqrt{\cos x} - \cos x}{x^2} &=
+			\frac{(\sqrt{\cos x} - \cos x)(\sqrt{\cos x} + \cos x)}{x^2(\sqrt{\cos x} + \cos x)} =
+			\frac{(\cos x - \cos^2 x}{x^2(\sqrt{\cos x} + \cos x)} \\
+			&= \frac{-\cos x(\cos x - 1)}{x^2(\sqrt{\cos x} + \cos x)} =
+			\frac{-cos x}{\sqrt{\cos x} + \cos x} \cdot \frac{cos x - 1}{x^2}
+		\end{align*}
+		לפי שאלה 67 $\bm{\lim_{x \to 0}} \frac{\cos x -1}{x^2} = - \frac{1}{2}$.
+		לפי טענה 4.44 $\bm{\lim_{x \to 0}} \cos x = 1$,
+		ולפי שאלה 88 $\bm{\lim_{x \to 1}} \sqrt{x} = 1$
+		ובגלל שדיברנו על סביבה נקובה של $N^{*}_{\frac{\pi}{2}}(0)$ אזי $cos \neq 0$
+		ולכן מתקיימים שלשת התנאים של גבול פונקציית הרכבה, ולפיכך $\bm{\lim_{x \to 0}} \sqrt{\cos x} = 1$. \\
+		עכשיו נציב את הכל ונשתמש באריתמטיקה של גבולות:
+		\[
+			\bm{\lim_{x \to 0}}
+			\frac{-cos x}{\sqrt{\cos x} + \cos x} \cdot \frac{cos x - 1}{x^2} =
+			\frac{-1}{1 + 1} \cdot -\frac{1}{2} =
+			\frac{-1}{2} \cdot -\frac{1}{2} =
+			\frac{1}{4}
+		\]
+	\end{proof}
+	\subsection*{סעיף ג}
+	\[ \limf{x}{\infty} \frac{3x^5 - 5x^4 + x \cos x}{3x^2 - 5x^3 + x \sqrt{x}} \]
+	\begin{proof}
+		נוציא גורם משותף מהמונה והמכנה:
+		\begin{align*}
+			\frac{3x^5 - 5x^4 + x \cos x}{3x^2 - 5x^3 + x \sqrt{x}} =
+			\frac{x^5(3 - \frac{5}{x} + \frac{1}{x^4}\cos x)}{x^3(\frac{3}{x} - 5 + \frac{1}{x}\frac{1}{\sqrt{x}})} =
+			x^2\frac{3 - \frac{5}{x} + \frac{1}{x^4}\cos x}{\frac{3}{x} - 5 + \frac{1}{x}\frac{1}{\sqrt{x}}}
+		\end{align*}
+		הגבול הידוע של $\limf{x}{\infty}\frac{1}{x^4}=0$ ובנוסף $\cos x$ חסומה מלעיל ומלרע. ולכן לפי משפט 2.22 לפונקציות נקבל ש $\limf{x}{\infty}cos x \frac{1}{x^4} = 0$. \\
+		נפצל את הגבול ל2, החצי הראשון הינו גבול ידוע $\limf{x}{\infty}x^2 = \infty$ ובגבול השני נציב גבולות ידועים ונשתמש באריתמטיקה של הגבולות:
+		\[
+			\limf{x}{\infty}
+			\frac{3 - \frac{5}{x} + \frac{1}{x^4}\cos x}{\frac{3}{x} - 5 + \frac{1}{x}\frac{1}{\sqrt{x}}}
+			\frac{3 - 0 + 0}{0 - 5 + 0} =
+			\frac{-3}{5}
+		\]
+		וביחד נקבל:
+		\[
+			\limf{x}{\infty} \frac{3x^5 - 5x^4 + x \cos x}{3x^2 - 5x^3 + x \sqrt{x}} =
+			"\infty \cdot \frac{-3}{5}" = -\infty
+		\]
+	\end{proof}
+
+	\subsection*{סעיף ד}
+	\[ \limf{x}{0} \frac{x + \sin x}{x^2 + \sin^2 x} \]
+	\begin{proof}
+		נחלק את המונה והמכנה ב $x$ (סביבה נקובה של אפס ולכן $x \neq 0$)
+		\begin{align*}
+			\frac{x + \sin x}{x^2 + \sin^2 x} =
+			\frac{1 + \frac{\sin x}{x}}{x + \sin x \frac{\sin x}{x}}
+		\end{align*}
+		נתחיל בלמצוא גבול מימין, ז"א כאשר $x > 0$, נשתמש בגבולות ידועים, ובפרט בגבולות ממשפט 4.45 וטענה 4.44, יש לשים לב שהגבולות הם משני הצדדים, ובפרט מימין(נהפוך $0$ ל $0^+$ משפט 4.48).
+		נציב את הגבולות ממשפט 4.45 וטענה 4.44 ונעשה אריתמטיקה ע"מ למצוא גבול מימין,
+		\begin{align*}
+			\limf{x}{0^+}
+			\frac{1 + \frac{\sin x}{x}}{x + \sin x \frac{\sin x}{x}}  =
+			\frac{1 + 1}{0^+ + 0^+ \cdot 1}  = \frac{2}{0^+} = \infty
+		\end{align*}
+		נעשה את אותו הדבר בשביל גבול משמאל (נשתמש בגבולות לשני הצדדים, ונחליף את $0$ ב $0^-$ משפט 4.48):
+		\begin{align*}
+			\limf{x}{0^-}
+			\frac{1 + \frac{\sin x}{x}}{x + \sin x \frac{\sin x}{x}}  =
+			\frac{1 + 1}{0^- + 0^- \cdot 1}  = \frac{2}{0^-} = -\infty
+		\end{align*}
+		ניתן לראות כי הגבולות החד צדדים שונים, ולכן לפי 4.48 אין לפונקציה גבול בנקודה $x=0$
+	\end{proof}
+
+	\pagebreak
+
+	\subsection*{סעיף ה}
+	\[
+		\limf{x}{0} \lfloor \tan x \rfloor \cos x,
+		\limf{x}{\frac{\pi}{2}} \lfloor \tan x \rfloor \cos x
+	\]
+	\begin{proof}
+		נתחיל עם הגבול $\limf{x}{0} \lfloor \tan x \rfloor \cos x$.
+		נסתכל על הגבולות החד צדדיים, מצד ימין בסביבה $N_{\frac{\pi}{4}}(0^+)$ ולפי הגדרת החלק השלם, נקבל ש $\lfloor \tan x \rfloor = 0$ (בין 0 ל $\pi/4$ טנגנס נע בין 0 ל 1 )
+		ובעזרת אריתמטיקה של גבולות נקבל:
+		\begin{align*}
+			\limf{x}{0^+} 0^+ \cdot 1 = 0^+
+		\end{align*}
+		ומצד שמאל, בסביבה $N_{\frac{\pi}{4}}(0^-)$ ולפי הגדרת החלק השלם, נקבל ש $\lfloor \tan x \rfloor = -1$(בין $-\pi/4$ ל$0$ טנגנס נע בין $-1$ ל $0$).
+		וגם כאן נשתמש באריתמטיקה:
+		\begin{align*}
+			\limf{x}{0^-} -1 \cdot 1 = -1
+		\end{align*}
+		וקיבלנו 2 גבולות חד צדדים שונים, ולפי 4.48 מתקבל שאין לפונקציה גבול בנקודה ${x = 0}$.
+	\end{proof}
+	נוכיח את הגבול $\limf{x}{\frac{\pi}{2}} \lfloor \tan x \rfloor \cos x$. \\
+	 נפצל לשני צדדים, ונתחיל משמאל בסביבה הנקובה $N_{\frac{\pi}{2}}$ ולכן $\cos x > 0$.
+	מתכונות החלק השלם נקבל:
+	\begin{align*}
+		(\tan x -1) \cos x &< \lfloor \tan x \rfloor \cos x \leq \tan x \cos x \\
+		\cos x \tan x - \cos x &< \lfloor \tan x \rfloor \cos x \leq \tan x \cos x \\
+		\sin x - \cos x &< \lfloor \tan x \rfloor \cos x \leq \sin x
+	\end{align*}
+	נשתמש במשפט הסנדוויץ' ונחשב את גבולות שני הצדדים בעזרת שאלה 77 ואריתמטיקה:
+	$\limf{x}{\frac{\pi}{2}^-}\sin x - \cos x = 1 - 0 = 1$. \\
+	והצד השני:
+	$\limf{x}{\frac{\pi}{2}^-}\sin x = 1$ \\
+	ולפיכך לפי משפט הסנדוויץ' נקבל כי $\limf{x}{\frac{\pi}{2}^-} \lfloor \tan x \rfloor \cos x = 1$. \\
+
+	נסתכל על אותה סביבה נקודה אך מצד ימין, ולכן $\cos x < 0$ ומתכונות החלק השלם נקבל:
+	\begin{align*}
+		(\tan x -1) \cos x &> \lfloor \tan x \rfloor \cos x \geq \tan x \cos x \\
+		\cos x \tan x - \cos x &> \lfloor \tan x \rfloor \cos x \geq \tan x \cos x \\
+		\sin x - \cos x &> \lfloor \tan x \rfloor \cos x \geq \sin x
+	\end{align*}
+	וגם כאן נשתמש בסנדוויץ' ונקבל את אותן גבולות מכיוון שהן גבולות מלאים ויש לנו את 4.48.
+	ולכן $\limf{x}{\frac{\pi}{2}^+}\sin x - \cos x = 1$, ו- $\limf{x}{\frac{\pi}{2}^+}\sin x = 1$.
+	ולכן גם כאן נקבל בעזרת הסנדוויץ' $\limf{x}{\frac{\pi}{2}^+} \lfloor \tan x \rfloor \cos x = 1$. \\
+	וממשפט 4.48 נקבל $\limf{x}{\frac{\pi}{2}} \lfloor \tan x \rfloor \cos x = 1$
+\end{document}
