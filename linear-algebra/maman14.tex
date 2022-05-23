@@ -1,0 +1,479 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{polyglossia}
+\usepackage{fontspec}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\newfontface\niceee{Brush Script MT}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\newtheorem{lemma}{טענת עזר}
+\title{אלגברה לינארית - ממ"ן 14}
+\author{אליחי טורקל \ID}
+\date\today
+
+\DeclareFontFamily{OT1}{cmrx}{}
+\DeclareFontShape{OT1}{cmrx}{m}{n}{<->cmr10}{}
+\let\saveLongrightarrow\Longrightarrow
+\makeatletter
+\renewcommand*{\Longrightarrow}{%
+    \mathrel{\rlap{\fontfamily{cmrx}\fontencoding{OT1}\selectfont=}%
+    \hphantom{\saveLongrightarrow}%
+    \llap{$\m@th\Rightarrow$}}}
+\makeatother
+
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+	\section*{שאלה 1}
+	\subsection*{סעיף א}
+	\begin{proof}
+		נבדוק האם קיים צירוף לינארי לא טריוויאלי המקיים: \\
+		 $\alpha_1 x \cos x + \alpha_2 \cos x + \alpha_3 \sin x = 0$, כאשר $\alpha_i \in \RR$. \\
+		צירוף זה צריך להתקיים לכל $x \in \RR$ ובפרט בעבור:
+		\begin{enumerate}
+			\item $x = 0$, ונציב במשוואה ונקבל: $\alpha_2 = 0$
+			\item $x = \pi$ נציב במשוואה ונקבל: $-\alpha_1\pi - \alpha_2$ נציב $\alpha_2 = 0$, נחלק ב $-\pi$ ונקבל: $\alpha_1 = 0$.
+			\item $x = \frac{\pi}{2}$ נציב ונקבל: $\alpha_3 = 0$.
+		\end{enumerate}
+		ולפיכך בהכרח כל המקדמים שווים ל0 ולכן אין צירוף לינארי לא טרוויאלי השווה לאפס, ולכן הקבוצה היא בת"ל.
+	\end{proof}
+	\subsection*{סעיך ב}
+	נבדוק האם קיים צירוף לינארי לא טריוויאלי המקיים: \\
+	 $\alpha_1 (x-1)(x-2) + \alpha_2 x(x-2) + \alpha_3 x(x-1) = 0$, כאשר $\alpha_i \in \RR$. \\
+	נקבץ מקדמים:
+	\begin{align*}
+		\alpha_1 (x-1)(x-2) + \alpha_2 x(x-2) + \alpha_3 x(x-1) &= \\
+		&= \alpha_1 (x^2-3x+2) + \alpha_2 (x^2-2x) + \alpha_3 (x^2-x) \\
+		&=(\alpha_1 + \alpha_2 + \alpha_3)x^2 - (3\alpha_1 + 2\alpha_2 + \alpha_3)x + 2\alpha_1
+	\end{align*}
+	נשווה את המקדמים למקדמי וקטור האפס ונקבל:
+	\begin{alignat}{2}
+		\alpha_1 + \alpha_2 + \alpha_3 &= 0 \label{eq:1} \\
+		3\alpha_1 + 2\alpha_2 + \alpha_3 &= 0 \label{eq:2} \\
+		2\alpha_1 &= 0 \Rightarrow \alpha_1 = 0 \label{eq:3} \\
+		\alpha_2 = -\alpha_3
+		&&\big\backslash \ref{eq:1} \text{ ב } \ref{eq:3} \text{ נציב את } \label{eq:4} \\
+		0 - 2\alpha_3 + \alpha_3 = 0 \Rightarrow \alpha_3 = 0
+		&&\big\backslash \ref{eq:2} \text{ ב }  \ref{eq:4}, \ref{eq:3} \text{ נציב את }  \label{eq:5} \\
+		0 + \alpha_2 + 0 = 0 \Rightarrow \alpha_2 = 0
+		&&\big\backslash \ref{eq:1} \text{ ב }  \ref{eq:5}, \ref{eq:3} \text{ נציב את }
+	\end{alignat}{2}
+	ולפיכך אנו רואים כי שלשת המקדמים בהכרח שווים לאפס, ולכן אין פתרון לא טריוויאלי, ולכן הקבוצה היא בת"ל.
+
+	\subsection*{סעיף ג}
+	נבדוק האם קיים צירוף לינארי לא טריוויאלי המקיים: \\
+	$\alpha_1 \cdot 3 + \alpha_2 \cdot \cos^2 x + \alpha_3 \sin^2 x = 0$ כאשר $\alpha_i \in \RR$. \\
+	מתוך הזהות הידועה: $\cos^2 x + \sin^2 x = 1$ נראה שמתקבל: $3 = 3(\cos^2 x + \sin^2 x) \Rightarrow h(x) = 3(g(x) + f(x)) = 3g(c) + 3f(x)$. \\
+	מכאן נובע שהקבוצה תלויה לינארית.
+
+
+	\section*{שאלה 2}
+	\subsection*{סעיף א}
+	נוכיח ש $W$ היא תת מרחב של $M_{2 \times 2}(\ZZ/5\ZZ)$ בעזרת משפט 7.3.2:
+	\begin{enumerate}
+		\item $W \neq \emptyset$ למשל מטריצת האפס מקיימת $2a+3b=c$ ולכן נמצאת ב $W$.
+		\item לכל זוג וקטורים במרחב: $\begin{pmatrix}
+			a_1 & b_1 \\
+			c_1 & d_1
+		\end{pmatrix}$, $\begin{pmatrix}
+			a_2 & b_2 \\
+			c_2 & d_2
+		\end{pmatrix}$
+		סכומם יהיה $\begin{pmatrix}
+			a_1 + a_2 & b_1 + b_2 \\
+			c_1 + c_2 & d_1 + d_2
+		\end{pmatrix}$. \\
+		מכיוון ששניהם בקבוצה מתקיים: ככה ש $2a_1+3b_1=c_1$ וגם $2a_2 + 3b_2 = c_2$.
+		אם נסכם את שתי המשוואות נקבל שמתקיים: $2(a_1+a_2) + 3(b_1+b_2) = c_1 + c_2$
+		שזה בדיוק התנאי הנדרש ע"מ שמטריצת הסכום תהיה במרחב. \\
+		ולכן סכום של כל 2 וקטורים בקבוצה נמצא בקבוצה. \\
+		\item יהי וקטור מהמרחב: $\begin{pmatrix}
+			a_1 & b_1 \\
+			c_1 & d_1
+		\end{pmatrix}$
+		אם נכפיל אותו בסקלאר $\alpha$ נקבל: $\begin{pmatrix}
+			\alpha a_1 & \alpha b_1 \\
+			\alpha c_1 & \alpha d_1
+		\end{pmatrix}$
+		ומכיוון שהוא בקבוצה מתקיים $2a_1+3b_1=c_1$ אם נכפיל את המשוואה גם ב $\alpha$ נראה שמתקיים
+		$2 \alpha a_1 + 3 \alpha b_1= \alpha c_1$ שזה בדיוק התנאי הנדרש מהמטריצה שקיבלנו לאחר הכפל בסקלאר. \\
+		ולכן כפל וקטור בסקלאר מתקיים בקבוצה.
+	\end{enumerate}
+	ולפיכך מתקבל ש $W$ הינו תת מרחב לינארי. \\
+	בקבוצה $U$ נראה ששלשת הוקטורים בקבוצה הפורסת נמצאות כולן ב $M_{2 \times 2}(\ZZ/5\ZZ)$ ולכן לפי משפט 7.5.1 מתקבל שהקבוצה הנפרסת ע"י הוקטורים הנ"ל היא תת מרחב של $M_{2 \times 2}(\ZZ/5\ZZ)$.
+
+	\pagebreak
+	\subsection*{סעיף ב}
+
+	\begin{enumerate}
+		\item \textbf{בסיס ל U}: 	נתחיל בלסמן את המטריצות: \\
+		$M_1 = \begin{pmatrix}
+			1 & 0 \\
+			3 & 0
+		\end{pmatrix}$,
+		$M_2 = \begin{pmatrix}
+			2 & 1 \\
+			3 & 1
+		\end{pmatrix}$,
+		$M_3 = \begin{pmatrix}
+			1 & 4 \\
+			1 & 4
+		\end{pmatrix}$
+		נחשב את הקאורדינטות של המטריצות מעל הבסיס הסטנדרטי $B$: \\
+		$[M_1]_B^t = (1,0,3,0)$, $[M_2]_B^t = (2,1,3,1)$, $[M_3]_B^t = (1,4,1,4)$
+		עכשיו נציב את הוקטורים האלה כוקטורי שורה במטריצה, ונדרג אותה:
+		\begin{align*}
+			\begin{pmatrix}
+				1 & 0 & 3 & 0 \\
+				2 & 1 & 3 & 1 \\
+				1 & 4 & 1 & 4
+			\end{pmatrix} \overset{R_3=R_3-R_1}{\underset{R_2=R_2-2R_1}\Rightarrow}
+			\begin{pmatrix}
+				1 & 0 & 3 & 0 \\
+				0 & 1 & 2 & 1 \\
+				0 & 4 & 3 & 4
+			\end{pmatrix} \overset{R_3 = R_3 + R_2}\Rightarrow
+			\begin{pmatrix}
+				1 & 0 & 3 & 0 \\
+				0 & 1 & 2 & 1 \\
+				0 & 0 & 0 & 0
+			\end{pmatrix}
+		\end{align*}
+		לפי שורת האפסים אנו רואים שקבוצת הקואורדינטות תלויה לינארית, ולפי משפט 8.4.4 מתקבל שהקבוצה הפורסת תלויה לינארית
+		ולפי למה 8.5.1 מתקבל שהשורות שאינן שורות האפס מהוות בסיס למרחב הנפרס, ולכן אנו מקבלים את הבסיס הבא:
+		$\set{\begin{pmatrix}
+			1 & 0 \\
+			3 & 0
+		\end{pmatrix}
+		\begin{pmatrix}
+			0 & 1 \\
+			2 & 1
+		\end{pmatrix}}$
+		ומכיוון שיש 2 וקטורים בבסיס אזי המימד של המרחב הינו 2.
+
+		\item \textbf{בסיס ל W:}
+		לפי הגדרת הקבוצה אפשר להציג אותה כצירוף לינארי מהצורה:
+		\[ a\begin{pmatrix}
+			1 & 0 \\
+			2 & 0 \\
+		\end{pmatrix} + b \begin{pmatrix}
+			0 & 1 \\
+			3 & 0
+		\end{pmatrix} + d \begin{pmatrix}
+			0 & 0 \\
+			0 & 1
+		\end{pmatrix} =
+		\begin{pmatrix}
+			a & b \\
+			2a + 3b & d
+		\end{pmatrix} \]
+		ובעצם קיבלנו קבוצה פורסת: $Span(\set{\begin{pmatrix}
+			1 & 0 \\
+			2 & 0 \\
+		\end{pmatrix}, \begin{pmatrix}
+			0 & 1 \\
+			3 & 0
+		\end{pmatrix}, \begin{pmatrix}
+			0 & 0 \\
+			0 & 1
+		\end{pmatrix}})$ \\
+		נחשב את הקאורדינטות של הוקטורים בקבוצה הפורסת מעל הבסיס הסטנדרטי $B$ ונציב אותם כוקטורי שורות במטריצה ונקבל:
+		$\begin{pmatrix}
+			1 & 0 & 2 & 0 \\
+			0 & 1 & 3 & 0 \\
+			0 & 0 & 0 & 1
+		\end{pmatrix}$
+		וקיבלנו מטריצת מדרגות ללא שורות אפסים. ולכן היא בת"ל, ולפי משפט 8.4.4 מתקבל שהקבוצה הפורסת היא בת"ל ולפי למה 8.5.1 היא מהווה בסיס למרחב. \\
+		ומכיוון שיש בבסיס 3 וקטורים, מתקבל שהמרחב הוא במימד 3.
+	\end{enumerate}
+
+	\subsection*{סעיף ג}
+	ע"מ למצוא בסיס ל $U \cap W$ נבדוק מתי הצירופים הלינארים של הבסיס של $U$ עומד בתנאים של $W$
+	לשם כך אנו צריכים שהמשוואה הבאה תתקיים: \\
+	$\alpha_1 \begin{pmatrix}
+		1 & 0 \\
+		3 & 0
+	\end{pmatrix} + \alpha_2 \begin{pmatrix}
+		0 & 1 \\
+		2 & 1
+	\end{pmatrix} =
+	\begin{pmatrix}
+		a & b \\
+		2a + 3b & d
+	\end{pmatrix}$
+	מכאן לפי חיבור מטריצות אנו מקבלים 4 משוואות:
+	\begin{align} \setcounter{equation}{0}
+		\alpha_1 = a \label{eq2:1}\\
+		\alpha_2 = b \label{eq2:2}\\
+		3\alpha_1 + 2\alpha_2 = 2a + 3b \label{eq2:3}\\
+		\alpha_2 = d
+	\end{align}
+	אם נציב ב \ref{eq2:3} את השוויונות שקיבלנו ב \ref{eq2:1}, \ref{eq2:2} נקבל ש $a=b$ ולכן $\alpha_1= \alpha_2$ מכאן ש $c=5a=0$ בגלל שאנחנו מעל $\ZZ/5\ZZ$. \\
+	ולכן אם נציב את התנאים חזרה במשוואה נקבל את המטריצה $\begin{pmatrix}
+		a & a \\
+		0 & a
+	\end{pmatrix}$ או בעצם את הצירוף הלינארי $a \begin{pmatrix}
+		1 & 1 \\
+		0 & 1
+	\end{pmatrix}$ ובכך מצאנו קבוצה פורסת למרחב $U \cap W$ שהיא: $\set{\begin{pmatrix}
+		1 & 1 \\
+		0 & 1
+	\end{pmatrix}}$ והיא בת"ל (מכיוון שזה וקטור יחיד ושונה מאפס) ולכן היא בסיס ל $U \cap W$ והמימד הוא 1.
+
+	\subsection*{סעיף ד}
+	כן. מכיוון שלפי משפט 8.3.6 מתקיים: \\
+	$dim(U + W) = dim(U) + dim(W) - dim(U \cap W) = 2+3-1=4$ \\
+	ובנוסף $dim(M_{2\times2}(\ZZ/5\ZZ))=4$ ולפי משפט 8.3.6 מכיוון ש $U,W$ הם תת מרחבים של $M_{2\times2}(\ZZ/5\ZZ)$
+	ובנוסף $dim(M_{2\times2}(\ZZ/5\ZZ)) = dim(U) + dim(W)$ אזי מתקיים $M_{2\times2}(\ZZ/5\ZZ) = U \oplus W$ ולפי הגדרה 7.7.1 מתקיים $M_{2\times2}(\ZZ/5\ZZ) = U+W$ כנדרש.
+
+
+	\subsection*{סעיף ה}
+	מכיוון ש $dim(U) = 2$ ו $dim(M_{2\times2}(\ZZ/5\ZZ)) = 4$ חסרים 2 וקטורים בבסיס,
+	נשים לב כי בוקטורי הבסיס של $U$ שתי האיברים בעמודה השניה תלויים זה בזה, וגם האיבר בעמודה הראשונה, שורה שניה תלוי תמיד באיברים אחרים.
+	ולכן נגדיר  \\
+	$T = Span(\set{\begin{pmatrix}
+		0 & 1 \\
+		0 & 0
+	\end{pmatrix}, \begin{pmatrix}
+		0 & 0 \\
+		1 & 0
+	\end{pmatrix}})$.
+	נסתכל על איחוד הקבוצות הפורסות: \\
+	$U \cup T = \set{\begin{pmatrix}
+		1 & 0 \\
+		3 & 0
+	\end{pmatrix}, \begin{pmatrix}
+		0 & 1 \\
+		2 & 1
+	\end{pmatrix}, \begin{pmatrix}
+		0 & 1 \\
+		0 & 0
+	\end{pmatrix}, \begin{pmatrix}
+		0 & 0 \\
+		1 & 0
+	\end{pmatrix}}$ נציב את הקאורדינטות שלהם מעל הבסיס הסטנדרטי כוקטורי שורה במטריצה:
+	\[
+	\begin{pmatrix}
+		1 & 0 & 3 & 0 \\
+		0 & 1 & 2 & 1 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0
+	\end{pmatrix} \overset{R_1 = R_1 - 3R_4}{\underset{R_2 = R_2 - 2R_4 - R_3}\Rightarrow}
+	\begin{pmatrix}
+		1 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 1 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0
+	\end{pmatrix} R_2 \Leftrightarrow R_3. \begin{pmatrix}
+		\cdots
+	\end{pmatrix} R_3 \Leftrightarrow R_4
+	\begin{pmatrix}
+		1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 1
+	\end{pmatrix}
+	\]
+	ומכאן אנו רואים כמה דברים: הקבוצה הינה בת"ל ולכן היא בסיס, ומכיוון שיש לה 4 מימדים אזי היא שווה ל $M_{2\times2}(\ZZ/5\ZZ)$, ובנוסף אם נפרק את מטריצת הקואורדינטות שקיבלנו חזרה לוקטורים נקבל את הבסיס הסטנדרטי, ולכן הקבוצה הפורסת שלנו שקולה לבסיס הסנדרטי ומכאן ש $T \oplus U = M_{2\times2}(\ZZ/5\ZZ)$
+
+
+	\pagebreak
+	\section*{שאלה 3}
+	נניח בשלילה כי $v_1 \in Span(\set{v_1+w, \dots, v_k + w})$ ולכן ישנו צירוף לינארי המקיים:
+	\begin{align*}
+		&v_1 = \sum_{i=1}^k \alpha_i (v_i + w) =
+		\sum_{i=1}^k (\alpha_i v_i) + \sum_{i=1}^k (\alpha_i)w \Rightarrow \\
+		\Rightarrow
+		&\sum_{i=1}^k (\alpha_i)w  = \sum_{i=1}^k (\alpha_i v_i) - v_1 =
+		(\alpha_1 - 1)v_1 + \sum_{i=2}^k (\alpha_i v_i)
+	\end{align*}
+	אם $\sum_{i=1}^k \alpha_i = 0$ אזי האגף הימני שווה לאפס ומיכוון שנתון לנו ש $\set{v_i}$ בת"ל אזי הפתרון היחיד לצירוף לינארי ששווה לאפס הוא הטריוויאלי ולכן $\alpha_1 = 1$ ו $\forall \alpha_i=0$ אבל אז נראה ש $\sum_{i=1}^k \alpha_i =1$ בסתירה. ולכן $\sum_{i=1}^k \alpha_i \neq 0$ ונוכל לחלק בו:
+	\begin{align*}
+		w = \frac{1}{\sum_{i=2}^k \alpha_i}((\alpha_1 - 1)v_1 + \sum_{i=2}^k (\alpha_i v_i)) =
+		\frac{\alpha_1 - 1}{\sum_{i=2}^k \alpha_i}v_1 + \dots + \frac{\alpha_k}{\sum_{i=2}^k \alpha_i}v_k
+	\end{align*}
+	ובעצם קיבלנו צירוף לינארי של $\set{v_i}$ שנותן לנו את $w$ בסתירה עם הנתון ש  \\ $w \not\in Span(\set{v_1, v_2 \dots, v_k})$.
+	ולכן בהכרח מתקיים: \\ $v_1 \not\in Span(\set{v_1 + w, v_2 + w, \dots, v_k + w})$.
+
+
+	\pagebreak
+	\section*{שאלה 4}
+	\subsection*{סעיף א}
+	מכיוון שאותם מקדמי $a_{ij}$ נמצאים בצד השמאלי והימני של המשוואות אזי מתקבל פתרון מהספרות שנתונות, ובשלושת המשוואות נקבל את אותו הוקטור $(1, -2, 0)$. \\
+	ומכיוון שמצאנו יותר מפתרון אחד, אזי שיש לפחות משתנה אחד חופשי ולכן ישנם אינסוף פתרונות. \\
+	ומכיוון שיש לנו משתנה חופשי אזי $A$ אינה הפיכה ולכן לפי 3.10.2 יש פתרונות ל $Ax=0$ מעבר לפתרון הטריוויאלי,
+	ולכן משאלה 3.7.1 מתקבל שחיסור 2 הפתרונות שהוא: $(0,2,1)$ הוא פתרון למערכת $Ax=0$ ולכן מימד מרחב הפתרונות(שאותו נסמן $P(A)$) הינו לפחות 1 (מכיוון שהמרחב מכיל וקטור שאינו וקטור האפס). \\
+	ולפי 8.3.6 מתקבל ש $dim(P(A)) = 3 - \rho(A)$ ובגלל ש $dim(P(A)) > 0$ נקבל ש $\rho(A) < 3$ ומכיוון שנתון ש $\rho(A) \neq 1$ ובנוסף מכיוון שיש פתרונות לא טריוויאלים אזי יש לפחות שורה אחת שאינה אפס ולכן לפי למה 8.5.1 נקבל $\rho(A) > 0$
+	אם נצרף את 3 התנאים נקבל שבהכרח $\rho(A)=2$.
+
+	\subsection*{סעיף ב}
+	נציב את הדרגה של $A$ במשפט 8.6.1 ונקבל $dim(P(A)) = 3 - 2 = 1$ ולכן הבסיס מכיל וקטור יחיד ומכיוון שיש לנו כבר וקטור פתרון, ווקטור יחיד השונה מאפס הוא בהכרח בת"ל אזי הוא הבסיס. ולכן \\
+	$\set{(0,2,1)}$ פורס את מרחב הפתרונות של המערכת.
+
+	\subsection*{סעיף ג}
+	לפי שאלה 3.7.1, מכיוון שהמערכת היא מעל $\RR$ נגדיר $c_0 = (1,0,1)$, $d \in Span(\set{0,2,1})$ ונקבל שהפתרון הכללי הוא כל הקומבינציות של $c_0 + d$ או במילים אחרות: \\
+	$\set{(1,0,1) + \alpha (0,2,1) | \alpha \in \RR}$
+
+	\pagebreak
+	\section*{שאלה 5}
+	נשתמש בלמה 3.4.3 ע"מ לקבל את מערכת משוואות:
+	\begin{align*}
+		BA[B]^c_1 = 0 \\
+		BA[B]^c_2 = 0 \\
+		\cdots \\
+		BA[B]^c_n = 0 \\
+	\end{align*}
+	נסמן את מרחב הפתרון של המערכת $BA \cdot x = 0$ ב $P(BA)$. \\
+	ולפי משפט 8.6.1 $dim(P(BA)) = n - \rho(BA)$ \\
+	ולפי שאלה 8.5.7 מכיוון ש $A$ הפיכה נקבל $\rho(BA) = \rho(B)$ \\
+	 ולפי משפט 7.5.1 נקבל ש $Sp \set{[B]^c_i} \subseteq P(BA)$. \\
+	ולפי משפט 8.3.4 נקבל ש $dim(Sp \set{[B]^c_i}) \leq dim(P(BA))$ \\
+	 ולפי הגדרת הדרגה $dim(Sp \set{[B]^c_i}) = \rho(B)$. \\
+	 נחבר ביחד את כל השוויונות לאי שוויון אחד גדול \\
+	 $\rho(B) \leq dim(Sp \set{[B]^c_i}) \leq dim(P(BA)) \leq n - \rho(BA) \leq n - \rho(B)$ \\
+	 ניקח את הקצוות שלו: $\rho(B) \leq n - \rho(B)$ ומכאן $\rho(B) \leq \frac{n}{2}$.
+
+
+	 \section*{שאלה 6}
+	 \subsection*{סעיף א}
+	 נפתח את $B$ ע"מ לקבל את הוקטורים בקבוצה: \\
+	 $B = (1, 1 + x + x^2 + x^3, 1 - x + x^2 - x^3, 1 + 2x + 4x^2 + 8x^3)$.
+	 נציב את הקואורדינטות של הוקטורים ביחס לבסיס הסטנדרטי של $\RR_4[x]$ כוקטורי שורה במטריצה:
+	 \begin{align*}
+		&\begin{pmatrix}
+			 1 & 0 & 0 & 0 \\
+			 1 & 1 & 1 & 1 \\
+			 1 & -1 & 1 & -1 \\
+			 1 & 2 & 4 & 8
+		 \end{pmatrix} \overset{R_2 = R_2 - R_1}{\underset{\substack{R_3 = R_3 - R_1 \\ R_4 = R_4 - R_1}}\Rightarrow}
+		 \begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 1 & 1 \\
+			0 & -1 & 1 & -1 \\
+			0 & 2 & 4 & 8
+		\end{pmatrix} \overset{R_3 = R_3 + R_2}{\underset{R_4 = R_4 - 2R_2}\Rightarrow}
+		\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 1 & 1 \\
+			0 & 0 & 2 & 0 \\
+			0 & 0 & 2 & 6
+		\end{pmatrix} \\ \overset{R_3 = R_3 / 2}{\Rightarrow}
+		&\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 1 & 1 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 2 & 6
+		\end{pmatrix} \overset{R_4 = (R_4 - 2R_3)/6}{\Rightarrow}
+		\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 1 & 1 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 1
+		\end{pmatrix} \overset{R_2 = R_2 - R_3 - R_4}{\Rightarrow}
+		\begin{pmatrix}
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 1
+		\end{pmatrix}
+	\end{align*}
+	ומכאן קיבלנו שהקבוצה בת"ל והמימד שלה הוא 4 והיא שקולה לבסיס הסטנדרטי של $\RR_4[x]$.
+
+	\subsection*{סעיף ב}
+	מתוך הנתון נפתח את הצירוף הלינארי:
+	\begin{align*}
+		q(x) &= 1 \cdot (1) + (-1) \cdot (1 + x + x^2 + x^3) + 1 \cdot (1 - x + x^2 - x^3) + (-2) \cdot (1 + 2x + 4x + 8x^3)  \\
+		&= 1 - 1 - x - x^2 - x^3 + 1 - x + x^2 - x^3 - 2 - 4x -8x^2 - 16x^3 \\
+		&= - 1 - 6x - 8x^2 - 18x^3
+	\end{align*}
+
+	\subsection*{סעיף ג}
+	אנו בעצם מחפשים פתרון למשוואה הבאה:
+	\[
+	\alpha_1 \cdot 1 + \alpha_2 (1 + x + x^2 + x^3) + \alpha_3 (1 - x + x^2 - x^3) + \alpha_4(1 + 2x + 4x^2 + 8x^3) =
+	2 - x^2 + x^3
+	\]
+	נקבץ מקדמים ונקבל:
+	\[
+	(\alpha_1 + \alpha_2 + \alpha_3 + \alpha_4)1 + (\alpha_2 - \alpha_3 + 2\alpha_4)x
+	+ (\alpha_2 + \alpha_3 + 4\alpha_4)x^2 + (\alpha_2 - \alpha_3 + 8\alpha_4)x^3
+	= 2 - x^2 + x^3
+	\]
+	ובעצם קיבלנו 4 משוואות עם 4 נעלמים:
+	\begin{alignat}{7}
+		\alpha_1 & + & \alpha_2 & + & \alpha_3 & + & \alpha_4 &= 2 \\
+		&& \alpha_2 & - & \alpha_3 & + & 2\alpha_4 &= 0 \\
+		&& \alpha_2 & + & \alpha_3 & + & 4\alpha_4 &= -1 \\
+		&& \alpha_2 & - & \alpha_3 & + & 8\alpha_4 &= 1
+	\end{alignat}
+	נציב את המקדמים כשורות במטריצה:
+	\begin{align*}
+		\left( \begin{array}{cccc|c}
+			1 & 1 & 1 & 1 & 2 \\
+			0 & 1 & -1 & 2 & 0 \\
+			0 & 1 & 1 & 4 & -1 \\
+			0 & 1 & -1 & 8 & 1
+		\end{array} \right) \overset{R_2 = R_2 + R_3}{\underset{R_4 = R_4 + R_3}\Rightarrow}
+		&\left( \begin{array}{cccc|c}
+			1 & 1 & 1 & 1 & 2 \\
+			0 & 2 & 0 & 6 & -1 \\
+			0 & 1 & 1 & 4 & -1 \\
+			0 & 2 & 0 & 12 & 0
+		\end{array} \right) \overset{R_4 = R_4 - R_2}{\underset{R_3 = R_3 - 0.5R_2}\Rightarrow}
+		\left( \begin{array}{cccc|c}
+			1 & 1 & 1 & 1 & 2 \\
+			0 & 2 & 0 & 6 & -1 \\
+			0 & 0 & 1 & 1 & -0.5 \\
+			0 & 0 & 0 & 6 & 1
+		\end{array} \right) \\ \overset{R_2 = 0.5R_2}{\underset{R_4 = R_4/6}\Rightarrow}
+		&\left( \begin{array}{cccc|c}
+			1 & 1 & 1 & 1 & 2 \\
+			0 & 1 & 0 & 3 & -0.5 \\
+			0 & 0 & 1 & 1 & -0.5 \\
+			0 & 0 & 0 & 1 & \frac{1}{6}
+		\end{array} \right) \overset{R_2 = R_2 - 3R_4}{\underset{R_3 = R_3 - R_4}\Rightarrow}
+		\left( \begin{array}{cccc|c}
+			1 & 1 & 1 & 1 & 2 \\
+			0 & 1 & 0 & 0 & -1 \\
+			0 & 0 & 1 & 0 & -\frac{2}{3} \\
+			0 & 0 & 0 & 1 & \frac{1}{6}
+		\end{array} \right) \\ \overset{R_1 = R_1 - R_2 - R_3 - R_4}{\Rightarrow}
+		&\left( \begin{array}{cccc|c}
+			1 & 0 & 0 & 0 & \frac{7}{2} \\
+			0 & 1 & 0 & 0 & -1 \\
+			0 & 0 & 1 & 0 & -\frac{2}{3} \\
+			0 & 0 & 0 & 1 & \frac{1}{6}
+		\end{array} \right)
+	\end{align*}
+	ולכן קיבלנו: $\alpha_1 = \frac{7}{3}, \alpha_2 = -1, \alpha_3 = -\frac{2}{3}, \alpha_4 = \frac{1}{6}$ \\
+	ומכיוון שאלו המקדמים של הצירוף נובע ש: $[r(x)]_B = \begin{pmatrix}
+		\frac{7}{2} \\
+		-1 \\
+		 -\frac{2}{3} \\
+		 \frac{1}{6}
+	\end{pmatrix}$.
+\end{document}
