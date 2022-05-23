@@ -1,0 +1,293 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage{centernot}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the chA \mathcal{R} Acter \varnothing
+\usepackage{polyglossia}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+
+\title{אינפי 1 - ממ"ן 15}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+	\section*{שאלה 1}
+	מצאו את נקודות הרציפות והאי רציפות של הפונקציה
+	$f(x) = \lfloor \cos x \rfloor cos \frac{x}{2}$
+	בקטע $(-\pi, \frac{3}{2}\pi)$ ומיינו את נקודות האי רציפות. \\
+	\begin{proof}
+		$\cos x$ הינה פונקציה רציפה, אך לפי שאלה 5.4 $\lfloor x \rfloor$ הינה פונקציה רציפה בכל $x$ שאינו שלם.
+		ולכן נסתכל על נקודות בתחום בהן $\cos x$ שלם: $\set{-\frac{\pi}{2}, 0, \frac{\pi}{2}, \pi}$. \\
+		\begin{enumerate}
+			\item $x = - \frac{\pi}{2}$ בסביבה ימנית של $N^{*}_{\frac{\pi}{4}^+}(-\frac{\pi}{2})$ נקבל $\flr{\cos x} = 0$ ולכן:
+			\[
+				\limf{x}{-\frac{\pi}{2}^+} \flr{\cos x} \cos \frac{x}{2} =
+				\limf{x}{-\frac{\pi}{2}^+} 0 \cdot \cos \frac{x}{2} \ontop{(a)}=
+				0 \cdot \cos - \frac{\pi}{4} = 0
+			\]
+			בסביבה שמאלית של $N^{*}_{\frac{\pi}{4}^-}(-\frac{\pi}{2})$
+			נקבל $\flr{\cos x} = -1$ ולכן:
+			\[
+				\limf{x}{-\frac{\pi}{2}^-} \flr{\cos x} \cos \frac{x}{2} =
+				\limf{x}{-\frac{\pi}{2}^-} (-1) \cdot \cos \frac{x}{2} \ontop{(a)}=
+				-1 \cdot \cos - \frac{\pi}{4} = - \frac{1}{\sqrt{2}}
+			\]
+			ומכיוון שקיבלנו גבולות חד צדדיים שונים, נקבל שזו אי רציפות ממין ראשון. \\
+			(a) - פולינום והרכבה של פונקציות רציפות.
+
+			\item $x = 0$ בסביבה נקובה של $N^{*}_{\frac{\pi}{4}}(0)$ נראה ש $\flr{\cos x} = 0$ ולכן:
+			\[
+				\limf{x}{0} \flr{\cos x} \cos \frac{x}{2} =
+				0 \cdot \cos 0 = 0
+			\]
+			ובנוסף $f(0) = \flr{\cos 0} \cos \frac{0}{2}=1$.
+			ומכיוון שיש גבול אך הוא אינו שווה לערך הפונקציה, מתקבל שזו נקודת אי רציפות סליקה.
+
+			\item $x = \frac{\pi}{2}$ בסביבה ימנית של $\frac{\pi}{4}$ נקבל $\flr{\cos x} = -1$ ולכן
+			\[
+				\limf{x}{\frac{\pi}{2}^+} \flr{\cos x} \cos \frac{x}{2} =
+				(-1) \cdot \cos \frac{\pi}{4} = -\frac{1}{\sqrt{2}}
+			\]
+			ובסביבה שמאלית של $\frac{\pi}{4}$ נקבל $\flr{\cos x} = 0$ ולכן:
+			\[
+				\limf{x}{\frac{\pi}{2}^-} \flr{\cos x} \cos \frac{x}{2} =
+				0 \cdot \cos \frac{\pi}{2} = 0
+			\]
+			ומכיוון שהגבולות שונים, אזי זו רציפות ממין ראשון.
+
+			\item $x = \pi$ נסתכל על סביבה נקובה $N^{*}_{\frac{\pi}{4}}(\pi)$ ונראה כי $\flr{\cos x} = -1$ ולכן:
+			\[
+				\limf{x}{\pi} \flr{\cos x} \cos \frac{x}{2} =
+				(-1)\cdot \cos \frac{\pi}{2} = 0
+			\]
+			ובנוסף $f(\pi) = \flr{\cos \pi}\cos \frac{\pi}{2}=-1 \cdot 0 = 0$. \\
+			ומכיוון שהגבול שווה לנקודה מתקבל שהפונקציה רציפה ב $x = \pi$
+		\end{enumerate}
+		לסיכום, הפונקציה רציפה בכל התחום, חוץ מנקודת אי רציפות סליקה ב $x = 0$ ו2 נקודות אי רציפות ממין ראשון ב $x = \pm \frac{\pi}{2}$.
+	\end{proof}
+
+	\section*{שאלה 2}
+	\subsection*{סעיף א}
+	\begin{enumerate}
+		\item $f$ אינה רציפה ב $x_0$ אמ"מ קיים $\varepsilon > 0$ כך שלכל $\delta > 0$ קיים $x$ המקיים $\pip{x - x_0} < \delta$
+		מתקיים $\pip{f(x)-f(x_0)} \geq \varepsilon$
+		\item $f$ אינה רציפה ב $x_0$ אמ"מ קיימת סדרה $(x_n)^\infty_{n=1}$ המקיימת $x_n \underset{n \to \infty}\to x_0$
+		וגם $f(x_n) \centernot{\underset{n \to \infty}\to} f(x_0)$.
+	\end{enumerate}
+
+	\subsection*{סעיף ב}
+	\begin{enumerate}
+		\item נוכיח בעבור: $x \in \QQ$: \\
+		לכל $\varepsilon > 0$ קיים $\delta = \varepsilon$
+		כך שלכל $x \in \QQ$ המקיים $\pip{x - 1} < \delta$ \\
+		מתקיים $\pip{f(x)-f(1)} < \varepsilon$, \\
+		מכיוון ש $1 \in \QQ$ אזי $f(1) = 1$, ומכיוון ש $x \in \QQ$ אזי $f(x) = x$ ולכן: \\
+		$\pip{f(x)-1} = \pip{x-1} < \delta = \varepsilon$.
+
+		\item נוכיח בעבור $x \not\in \QQ$: \\
+		לכל $\varepsilon > 0$ קיים $\delta > 0$ כך שלכל $x \not\in \QQ$
+		המקיים $\pip{x-1} < \delta$ \\
+		 מתקיים $\pip{f(x)-f(1)} < \varepsilon$, \\
+		מכיוון ש $1 \in \QQ$ אזי $f(1)=1$ ומכיוון ש $x \not\in \QQ$ אזי $f(x) = 1$, ולכן
+		$\pip{f(x)-f(1)} = |1-1| = 0 < \varepsilon$.
+	\end{enumerate}
+	הראנו שבכל התחום מתקיים $\limf{x}{1} f(x) = 1$ ובנוסף $f(1)=1$ ולכן $f$ רציפה ב $x=1$.
+
+	\subsection*{סעיף ג}
+	\begin{enumerate}
+		\item 	נגדיר $\varepsilon = 1$ כך שלכל $\delta > 0$ קיים $x=\sqrt{2}\flr{\frac{\delta}{2}}$
+		המקיים $\pip{x-0}= \sqrt{2}\flr{\frac{\delta}{2}} < \delta$ (חלוקה ב2, וכפל במספר הקטן מ2)
+		מתקיים $\pip{f(x)-f(0)} \geq \varepsilon$ \\
+		מכיוון ש $0 \in \QQ$ אזי $f(0)=0$ ומכיוון ש $x \not\in \QQ$(כפל של שלם שונה מאפס באי רציונלי) אזי
+		$\pip{f(x)-f(0)} = \pip{1-0} = 1 \geq \varepsilon$.
+
+		\item נגדיר $(x_n)^\infty_{n=1} = \sqrt{2}\frac{1}{n}$,
+		מאריתמטיקה של גבולות נקבל $\limf{n}{\infty} x_n = 0$  ובנוסף כפל רציונלי שונה מאפס ואי רציונלי הינו אי רציונלי. ולכן כל איברי $x_n \not\in \QQ$ ולכן
+		$\limf{n}{\infty} f(x_n) = 1$.
+	\end{enumerate}
+
+	\subsection*{סעיף ד}
+	$f(x) = 1 + (x-1)D(x)$ לכל $x \in \QQ$ נקבל: $f(x) = 1 + (x-1)1 = 1 + x -1 = x$. \\
+	לכל $x \not\int \QQ$ נקבל $f(x) = 1 + (x-1)0 = 1$.
+
+	\subsection*{סעיף ה}
+	נניח בשלילה כי $f$ רציפה ב $x_0 \neq 1$ ולכן גם $f'(x)=f(x)-1$ רציפה (אריתמטיקה של רציפות)
+	וגם $g(x) = \frac{f'(x)}{x-1}$ רציפה, מכיוון ש $x-1$ רציפה ו $x \neq 1$,
+	ולכן קיבלנו ש $g(x) = \frac{1 + (x-1)D(x) - 1}{x-1} = D(x)$ בסתירה עם משפט 5.10
+	האומר שפונ' דיריכלה אינה רציפה באף נקודה. \\
+	ולפיכך $f$ אינה רציפה ב $x_0 \neq 1$.
+
+	\section*{שאלה 3}
+
+	\begin{proof}
+		לפי משפט 5.34 תמונתו של קטע ע"י פונקציה רציפה היא או קטע או נקודה. \\
+		אם תמונתה של $f$ בקטע $[0, \infty)$ היא נקודה, אזי היא אינה חח"ע בקטע. \\
+		אם היא קטע, יהי $y \in [0, \infty)$, $y \neq 0$ ככה ש $f(y) \neq f(0)$, וגם $f(y) > f(0)$ (אם $f(0)$ הוא סופרימום, ההוכחה תעבוד גם אם נהפוך את הצדדים) \\
+		ונבחר $a \in \RR$ ככה ש $f(0) < a < f(y)$, מכיוון ש $f$ רציפה ב $[0, \infty)$ אזי היא רציפה בתת הקבוצה $[0, y]$
+		ולכן ממשפט ערך הביניים קיים $z \in [0, y]$ ככה ש $f(a) = z$, ובגלל ש $f(0) < f(a) < f(y)$ אזי $c < y$. \\
+		לפי הגדרת הגבול של $\limf{x}{\infty} f(x) = f(0)$ נגדיר $\varepsilon = z - f(0)$
+		וקיים $M > 0$ כך שכל $x > M$ ובפרט $x > y$ מתקיים:
+		$|f(x)-f(0)| < \varepsilon = z - f(0)$ ומכאן \\
+		$f(0)- z + f(0) < f(x) < f(0) + z - f(0)$ ולכן $f(x) < z$. \\
+		יהי $w > M$ ובפרט $w > y$, מתקיים $f(w) < z$, מכיוון ש $f$ רציפה ב $[0, \infty)$ ובפרט רציפה ב $[y, w]$
+		ומתקיים $f(w) < z < f(y)$ אזי ממשפט ערך הביניים קיימת עוד נקודה $c \in [y, w]$ ככה ש $f(c) = z$. \\
+		ובגלל ש $a < y < c < w$ אזי בהכרח $a \neq c$ אבל ראינו ש $f(a) = f(c) = z$ ולכן $f$ אינה חח"ע.
+	\end{proof}
+
+	\section*{שאלה 4}
+	\subsection*{סעיף א}
+	\begin{proof}
+		$f(x)$ היא מכפלה, סכום ומנה $x \neq 0$ של פונקציות רציפות ולכן רציפה.
+		נגדיר  \\
+		$h(x) = \begin{cases}
+			f(x) \text{ if } x \neq 0 \\
+			1 \text{ if } x = 0
+		\end{cases}$
+		ולכן לכל $x > 0$ $h(x)$ רציפה, \\
+		 ובנוסף נראה ש $\limf{x}{0^+}h(x) = \limf{x}{0^+}f(x) = 1 = h(0)$ (כפל של גבולות ידועים). \\
+		 ולכן $h(x)$ רציפה ב $[0, \infty)$ ובפרט רציפה ב $[0,1]$ ולפי משפט ווירשטראס מתקבל ש $h$ חסומה ב $[0,1]$.
+		 נסמן $M_1$ את החסם מלעיל ו $M_2$ את החסם מלרע. \\
+		 בנוסף $f(x) = \frac{(x+1)\sin x}{x} = \sin x + \frac{\sin x}{x}$
+		 וידוע כי $max\set{\sin x} = 1$ ולכן לכל $x \geq 1$ מתקבל:
+		 $\sin x + \frac{\sin x}{x} \leq 1 + \frac{1}{x} \ontop{(a)}\leq 2$
+		 ובנוסף ידוע ש $min\set{\sin x} = -1$ ולכן:
+		 $-2 \leq 1-1 \leq \sin x + \frac{\sin x}{x}$
+		 ולכן מתקבל שבקטע $[0, \infty)$ יש חסם מלעיל ומלרע, מלעיל $max\set{m_1, 2}$ ומלרע $min\set{m_2, -2}$, ולכן $h$ חסומה בקטע $[0, \infty)$ ו $f$ חסומה ב $(0, \infty)$(מוכלת ב $h$) \\
+		 (a) - לכל $x \geq 1$ מתקיים $\frac{1}{x} \leq 1$
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	\begin{proof}
+		ראינו בסעיף הקודם כי $f(x) = \sin x + \frac{\sin x}{x}$
+		ובנוסף ש $max\set{\sin x} = 1$ ולכן לכל $x \geq 1$ מתקיים $f(x) \leq 1 + \frac{1}{x}$.
+		אנו יודעים כי $\sin x = 1$ כאשר $x = \frac{\pi}{2} + 2k\pi$
+		ומכיוון שהגדלת מכנה מקטינה את הערך מתקבל שלכל $x \geq 1$ מתקיים $f(x) \leq 1 + \frac{1}{x} \leq 1 + \frac{1}{\frac{\pi}{2}}$. \\
+		ומכאן שאם יש מקסימום הוא בהכרח בקטע $(0, \frac{\pi}{2}]$, ולכן נסתכל שוב על $h$ ועל הקטע הרציף $[0, \frac{\pi}{2}]$ (כי הוא מוכל ב $[0, \infty)$) אזי מתוך המשפט השני של ויירשטראס מתקבל שיש מקסימום ל $h$ בקטע $[0, \frac{\pi}{2}]$.
+		מכיוון שלכל $x \geq 1$ מתקיים $f(x) \leq 1 + \frac{1}{x}$ אזי המקסימום בהכרח גדול מאחד. ולכן המקסימום לא נמצא ב $x=0$. \\
+		ולכן המקסימום נמצא ב $(0, \frac{\pi}{2}]$ ובקטע הנ"ל מתקיים $f=h$. \\
+		בסה"כ, הראינו שלכל $x \geq 0$ מתקיים $f(x) \leq 1 + \frac{1}{\frac{\pi}{2}}$, ובקטע $(0, \frac{\pi}{2}]$ קיים מקסימום, אזי יש ל $f$ מקסימום בקטע $(0, \infty)$.
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	\[
+	g(x) = \frac{x \sin x}{x+1} = \sin x \cdot \frac{x}{x+1} = \sin x \cdot (1 - \frac{1}{x+1})
+	\]
+	ידוע כי $\sin x \leq 1$ ובנוסף $\frac{1}{x+1} > 0$ (לכל $x>0$) ולכן $g(x) < 1 \cdot (1-0) = 1$. \\
+	ובכך קיבלנו ש 1 הינו חסם מלעיל בקטע $(0, \infty)$, ועכשיו נראה שהוא הסופרימום\\
+
+	נחשב את הגבול של החצי הימני של הפונקציה בעזרת אריתמטיקה וגבולות ידועים:
+	\[
+	\limf{x}{\infty} 1 - \frac{1}{x+1} = 1 - 0 = 1
+	\]
+	ולכן לפי הגדרת הגבול, לכל $\varepsilon > 0$ קיים $M$ ממשי כל שלכל $x > M$ \\
+	 מתקיים
+	 $\pip{1 - \frac{1}{x+1} - 1} < \varepsilon$ ולפי הגדרת הערך המוחלט: \\
+	$-\varepsilon < 1 - \frac{1}{x+1} - 1 \Rightarrow 1 - \varepsilon < 1 - \frac{1}{x+1}$. \\
+	נבחר $x > M$ כלשהו ונגדיר  $y = \frac{\pi}{2} + 2\pi \lceil x \rceil$
+	נציב $y$ באי שוויון שקיבלנו בהגדרת הגבול ונכפיל את הצד הימני ב $\sin y = 1$ ונקבל: \\
+	$1 - \varepsilon < \sin y \cdot (1 - \frac{1}{y+1}) = g(y)$.
+	ולכן קיבלנו שלכל $\varepsilon > 0$ קיים $x > 0$ כך ש $g(x) > 1 -\varepsilon$ ולפי טענה 3.9 מתקבל ש $1$ הוא הסופרימום של $g((0, \infty))$.
+
+	\subsection*{סעיף ד}
+	בסעיף הקודם הראינו ש $g(x) < 1$ והסופרימום שווה לאחד ולכן לא נמצא בקבוצה. ולפי טענה 3.8 אם יש מקסימום אז הוא שווה לסופרימום, אך הסופרימום אינו בקבוצה ולכן אין מקסימום.
+
+
+	\section*{שאלה 5}
+	\subsection*{סעיף א}
+	\begin{proof}
+		נוכיח כמו בשאלה 5.50 בספר: \\
+		נשתמש בזהות: $\sqrt{a} - \sqrt{b} = \frac{a-b}{\sqrt{a} + \sqrt{b}}$
+		ולכן לכל $x_1, x_2 \in [0, \infty)$ מתקיים $1 + x_i > 1$ ונציב בזהות:
+		\begin{align*}
+			\pip{\sqrt{1+x_1^2} - \sqrt{1 + x_2^2}} =
+			\frac{\pip{1 + x_1^2 - 1 - x_2^2}}{\sqrt{1 + x_1^2} + \sqrt{1 + x_2^2}} \ontop{(a)}\leq
+			\frac{\pip{x_1^2 - x_2^2}}{x_1 + x_2} &=
+			\frac{\pip{x_1 - x_2}\pip{x_1 + x_2}}{x_1 + x_2} \\ &\ontop{(b)}=
+			\pip{x_1 - x_2}
+		\end{align*}
+		(a) - לכל $x \geq 0$ מתקיים $\sqrt{1 + x^2} > \sqrt{x^2} = x$ \\
+		(b) - $x_1, x_2 \geq 0$ ולכן סכומם אי שלילי וניתן להוריד את הערך המוחלט ולצמצם. \\
+		לכל $\varepsilon > 0$ נגדיר $\delta = \varepsilon$. לכל $x_1,x_2 \in [0, \infty)$ המקיימים $\pip{x_1 - x_2} < \delta$ מתקיים:
+		\[
+		\pip{f(x_1) - f(x_2)} \leq 	\pip{x_1 - x_2} < \delta = \varepsilon
+		\]
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	\begin{proof}
+		נגדיר $h(x) = \begin{cases}
+			f(x) \text{ if } x \neq 0 \\
+			0 \text{ if } x = 0
+		\end{cases}$
+		לכל $x \neq 0$ $h$ רציפה מכיוון שהיא מכפלה, מנה(שונה מאפס) וחיסור של פונקציות רציפות. \\
+		$\limf{x}{0^+} 1 - \cos x = 0$ (הצבה בפונקציה רציפה) ובגלל ש $\sin \frac{1}{x}$ חסומה ב $x > 0$ אזי לפי משפט 2.22 לפונקציות נקבל ש
+		\[\limf{x}{0^+} h(x) = \limf{x}{0^+} f(x) = (1 - \cos x) \sin \frac{1}{x} = h(0) = 0\]
+		ולכן $h$ רציפה גם ב 0 ובעזרת איחוד רציפה ב $[0, \infty)$.
+		לפי גבולות ידועים ומשפט ההרכבה נקבל כי $\limf{x}{\infty} \sin \frac{1}{x} = \sin 0 = 0$
+		ובנוסף מכיוון ש $\cos x$ חסומה אזי גם $1- \cos x$ חסומה ולפי משפט 2.22 לפונקציות נקבל כי:
+		\[\limf{x}{\infty} (1 - \cos x) \sin \frac{1}{x} = 0 \]
+		ולכן לפי שאלה 5.48, הפונקציה $h$ רציפה בקטע $[0, \infty)$ כך שקיים הגבול $\limf{x}{\infty} h(x)$ ולכן היא רציפה במידה שווה. \\
+		ולפי שאלה 5.44 מתקבל ש $f$ רציפה במידה שווה, מכיוון ש $(0, \infty) \subset [0, \infty)$ ובתחום הנ"ל $f=h$.
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	לפי הגדרה 5.45 $\arctan x$ היא פונקציה מונוטונית עולה ולכן לכל $y \geq x \geq 1$ נקבל:
+	\begin{align*}
+		&\arctan y \geq \arctan x
+		&&\big\backslash \cdot y^2 \\
+		&y^2 \arctan y \geq y^2 \arctan x
+		&&\big\backslash - x^2 \arctan x \\
+		&y^2 \arctan y - x^2 \arctan x \geq y^2 \arctan x - x^2 \arctan x \\
+		&y^2 \arctan y - x^2 \arctan x \geq (y^2 - x^2) \arctan x
+	\end{align*}
+	נוכיח עכשיו ש $f(x) = x^2 \arctan x$ אינה רציפה במידה שווה ב $[1, \infty)$
+	\begin{proof}
+		נגדיר $\varepsilon = 1$ כך שלכל $\delta > 0$
+		נבחר $x = max\set{1, \frac{4\pi}{\delta}}$ ו $y=x + \frac{\delta}{2}$ ולכן מתקיים: $\pip{y-x} = \pip{x + \frac{\delta}{2} -x} \overset{\delta > 0}= \frac{\delta}{2} < \delta$
+		ומכיוון שהפונקציה מונוטונית עולה, והגדרנו ש $y \geq x$ אזי $\pip{f(y) - f(x)} = f(y) - f(x)$.
+		ועכשיו נציב בזהות ונקבל:
+		\begin{align*}
+		\pip{f(y) - f(x)} &=
+		(y^2 - x^2) \arctan x =
+		(y + x)(y - x) \arctan x \\
+		&= (x + \frac{\delta}{2} + x)(x + \frac{\delta}{2} - x) \arctan x =
+		(2x + \frac{\delta}{2})\frac{\delta}{2}\arctan x
+	\end{align*}
+	מכיוון ש $\arctan x$ היא מונוטונית עולה והגדרנו ש $x \geq 1$ \\
+	נקבל בנוסף גם $\arctan(x) \geq \arctan(1) = \frac{\pi}{4}$, ולכן:
+	\[
+		\pip{f(y) - f(x)} \geq
+		(2x + \frac{\delta}{2})\frac{\delta}{2}\arctan x \ontop{(a)}>
+		2x\frac{\delta}{2}\arctan x >
+		2 \cdot \frac{4}{\delta\pi} \cdot \frac{\delta}{2} \cdot \frac{\pi}{4} \geq 1 =
+		\varepsilon
+	\]
+	(a) - לכל $a,b > 0$ מתקיים $a+b > a$.
+	\end{proof}
+
+\end{document}
