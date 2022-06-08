@@ -1,0 +1,208 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage{centernot}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the chA \mathcal{R} Acter \varnothing
+\usepackage{polyglossia}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+
+\title{אינפי 1 - ממ"ן 16}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+	\section*{שאלה 1}
+	\subsection*{סעיף א}
+	\begin{proof}
+		\begin{align*}
+			\limf{n}{\infty}\left(1 + \frac{1}{n^2}\right)^{\frac{1}{\sin \frac{1}{n}}} =
+			\limf{n}{\infty}\left(\left(1 + \frac{1}{n^2}\right)^{n^2}\right)^{\frac{1}{n^2 \sin \frac{1}{n}}} \\
+			(a_n) = (1 + \frac{1}{n^2})^{n^2}, (b_n) = \frac{1}{n^2 \sin \frac{1}{n}} \\
+			\text{ (אפסה כפול חסומה) }
+			\limf{n}{\infty}(b_n) = 0,
+			\limf{n}{\infty}{(a_n)} = e
+			\text{לפי 6.16 } \\
+			\limf{n}{\infty}(a_n)^{(b_n)} = e^0 = 1
+			\text{ לפי 6.15 }
+		\end{align*}
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	\begin{proof}
+		\begin{align*}
+			\brac{1+e^{-x}}^{x^2} = \brac{1 + \frac{1}{e^x}}^{x^2} =
+			\brac{\brac{1+\frac{1}{e^x}}^{e^x}}^{\frac{x^2}{e^x}}
+		\end{align*}
+		תהי $(x_n)$ סדרה כלשהי המקיימת $x_n \xrightarrow[x \to \infty]{} \infty$
+		נסתכל על הגבול $\limf{n}{\infty}{\brac{\brac{1+\frac{1}{e^x}}^{e^x}}^{\frac{x^2}{e^x}}}$, \\
+		לפי משפט 6.15 נגדיר: $(a_n) = \brac{1 + \frac{1}{e^{x_n}}}^{e^{x_n}}, (b_n) = \frac{x_n^2}{e^{x_n}}$. \\
+		נציב $y = e^x$ ולפי משפט הרכבה, הגדרת הנייה, וטענה 6.16 נקבל $\limf{n}{\infty}(a_n) = e$ \\
+		ולפי מסקנה 2.49 נקבל:
+		\[ \limf{n}{\infty}(b_n) = \limf{n}{\infty}\frac{n^2}{e^n} = 0 \]
+		ולפי 6.15 נקבל:
+		\[ \limf{n}{\infty} (a_n)^{(b_n)} = \limf{n}{\infty} (a_n)^{\limf{n}{\infty}(b_n)} = e^0 = 1 \]
+		זה נכון לכל סדרה $(x_n)$ המקיימת את התנאים של היינה ולכן נקבל:
+		\[ \limf{x}{\infty} (1 + e^{-x})^{x^2} = e^0 = 1 \]
+	\end{proof}
+
+
+	\section*{שאלה 2}
+	\begin{proof}
+		נתחיל בלחשב גבולות של הפונקציה באינסוף ומינוס אינסוף, \\
+		$\cos x$ חסומה, ולכן $(1 - \cos x)$ גם חסומה, $e^x$ אפסה,\\
+		 ואפסה כפול חסומה היא אפסה, ולכן $e^x(1 - \cos x)$ היא אפסה, ולכן:
+		\begin{align*}
+			&\limf{x}{\infty} x + e^x(1- \cos x) = "\infty + 0" = \infty  \\
+			&\limf{x}{-\infty} x + e^x(1- \cos x) = "-\infty + 0" = -\infty  \\
+		\end{align*}
+		יהי $y \in \RR$ כלשהו, נראה שקיים $x$ המקיים $y = f(x)$,
+		לפי הגדרת הגבול באינסוף קיים $m_2 > y$ כך שלכל $x_1 > m_2$ מתקיים $f(x_2) > y$. \\
+		ומהגבול במינוס אינסוף, קיים $m_2 < y$ כך שלכל $x_2 < m_2$ מתקיים $f(x_2) < y$. \\
+		ובעצם קיבלנו שקיימים $x_2 < y < x_1$ כך שקיימים $f(x_2) < y < f(x_1)$. \\
+		$f$ היא רציפה מכיוון ש $\cos x$ היא רציפה, וגם $e^x$ היא רציפה, ומכפלה וסכום של פונ' רציפות היא רציפה. \\
+		ובפרט היא רציפה ב $[x_2, x_1]$ ולכן ממשפט ערך הביניים קיים $c \in [x_2, x_1]$ כך ש $f(c) = y$. \\
+		ולסיכום, מצאנו שיש מקור לכל $y \in \RR$ ולכן $f$ היא על.
+	\end{proof}
+
+	\pagebreak
+
+	\section*{שאלה 3}
+	\subsection*{סעיף א}
+	\textbf{תחום הגדרה:} $\sqrt{\pip{x}}$, כל $x$, מכיוון ש $\pip{x} \geq 0$ ו $\sqrt{x}$ מוגדרת לכל $x \geq 0$,
+	$\sin x$ מוגדרת לכל $x$, ולכן $f$ מוגדרת לכל $x \in \RR$. \\
+	\textbf{רציפות:} $\pip{x}$ רציפה לכל $x$, $\sin x$ רציפה לכל $x$, ו $\sqrt{x}$ רציפה לכל $x \geq 0$,
+	ולכן הרכבה של $\sqrt{\pip{x}}$ רציפה לכל $x$,
+	ולכן $f(x)$ רציפה לכל $x \in \RR$ כסכום, הרכבה, ומכפלה של פונ' רציפות. \\
+
+	\textbf{גזירות:} נפצל לפי הערך המוחלט
+	\selectlanguage{english}
+	\begin{enumerate}
+		\item $(0, \infty)$: $f(x) = \sqrt{x} \sin x$, $f'(x) = \frac{\sin x}{2\sqrt{x}} + \sqrt{x}\cos x$
+		\item $(-\infty, 0)$: $f(x) = \sqrt{-x} \sin x$, $f'(x) = - \frac{\sin x}{2\sqrt{-x}} - \sqrt{-x} \cos x$
+		\item $x = 0$: $\limf{x}{0} \frac{\sqrt{\pip{x}} \sin x - 0}{ x -0} = \frac{\sqrt{\pip{x}} \sin x}{x} = \limf{x}{0}\sqrt{\pip{x}}\limf{x}{0}\frac{\sin x}{x} \overset{(a)}= 0 \cdot 1 = 0$
+	\end{enumerate}
+	\selectlanguage{hebrew}
+	(a) - גבול ידוע ורציפות $\sqrt{\pip{0}}$. \\
+	ולכן $f(x)$ גזירה בכל $x$ ונגזרתה:
+	\[
+	f'(x) = \begin{cases}
+		\frac{\sin x}{2\sqrt{x}} + \sqrt{x} + \cos x &\text{ if } x > 0 \\
+		-\frac{\sin x}{2\sqrt{x}} + \sqrt{-x} + \cos x &\text{ if } x < 0 \\
+		0 &\text{ if } x = 0 \\
+	\end{cases}
+	\]
+	\subsection*{סעיף ב}
+	\textbf{תחום הגדרה:} $x^2$ מוגדרת לכל $x$, $\sin \frac{1}{x}$ ו $\cos \frac{1}{x}$
+	מוגדרות לכל $x \neq 0$, אבל $g(x)$ סוגרת את ה "חור" ולכן תחום ההגדרה של הוא כל $\RR$. \\
+	\textbf{גזירות:} נתחיל ב $x \neq 0$:
+	\begin{align*}
+		g'(x) &= 2x \sin \frac{1}{x} \cos \frac{1}{x} + x^2 \cos \frac{1}{x} \cdot (- \frac{1}{x^2}) \cos \frac{1}{x} - x^2 \sin \frac{1}{x}\sin \frac{1}{x}(-\frac{1}{x^2}) \\
+		&= 2x\sin \frac{1}{x} \cos \frac{1}{x} - \cos^2 \frac{1}{x} + \sin^2 \frac{1}{x} \\
+		&= 2x \sin \frac{1}{x} \cos \frac{1}{x} - 1
+	\end{align*}
+	וב $x = 0 $ נשתמש ישירות בהגדרת הנגזרת:
+	\[
+	\limf{x}{0} \frac{g(x) - g(0)}{x - 0} =
+	\limf{x}{0} \frac{x^2 \sin \frac{1}{x} \cos \frac{1}{x}}{x} \overset{(a)}=
+	\limf{x}{0} x \limf{x}{0} \sin \frac{1}{x} \cos \frac{1}{x} \overset{(b)}=
+	0 = g(0)
+	\]
+	(a) - מקומיות הגבול \\
+	(b) - לפי שאלה בספר, כפל סדרות חסומות הינה סדרה חסומה, וחסומה כפול אפסה היא חסומה (בהקבלה לפונקציות) \\
+	ומכאן ש $g'(x)$ \textbf{רציפה} וגזירה גם ב $x = 0$ ולכן בכל $\RR$, ונגזרתה:
+	\[
+	g'(x) = \begin{cases}
+		2x \sin \frac{1}{x} \cos \frac{1}{x} - 1 &\text{ if } x \neq 0 \\
+		0 &\text{ if } x = 0
+	\end{cases}
+	\]
+
+	\section*{שאלה 4}
+	\subsection*{סעיף א}
+	$\limf{x}{0} x = 0$
+	ומרציפות $e^x$: $\limf{x}{0} e^x - 1 = 1 - 1 = 0$ \\
+	לפי לופיטל:
+	$(e^x-1)' = e^x$, $(x)' = 1$ ולכן:
+	\[ \limf{x}{0}\frac{e^x-1}{x} = \limf{x}{0} \frac{e^x}{1} = 1\]
+
+	\subsection*{סעיף ב}
+	מרציפות:
+	\[ \limf{x}{0^-} \frac{e^x - 1}{2} = \limf{x}{0} \frac{e^x -1 }{2} = \frac{e^0 - 1}{2} = 0 \]
+	עכשיו נחשב גבול ב $0^+$, (נשתמש בזה ש $\sqrt{\cos x}$ רציפה בכל $x$)
+	\begin{enumerate}
+		\item אם $a = 1$ אז, $\limf{x}{0^+} \frac{1 - \sqrt{\cos x}}{x} = \frac{1 - 1}{0} = "\frac{0}{0}"$
+		ולכן נשתמש בלופיטל: $(1 - \sqrt{\cos x})' = \frac{1}{2\sqrt{\cos x}}(- \sin x)$, $(x)' = 1$
+		ולכן:
+		\[
+		\limf{x}{0^+} \frac{1 - \sqrt{\cos x}}{x} = \limf{x}{0^+} - \frac{\frac{\sin x}{2\sqrt{\cos x}}}{1} = \limf{x}{0^+} - \frac{\sin x}{2\sqrt{\cos x}} = - \frac{0}{2 \cdot 1} = 0
+		\]
+		\item אם $a \neq 1$ אז $\limf{x}{0^+} \frac{a - \sqrt{\cos x}}{x} = "\frac{a - 1}{0^+}$
+		ולכן אם $a \neq 1$ אזי הגבול אינסופי (פלוס או מינוס תלוי בערך $a$)
+	\end{enumerate}
+	ולכן קיבלנו שכאשר $a = 1$ אזי הגבולות החד צדדיים שווים, ושווים לערך הפונקציה בנקודה, ולכן $f(x)$ רציפה ב $x = 0 $\\
+	אך כאשר $a \neq 1$ אין גבול סופי מימין ולכן $f(x)$ לא רציפה ב $x = 0$. \\
+	\textbf{גזירות:}
+	מכיוון שכאשר $a \neq 1$ הפונקציה אינה רציפה, אז היא לא יכולה להיות גזירה, ולכן נציב $a = 1$ ונשתמש בהגדרת הנגזרת:
+	\begin{align*}
+		&\limf{x}{0^+} \frac{\frac{e^x - 1}{2} - 0}{x - 0}
+		= \frac{1}{2}\limf{x}{0^+}\frac{e^x-1}{x}
+		\overset{(a)}= \frac{1}{2} \cdot 1
+		= \boxed{\frac{1}{2}} \\
+		&\limf{x}{0^-} \frac{\frac{1 - \sqrt{\cos x}}{x} - 0}{x  - 0}
+		= \limf{x}{0^-} \frac{1 - \sqrt{\cos x}}{x^2}
+		\overset{(b)}= \limf{x}{0^-} \frac{(1 - \sqrt{\cos x})(1+\sqrt{\cos x})}{x^2(1 + \sqrt{\cos x})} \\
+		= &\limf{x}{0^-} \frac{1 - \cos x}{x^2 + x^2\sqrt{\cos x}}
+		\overset{(c)}= \limf{x}{0^-} \frac{(1 - \cos x)(1 + \cos x)}{(x^2 + x^2\sqrt{\cos x})(1+\cos x)}
+		= \limf{x}{0^-} \frac{1 - \cos^2 x}{x^2(1 + \sqrt{\cos x})(1 + \cos x)}\\
+		= &\brac{\limf{x}{0^-} \frac{\sin}{x}}^2 \limf{x}{0^-} \frac{1}{(1 + \sqrt{\cos x})(1 + \cos x)}
+		= 1^2 \cdot \frac{1}{4} = \boxed{\frac{1}{4}}
+	\end{align*}
+	(a) - הוכחנו בסעיף א \\
+	(b) - $1 + \sqrt{\cos x} > 0$ \\
+	(c) - $1 + \cos x > 0$ בסביבת $N_\delta(0)$ \\
+	ולכן כאשר $a = 1$, $f(0)$ גזירה מימין ו $f_+'(0) = \frac{1}{2}$ ומשמאל ו $f_-'(0) = \frac{1}{4}$
+	מכיוון שהנגזרות החד צדדיות שונות, מתקבל ש $f$ אינה גזירה ב $x=0$. \\
+	ולסיכום, $f$ אינה גזירה ב $x=0$ לכל $a$.
+
+	\section*{שאלה 5}
+	$|f(x)| \leq x^2 \Rightarrow -x^2 \leq f(x) \leq x^2$
+	כאשר $x = 0$ נקבל $-0 \leq f(0) \leq 0$ ולכן $f(0) = 0$. \\
+	מהגדרת הנגזרת $f'(0) = \limf{x}{0}\frac{f(x) - f(0)}{x-0} = \limf{x}{0}\frac{f(x)}{x}$
+	מכיוון ש $-x^2 \leq f(x) \leq x^2$, אז נסתכל על סביבה נקובה של $x=0$:
+	\begin{enumerate}
+		\item בעבור $x > 0$: $-x \leq \frac{f(x)}{x} \leq x$
+		\item בעבור $x < 0$: $-x \geq \frac{f(x)}{x} \geq x$
+	\end{enumerate}
+	ומרציפות אנו יודעים ש $\limf{x}{0} x = \limf{x}{0} -x = 0$
+	ולכן בשני המצבים הפונקציה שלנו כלואה בין שתי פונקציות עם אותו הגבול, ולכן ממשפט הסנדוויץ נקבל:
+	\[ \limf{x}{0} \frac{f(x)}{x} = 0 \]
+	ולכן $f(x)$ גזירה ב $x = 0$ ונגזרתה היא $f'(0) = 0$.
+
+
+
+\end{document}
