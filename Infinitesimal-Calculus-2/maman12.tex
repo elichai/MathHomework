@@ -1,0 +1,382 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage{amsmath,mathtools,enumerate,xparse,centernot,polyglossia,graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=1.1in]{geometry}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the chA \mathcal{R} Acter \varnothing
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\graphicspath{ {./} }
+
+\title{אינפי 2 - ממ"ן 11}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+
+	\section*{שאלה 1}
+	חשבו את האינטגרלים הבאים
+
+	\subsection*{סעיף א}
+	\[
+		\int \frac{dx}{(2-x)\sqrt{1-x}}
+	\]
+
+	\begin{proof}
+		\begin{align*}
+			\int \frac{dx}{(2-x)\sqrt{1-x}} &=
+			\begin{bmatrix}
+				1 - x = u^2 \Rightarrow u = \sqrt{1-x} \\
+				dx = -2u \, du
+			\end{bmatrix}
+			= \int \frac{-2u}{(1+u^2)u} \, du \\
+			&= -2 \int \frac{du}{1+u^2} = -2\arctan u + C
+			= -2\arctan(\sqrt{1-x}) + C
+		\end{align*}
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	\[
+		\int \frac{x+4}{(x^2 + x + 1)^2} \, dx
+	\]
+
+	\begin{proof}
+		נשתמש בשיטה המפורטת בעמוד 142:
+		\begin{align*}
+			\int \frac{x+4}{(x^2 + x + 1)^2} \, dx
+			= \frac{1}{2} \int \frac{2x + 1}{(x^2 + x + 1)^2} \, dx
+			+ \frac{7}{2} \int \frac{dx}{(x^2 + x + 1)^2}
+		\end{align*}
+		נתחיל בלחשב את האינטגרל הראשון:
+		\begin{align*}
+			\int \frac{2x + 1}{(x^2 + x + 1)^2} \, dx
+			= \begin{bmatrix}
+				u = x^2 + x + 1 \\
+				du = 2x + 1 \, dx
+			\end{bmatrix}
+			= \int \frac{du}{u^2} = - \frac{1}{2u} + C
+		\end{align*}
+		נציב חזרה ונקבל ש:
+		\begin{align*}
+			\frac{1}{2} \int \frac{2x + 1}{(x^2 + x + 1)^2} \, dx
+			= - \frac{1}{2x^2 + 2x + 2} + C
+		\end{align*}
+		כעת נחשב את האינטגרל השני, ונסמן: $d^2 = 1 - \frac{1}{4} = \frac{3}{4}$
+		\begin{align*}
+			\int \frac{dx}{(x^2 + x + 1)^2}
+			= \int \frac{dx}{((x+\frac{1}{2})+ \frac{3}{4})^2}
+			= \begin{bmatrix}
+				x + \frac{1}{2} = t \\
+				dx = dt
+			\end{bmatrix}
+			= \int \frac{dt}{(t^2 + \frac{3}{4})^2}
+			\overset{I_2}= \frac{4}{6} \cdot \frac{t}{t^2 + \frac{3}{4}}
+			 + \frac{4}{6} \cdot \frac{2}{\sqrt{3}} \cdot \arctan \frac{2t}{\sqrt{3}} + C
+		\end{align*}
+		נציב חזרה ונקבל ש:
+		\begin{align*}
+			\frac{7}{2} \int \frac{dx}{(x^2 + x + 1)^2}
+			= \frac{7 \cdot 4}{2 \cdot 6} \frac{x + \frac{1}{2}}{(x + \frac{1}{2}) + \frac{3}{4}}
+			+ \frac{14}{3\sqrt{3}} \arctan{\frac{2x + 1}{\sqrt{3}}} + C
+		\end{align*}
+		כעת נסכם את שניהם יחד ונקבל:
+		\begin{align*}
+			\int \frac{x+4}{(x^2 + x + 1)^2} \, dx
+			= - \frac{1}{2x^2 + 2x + 2}
+			+ \frac{7x + \frac{7}{2}}{3x^2 + 3x + 3}
+			+ \frac{14}{3\sqrt{3}} \arctan{\frac{2x + 1}{\sqrt{3}}} + C
+		\end{align*}
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	\[
+		\int x(\arctan^2 x) \, dx
+	\]
+	\begin{proof}
+	נשתמש באינטגרציה בחלקים:
+		\begin{align*}
+			\int x(\arctan^2 x) \, dx
+			= \begin{bmatrix}
+				u = \arctan^2 x & v' = x \\
+				u' = \frac{2\arctan x}{x^2 + 1} & v = \frac{x^2}{2}
+			\end{bmatrix}
+			= \frac{x^2 \arctan^2 x}{2}
+			- \int \frac{\cancel{2}x^2 \arctan x}{\cancel{2}(x^2 + 1)} \, dx
+		\end{align*}
+		כעת נחשב את האינטגרל שנשאר:
+		\begin{align*}
+			\int \frac{x^2}{x^2 + 1} \cdot \arctan x \, dx
+			&= \begin{bmatrix}
+				u = \arctan x & v' = \frac{x^2}{x + 1} \\
+				u' = \frac{1}{1 + x^2} & v = x - \arctan x
+			\end{bmatrix} \\
+			&= \arctan x (x - \arctan x)
+			- \int \frac{x - \arctan x}{1+x^2} \, dx \\
+			&= \arctan x (x - \arctan x)
+			- \int \frac{x}{1+x^2} \, dx
+			+ \int \frac{\arctan x}{1+x^2} \, dx
+		\end{align*}
+
+		נחשב את האינטגרל הראשון:
+		\begin{align*}
+			\int \frac{x}{1+x^2} \, dx
+			= \begin{bmatrix}
+				t = 1 + x^2 \Rightarrow x = \sqrt{t - 1} \\
+				dt = 2x \, dx
+			\end{bmatrix}
+			= \frac{1}{2} \int \frac{dt}{t}
+			= \frac{1}{2} \ln |t| + C
+			= \frac{1}{2} \ln (x^2 + 1) + C
+		\end{align*}
+		ואת האינטגרל השני:
+		\begin{align*}
+			\int \frac{\arctan x}{1+x^2} \, dx
+			= \begin{bmatrix}
+				t = \arctan x \\
+				dt = \frac{1}{1+x^2} \, dx
+			\end{bmatrix}
+			= \int t \, dt = \frac{t^2}{2} + C
+			= \frac{1}{2} \arctan^2 x + C
+		\end{align*}
+
+		כעת נחבר הכל חזרה ונקבל:
+		\begin{align*}
+			\int x(\arctan^2 x) \, dx
+			&= \frac{x^2 \arctan^2 x}{2} -\brac{\arctan x (x - \arctan x) - \frac{1}{2} \ln (x^2 + 1) + \frac{1}{2}\arctan^2 x} \\
+			&= \frac{1}{2}\brac{x^2 \arctan^2 x - 2x \arctan x + \arctan^2 x + \ln(x^2+1)}
+		\end{align*}
+	\end{proof}
+
+	\pagebreak
+	\subsection*{סעיף ד}
+	\[
+		\int_0^{\frac{\pi}{4}}	\tan^4 x \, dx
+	\]
+	\begin{proof}
+		\begin{align*}
+			\int_0^{\frac{\pi}{4}}	\tan^4 x \, dx
+			&= [t = \tan x]
+			= \int_0^1 \frac{t^4}{1+t^2} \, dt
+			= \int_0^1 t^2 \cdot \frac{t^2}{1+t^2} \, dt \\
+			&= \begin{bmatrix}
+				u = t^2 & v' = \frac{t^2}{1+t^2} \\
+				u' = 2t & v = t - \arctan t
+			\end{bmatrix}
+			= t^3 - t^2 \arctan t \biggr|_0^1
+			- \int_0^1 2t(t - \arctan t) \, dt \\
+			&= t^3 - t^2 \arctan t \biggr|_0^1
+			- \int_0^1 2t^2 \, dt + \int_0^1 2t\arctan t \, dt
+		\end{align*}
+		האינטגרל השמאלי הוא טריוויאלי: $\int_0^1 2t^2 \, dt = \frac{2t^3}{3} \biggr|_0^1$
+		נחשב את הימני בנפרד:
+		\begin{align*}
+			\int_0^1 2t\arctan t \, dt
+			= \begin{bmatrix}
+				u = \arctan t & v' = 2t \\
+				u' = \frac{1}{1+t^2} & v = t^2
+			\end{bmatrix}
+			= t^2 \arctan t \biggr|_0^1
+			- \int_0^1 \frac{t^2}{1+t^2}
+			= t^2 \arctan t - t + \arctan t \biggr|_0^1
+		\end{align*}
+	\end{proof}
+	נציב חזרה את התוצאות ונקבל:
+	\begin{align*}
+		t^3 \cancel{- t^2 \arctan t} - \frac{2t^3}{3} + \cancel{t^2 \arctan t} - t + \arctan t \biggr|_0^1
+		&= \frac{t^3}{3} - t + \arctan t \biggr|_0^1 \\
+		&= 1 - 1 + \frac{\pi}{4} - 0 + 0 - 0
+		= \boxed{\frac{\pi}{4}}
+	\end{align*}
+
+
+	\pagebreak
+	\section*{שאלה 2}
+	לכל אחד מהאינטגרלים קבעו אם הוא מתכנס בהחלט, מתכנס בתנאי או מתבדר
+	\subsection*{סעיף א}
+	\[
+	\int_0^\infty x \sin x^3 \, dx
+	\]
+	\begin{proof}
+		באינטגרל ישנה נקודה בעייתית אחת והיא האינסוף, אזי נפצל ל 0 עד 1 ו 1 עד אינסוף:
+		\begin{align*}
+			\int_0^\infty x \sin x^3 \, dx = \int_0^1 x \sin x^3 \, dx + \int_1^\infty x \sin x^3 \, dx
+		\end{align*}
+		האינטגרל $\int_0^1 x \sin x^3 \, dx$ הוא אינטגרל מסויים של פונקציה רציפה ב $\RR$ ובפרט ב $[0,1]$ ולכן הוא מתכנס. \\
+		בעבור האינטגרל השני נסמן:
+		\begin{align*}
+		\begin{bmatrix}
+			t = x^3 \\
+			x = \sqrt[3]{t} \\
+			dx = \frac{1}{3 \sqrt[3]{t^2}} \, dt \\
+			x = \infty \Rightarrow t = \infty \\
+			x = 1 \Rightarrow t = 1
+		\end{bmatrix}
+	\end{align*}
+	ונקבל $\int_1^\infty x \sin x^3 \, dx =
+	\frac{1}{3} \int_1^\infty \frac{\sin t}{\sqrt[3]{t}} \, dt +
+	\int_1^\infty \frac{\sin t}{t^{\frac{1}{3}}}\, dx$
+		ולכן משאלה 32 בעמוד 37 בכרך ב נקבל שהאינטגרל מתכנס. \\
+		וביחד קיבלנו שהאינטגרל $\int_0^\infty x \sin x^3 \, dx$ כולו מתכנס. \\
+		כעת נבדוק האם הוא מתכנס בהחלט: \\
+		נניח בשלילה שהוא מתכנס בהחלט, ז"א ש $\int_0^\infty x \cos 2x^3 \, dx$ מתכנס. \\
+		נשתמש בזהות $\sin^2 x = \frac{1 - \cos 2x}{2}$ ונקבל: $x \sin^2 x^3 = \frac{x(1 - \cos 2x^3)}{2}= \frac{x}{2} - \frac{x \cos 2x^3}{2}$
+		האינטגרל $\int_0^\infty x \cos 2x^3 \, dx$ מתכנס בדיוק בצורה דומה למה שעשינו פה למעלה. \\
+		מכיוון ש $-1 \leq \sin x \leq 1$ אזי $\sin^2 x \leq 1$ ומכיוון שהכפלה במספר הקטן מאחד מקטינה את המספר אזי נקבל ש $\pip{x \sin x} \geq x \sin^2 x$. \\
+		ולפי מבחן ההשוואה נקבל ש $\int_0^\infty x \sin^2 x^3 \, dx$ נחבר עם הזהות שהראינו למעלה ונקבל ש:
+		\[
+		\int_0^\infty \brac{x \sin^2 x^3 + \frac{x \cos 2x^3}{2}} =
+		\int_0^\infty \brac{\frac{x}{2} - \frac{x \cos 2x^3}{2} + \frac{x \cos 2x^3}{2}} =
+		\int_0^\infty \frac{x}{2}
+		\]
+		אך ידוע כי $\int_0^\infty \frac{x}{2} dx = \frac{1}{4} x^2 \big|^\infty_0 = \infty$ והגענו לסתירה.
+		ומכאן שהאינטגרל $\int_0^\infty x \sin x^3 \, dx$ אינו מתכנס בהחלט אלא מתכנס בתנאי.
+	\end{proof}
+
+	\pagebreak
+	\subsection*{סעיף ב}
+	\[
+		\int_0^\infty f(x) \, dx = \int_0^\infty \frac{\arctan \frac{1}{x}}{\sqrt{x}} \, dx
+	\]
+	\begin{proof}
+		באינטגרל זה יש 2 נקודות בעייתיות: אפס ואינסוף.
+		\begin{enumerate}
+			\item נתחיל עם 0 עד 1: \\
+			נסמן $g(x) = \frac{1}{\sqrt{x}}$ ונשתמש בגירסא הגבולית של מבחן ההשוואה:
+			\[
+			\limf{x}{0} \frac{f(x)}{g(x)} = \limf{x}{0} \arctan \frac{1}{x} = \limf{t}{\infty} \arctan t = \frac{\pi}{2}
+			\]
+			ולכן לפי סעיף א מכיוון ש $\int_0^1 \frac{1}{\sqrt{x}} \, dx$ מתכנס אזי גם $\int_0^1 f(x) \, dx$ מתכנס.
+
+			\item נבדוק את 1 עד אינסוף: \\
+			הפעם נסמן $g(x) = \frac{1}{\sqrt[3]{x^2}}$ ונשתמש בגירסאת האינסוף של אותו מבחן ההשוואה:
+			\[
+				\limf{x}{\infty} \frac{f(x)}{g(x)} = \limf{x}{\infty} x \arctan x = \limf{t}{0} \frac{\arctan t}{t} = 1
+			\]
+			ולכן מכיוון ש $\int_1^\infty \frac{1}{\sqrt[3]{x^2}} \, dx$ מתכנס אזי גם $\int_1^\infty f(x) \, dx$ מתכנס.
+		\end{enumerate}
+		ביחד קיבלנו ש $\int_0^\infty f(x) \, dx = \int_0^1 f(x) \, dx + \int_1^\infty f(x) \, dx$ מתכנס. \\
+		ע"מ לבדוק האם הוא מתכנס בהחלט נשים לב כי לכל $x \in (0, \infty)$ מתקבל ש $f(x) > 0$ ולכן $f(x) = |f(x)|$ בתחום, ולכן האינטגר מתכנס בהחלט.
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	\[
+		\int_0^1 \frac{\cos \ln x}{x} \, dx
+	\]
+	\begin{proof}
+		הנקודה הבעייתית היא אפס, ולכן נשתמש בהגדרה 3.1 ונבדוק את הגבול:
+		\[
+		\limf{t}{0+} \int_t^1 \frac{\cos \ln x}{x} \, dx = [u = \ln x] =
+		\limf{t}{0+} \int^0_{\ln t} \cos u \, du = \sin u \biggr|^0_{\ln t} =
+		\limf{t}{0+} -\sin(\ln t)
+		\]
+		$\limf{t}{0+} \ln t = -\infty$ ופונקציית הסינוס לא מתכנסת במינוס אינסוף, וע"כ האינטגרל מתבדר.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 3}
+	הוכיחו/הפריכו את הטענות הבאות:
+	\subsection*{סעיף א}
+	אם $f(x)$ רציפה ב $[0, \infty)$ והאינטגרל $\int_0^\infty f(x) \, dx$ מתכנס אז $\limf{x}{\infty} \int_{\ln x}^x f(t) \, dt = 0$.
+
+	\begin{proof}
+		הטענה הכונה. \\
+		הנקודה הבעייתית היחידה היא האינסוף (מכיוון ש $f$ רציפה בכל $[0, \infty)$). \\
+		נסמן $F(x) = \int_0^x f(t) \, dt$ ומהנוסחא היסודית נקבל ש $\int_{\ln x}^x f(t) \, dt = F(x) - F(\ln x)$. \\
+		מכיוון שנתון שהאינטגרל המוכלל $\int_0^\infty f(x)$ מתכנס, אזי:
+		\begin{align*}
+			\limf{x}{\infty} F(x) = \limf{x}{\infty} F(\ln x) = \int_0^\infty f(t) \, dt \\
+			\limf{x}{\infty} f(t) \, dt = F(x) - F(\ln x) = 0
+		\end{align*}
+		ובכך הוכחנו את הטענה.
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	אם $\int_a^\infty f(x) \, dx$ מתכנס ו $\int_a^\infty g(x) \, dx$ מתכנס, אזי $\int_a^\infty f(x) g(x) \, dx$ מתכנס.
+	\begin{proof}
+		הטענה לא נכונה. \\
+		נסתכל על דוגמא 3.12 בעמוד 37 בכרך ב, משאלה 32 מתקבל ש $\int_1^\infty \frac{\cos x}{x^{0.5}} \, dx$ מתכנס, אך הכפל של הפונקציה בעצמה $\int_1^\infty \frac{\cos^2 x}{x}$ מתבדר כמו שמוכח בדוגמא 3.12
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	אם $f(x)$, $g(x)$ פונקציות רציפות אי שליליות בקטע $[0, \infty)$ ו
+	$\int_0^\infty g(x) \, dx$, $\int_0^\infty f(x) \, dx$ מתכנסים, אז $\int_0^\infty M(x) \, dx$ מתכנס כאשר $M(x) = max \set{f(x), g(x)}$ לכל $x \geq 0$.
+
+	\begin{proof}
+		הטענה נכונה. \\
+		$M(x) = max \set{f(x), g(x)} = \frac{f(x) + g(x)}{2} + \frac{\pip{f(x) - g(x)}}{2}$ אזי $M(x)$ רציפה כמנה, סכום, והרכבה של פונקציות רציפות.
+		ולכן גם אינטגרבילית. \\
+		ומכיוון ששתי הפונקציות אי שליליות אזי מתקיים: $0 \leq M(x) \leq f(x) + g(x)$ ומתוך האדיטיביות של האינטגרל אנו מקבלים ש $\int_0^\infty f(x) + g(x) \, dx$ מתכנס.
+		ולכן לפי מבחן ההשוואה באינסוף נקבל ש $\int_0^\infty M(x) \, dx$ מתכנס.
+	\end{proof}
+
+
+	\pagebreak
+	\section*{שאלה 4}
+	תהיינה $f(x)$, $g(x)$ פונקציות חסומות ב $[a, \infty)$. כמו כן, נניח ש $g(x)$ רציפה ב $[a, \infty)$ ו $f(x)$ מונוטונית ובעלת נגזרת רציפה ב $[a, \infty)$.
+	הוכיחו כי האינטגרל $\int_a^\infty f'(x)g(x) \, dx$ מתכנס.
+
+	\begin{proof}
+		נניח ש $f$ יורדת, וההוכחה תעבוד גם בעבור $f$ עולה. \\
+		מחסימות $g(x)$ בקטע קיים $M \in \RR$ כך ש $|g(x)| \leq M$ לכל $x \in [a, \infty)$
+		נכפיל את שני הצדדים ב $|f'(x)| \geq 0$ ונקבל ש $|f'(x)g(x)| \leq |f'(x)M|$, כעת נשתמש במבחן ההשוואה באינסוף כדי לבדוק את ההתכנסות,
+		מכיוון ש $f(x)$ יורדת אזי $f'(x) \leq 0$ ומכאן ש $|f'(x)| = -f'(x)$. ולכן:
+		\[
+		\int_a^\infty |f'(x)M| \, dx = \int_a^\infty -f'(x)M \, dx = \limf{t}{\infty} M\int_a^t f'(x) \, dx = M \limf{t}{\infty}(f(t) - f(a))
+		\]
+		מכיוון ש $f$ מונוטונית וחסומה אזי שקיים $L = \limf{t}{\infty} f(t)$ גבול סופי. ומאריתמטיקה של גבולות נקבל: \\
+		$M \cdot \limf{t}{\infty}(f(t) - f(a)) = M \cdot L - M \cdot f(a)$.
+		וע"כ $\int_a^\infty |f'(x)M| \, dx$ מתכנס ולכן גם $\int_a^\infty |f'(x)g(x)| \, dx$ מתכנס. ז"א $\int_a^\infty f'(x)g(x) \, dx$ מתכנס בהחלט ובפרט מתכנס.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלת רשות (במקום שאלה 5)}
+	הוכיחו כי:
+	$\int_0^\infty \frac{\sin^2 x}{x^2} \, dx = \int_0^\infty \frac{\sin x}{x} \, dx$
+	\begin{proof}
+		נתחיל בלהראות ששני הצדדים אכן מתכנסים:
+		\begin{enumerate}
+			\item $0 \leq \sin^ x \leq 1 \Leftarrow \sin x \leq 1$,  $0 < x^2$
+			ביחד נקבל ש $0 < \frac{\sin^2 x}{x^2} < \frac{1}{x^2}$.
+			ומכיוון שידוע ש $\int_0^\infty \frac{1}{x^2}$ מתכנס אזי ממבחן ההשוואה באינסוף $\int_0^\infty \frac{\sin^2 x}{x^2}$ מתכנס.
+
+			\item נפצל ל $\int_1^\infty \frac{\sin x}{x} + \int_0^1 \frac{\sin x}{x}$ החצי הראשון מתכנס לפי שאלה 32 בעמוד 37 בכרך ב
+			החצי השני נשתמש במבחן ההשוואה: \\
+			מכיוון ש $\sin x \leq 1$ ומכיוון שמדובר בקטע $[0,1]$ נקבל: $0 \leq \frac{\sin x}{x} \leq \frac{1}{x}$.
+			ידוע כי $\int_0^1 \frac{1}{x}$ מתכנס, ולכן גם $\int_0^1 \frac{\sin x}{x}$ מתכנס. \\
+			וביחד $\int_0^\infty \frac{\sin x}{x}$ מתכנס.
+		\end{enumerate}
+		כעת נשתמש באינטגרציה בחלקים ע"מ להוכיח את השוויון:
+		\begin{align*}
+			\int_0^\infty \frac{\sin^2 x}{x^2} \, dx &= \begin{bmatrix}
+				u = \sin^2 x & v' = \frac{1}{x^2} \\
+				u' = 2\sin x \cdot \cos x = \sin 2x & v = - \frac{1}{x}
+			\end{bmatrix} \\
+			&= \frac{sin^2 x}{x} \biggr|_0^\infty - \int_0^\infty - \frac{\sin 2x}{x} \, dx =
+			\limf{x}{\infty} \frac{\sin^2 x}{x} - \limf{x}{0} \frac{\sin^2 x}{x} + \int_0^\infty \frac{\sin 2x}{x} \, dx \\
+			&= 0 - 0 + \int_0^\infty \frac{\sin 2x}{x} \, dx = [t = 2x \Rightarrow dt = 2dx] =
+			\int_0^\infty \frac{2 \sin t}{t} \cdot \frac{1}{2} \, dt = \int_0^\infty \frac{\sin t}{t} \, dt
+		\end{align*}
+		כנדרש.
+	\end{proof}
+\end{document}
