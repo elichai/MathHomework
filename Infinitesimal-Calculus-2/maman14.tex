@@ -1,0 +1,258 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage{amsmath,mathtools,enumerate,xparse,centernot,polyglossia,graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=1.1in]{geometry}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the chA \mathcal{R} Acter \varnothing
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\graphicspath{ {./} }
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{טענת עזר}
+
+\title{אינפי 2 - ממ"ן 14}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+
+	\section*{שאלה 1}
+	קבעו לגבי כל אחד מהטורים הבאים אם הוא מתכנס בהחלט, בתנאי או מתבדר
+
+	\subsection*{סעיף א}
+	\[
+		\sum^\infty_{n=2}\sin(3n+2) \cdot \frac{n + 1}{(n^2 + ) \ln^3 n} + \cos(\pi n) \cdot \frac{(n+1)^n}{n^{n+1}}
+	\]
+	\begin{proof}
+		נסמן: $a_n = \sin(3n+2) \cdot \frac{n + 1}{(n^2 + 1) \ln^3 n}$, $b_n = \cos(\pi n) \cdot \frac{(n+1)^n}{n^{n+1}}$. \\
+		נתחיל ב $a_n$, $\forall n > 1$ מתקיים $\frac{n + 1}{(n^2 + 1) \ln^3 n} > 0$ וגם $\frac{1}{n \cdot \ln^3 n} > 0$(תנאי מבחן 5.15)
+		\[
+		\frac{\frac{n + 1}{(n^2 + 1) \ln^3 n}}{\frac{1}{n \cdot \ln^3 n}}
+		= \frac{n^2 + n}{n^2 + 1}
+		= \frac{1 + \frac{1}{n}}{1 + \frac{1}{n^2}} \xrightarrow[n \to \infty]{} 1
+		\]
+		ולפי שאלה 27א ביחידה 5 הטור $\sum \frac{1}{n \cdot \ln^3 n}$ מתכנס
+		ולכן לפי מבחן 5.15 גם $\sum \frac{n + 1}{(n^2 + 1) \ln^3 n}$ מתכנס. \\
+		לכל $n$ מתקיים $\pip{\cos 2n} \leq 1$ ולכן $0 \leq \pip{a_n} \leq \frac{n + 1}{(n^2 + 1) \ln^3 n}$
+		ולכן ממבחן 5.14 מתקבל ש $\sum \pip{a_n}$ מתכנס, או במילים אחרות $\sum a_n$ מתכנס בהחלט. \\
+		מתוך מחזוריות קוסינוס נקבל שלכל $n \in \NN$ מתקיים $\cos \pi n = (-1)^n$
+		ולכן: \\
+		$b_n = (-1)^n \cdot \frac{(n+1)^n}{n^{n+1}} = \frac{(-1)^n}{n} \cdot \brac{\frac{n+1}{n}}^n$
+		הסדרה $\brac{\frac{n+1}{n}}^n \xrightarrow[n \to \infty]{} e$ מונוטונית עולה וחסומה,
+		ולפי משפט לייבניץ 5.20 הסדרה $\frac{(-1)^n}{n} = (-1)^n \cdot \frac{1}{n}$ כאשר $\frac{1}{n}$ סדרת מספרים אי שליליים יורדת ואפסה ולכן $\sum \frac{(-1)^n}{n}$ מתכנס
+		וביחד לפי מבחן אבל גם $\sum b_n$ מתכנס.
+		כעת נבדוק האם בתנאי או בהחלט בעזרת מבחן 5.15:
+		\[
+		\pip{b_n} = \frac{1}{n} \cdot \brac{\frac{n+1}{n}}^n \Rightarrow
+		\frac{\pip{b_n}}{\frac{1}{n}}
+		= \brac{\frac{n+1}{n}}^n \xrightarrow[n \to \infty]{} e
+		\]
+		ומכיוון ש $\sum \frac{1}{n}$ מתבדר אזי ממבחן 5.15 גם $\sum \pip{b_n}$ מתבדר, ולכן $\sum b_n$ מתכנס בתנאי. \\
+		ומכיוון שגם $\sum a_n$ וגם $\sum b_n$ מתכנסים אזי $\sum a_n + b_n$ מתכנס. \\
+		נניח בשלילה ש $\sum \pip{a_n + b_n}$ מתכנס, ע"כ $\sum \pip{a_n + b_n} + \pip{a_n}$ מתכנס
+		ומאי שוויון המשולש נקבל ש \\
+		 $0 \leq \pip{a_n + b_n - a_n} \leq \pip{a_n + b_n} + \pip{a_n}$ וממבחן 5.14 נקבל ש $\sum \pip{a_n + b_n - a_n} = \sum \pip{b_n}$ מתכנס, בסתירה למה שהראינו קודם. \\
+		ובסה"כ קיבלנו שהטור הנתון מתכנס בתנאי.
+		\end{proof}
+
+		\subsection*{סעיף ב}
+		\[
+			\sum^\infty_{n=1} n^{1/4} a_n = \sum^\infty_{n=1} n^{1/4} \brac{\sqrt{n^3+1} - \sqrt{n^3 -1}} \cos n
+		\]
+		\begin{proof}
+			נכפיל ונחלק את $a_n$ בצמוד:
+			\begin{align*}
+				a_n
+				= \frac{n^{1/4} \brac{\sqrt{n^3+1} - \sqrt{n^3 -1}}\brac{\sqrt{n^3+1} + \sqrt{n^3 -1}} \cos n}{\sqrt{n^3+1} + \sqrt{n^3 -1}}
+				= \frac{n^{1/4} \brac{n^3 + 1 - n^3 + 1} \cos n}{\sqrt{n^3+1} + \sqrt{n^3 -1}}
+				= \frac{2 \cdot n^{1/4} \cos n}{\sqrt{n^3+1} + \sqrt{n^3 -1}}
+			\end{align*}
+			בערך מוחלט:
+			\begin{align*}
+				0 \leq \pip{a_n}
+				= \pip{\frac{2 \cdot n^{1/4} \cos n}{\sqrt{n^3+1} + \sqrt{n^3 -1}}}
+				\leq \pip{\frac{2 \cdot n^{1/4}}{\sqrt{n^3+1} + \sqrt{n^3 -1}}}
+				\leq \pip{\frac{2 \cdot n^{1/4}}{\sqrt{n^3}}}
+				= 2\frac{1}{n^{5/4}}
+			\end{align*}
+		הטור $\sum 2\frac{1}{n^{5/4}}$ מתכנס לפי דוגמא 5.8 וכפל בקבוע מכיוון ש $5/4>1$.
+		ולכן לפי מבחן 5.14 $\sum \pip{a_n}$ מתכנס או במילים אחרות הטור $\sum a_n$ מתכנס בהחלט.
+		\end{proof}
+
+
+		\section*{שאלה 2}
+		מצא את כל הערכים של $\alpha$ עבורם הטור
+		\[
+			\sum^\infty_{n=1} a_n
+			= \sum^\infty_{n=1} \frac{1 + (-1)^n n^\alpha}{n^{2\alpha}}
+			= \sum^\infty_{n=1} \frac{1}{n^{2\alpha}} + \frac{(-1)^n}{n^\alpha}
+		\]
+		מתכנס בהחלט ואת אלה עבורם מתכנס בתנאי.
+		\begin{proof}
+			נפצל לערכים שונים של אלפא:
+			\begin{enumerate}
+				\item $\alpha > 1$ נשתמש במבחן 5.15 $1/n^\alpha$ מתכנס לפי דוגמא 5.8 כי $\alpha > 1$
+				ונחלק ונקבל: \\
+				$\frac{\pip{a_n}}{1/n^\alpha} = \pip{\frac{1 + (-1)^n n^\alpha}{n^{\alpha}}} = \pip{(-1)^n + \frac{1}{n^\alpha}}$
+				וניתן לראות ש $\pip{(-1)^n + \frac{1}{n^\alpha}} \xrightarrow[n \to \infty]{} 1$ מכיוון
+				שאם נסתכל על תתי הסדרות, של האינדקסים הזוגיים והאי זוגיים של הסדרה נקבל $\pip{\frac{1}{n^\alpha} - 1} \xrightarrow[n \to \infty]{} 1$ וגם $\pip{\frac{1}{n^\alpha} + 1} \xrightarrow[n \to \infty]{} 1$.
+				ובסה"כ קיבלנו שהטור $\sum |a_n|$ מתכנס במילים אחרות $\sum a_n$ מתכנס בהחלט.
+
+				\item $0 < \alpha \leq 1$ לפי דוגמא 5.8 $\sum \frac{1}{n^{2\alpha}}$ מתכנס אם"ם $\alpha > 0.5$ ולפי מבחן לייבניץ לכל $\alpha > 0$ הסדרה $1/n^\alpha$ יורדת, חיובית, ואפסה ולכן $\sum (-1)^n \frac{1}{n^\alpha}$ מתכנס אך $\sum \pip{(-1)^n \frac{1}{n^\alpha}} = \frac{1}{n^\alpha}$ מתבדר לפי דוגמא 5.8 ($\alpha<1$) ולכן הטור הנ"ל מתכנס בתנאי.
+				ומכיוון שהטור שלנו הינו $\sum a_n = \sum  \frac{1}{n^{2\alpha}} + (-1)^n \frac{1}{n^\alpha}$ אזי הטור כולו מתכנס אם"ם $\alpha>0.5$ (מכיוון שהחצי השני של הטור מתכנס לכל $\alpha>0$, ולכן אם הטור יתכנס כש $\alpha \leq 0.5$ אז נוכל באריתמטיקה להגיע לסתירה). \\
+				ע"מ לבדוק האם מתכנס בתנאי או בהחלט נניח בשלילה ש $\sum |a_n|$ מתכנס, ולכן $\sum |a_n| + 1/n^\alpha$ גם מתכנס,
+				ומאי שיוויון המשולש נקבל ש $0 \leq |a_n -  (-1)^n/n^\alpha| \leq |a_n| + (-1)^n/n^\alpha$ ולכן ממשפט 5.14 נקבל ש: \\
+				$\sum |a_n - (-1)^n/n^\alpha| = \sum \pip{\frac{1}{n^{2\alpha}}}$ מתכנס, בסתירה למה שהראינו קודם שהוא מתבדר. \\
+				וע"כ הטור הנתון $\sum a_n$ מתכנס בתנאי.
+
+				\item $\alpha \leq 0$ כאשר $n$ זוגי מתקיים $\sum a_n = n^{-2\alpha} + n^-\alpha \leq 1$ בסתירה לתנאי ההכרחי ש $a_n \xrightarrow[n \to \infty]{} 0$
+			\end{enumerate}
+			בסה"כ הראינו כי הטור מתכנס בהחלט בעבור $\alpha > 1$, מתכנס בתנאי בעבור $0.5 < \alpha \leq 1$ ומתבדר בעבור $\alpha \leq 0.5$.
+		\end{proof}
+
+		\pagebreak
+		\section*{שאלת רשות - במקום שאלה 3}
+		יהי $\sum_{n=1}^\infty a_n$ טור מתכנס. נסמן $b_n = \sum_{k=1}^n ka_k$, הוכיחו כי $\frac{b_n}{n} \to 0$.
+		\begin{proof}
+			נתון לנו כי $\sum a_n$ מתכנס, ולכן נסמן $S_a = \sum a_n$ כסכום הטור. \\
+			ניעזר בטרנספורמציה של אבל ע"מ לפשט את הביטוי, נסמן $S_0 = 0$ ו $S_k = \sum_{i=1}^k a_i$
+			\begin{align*}
+				b_n
+				= \sum_{k=1}^n ka_k
+				= \sum_{k=1}^{n-1} S_k(k - (k+1)) + n \cdot S_n
+				= -\sum_{k=1}^{n-1} S_k + n \cdot S_n
+			\end{align*}
+			כעת נציב ב $b_n$ ונקבל:
+			\begin{align*}
+				\frac{b_n}{n}
+				= \frac{-\sum_{k=1}^{n-1} S_k + n \cdot S_n}{n}
+				= S_n - \frac{\sum_{k=1}^{n-1} S_k}{n}
+			\end{align*}
+			ובעצם יש לנו כמעט ממוצע חשבוני, ע"מ "לתקן" את הביטוי כדי שיציג בדיוק ממוצע חשבוני נוסיף ביטוי לסכום ואח"כ נחסר אותו:
+			\begin{align*}
+				\frac{b_n}{n}
+				= S_n - \frac{\sum_{k=1}^{n-1} S_k}{n}
+				= S_n - \frac{\sum_{k=1}^{n} S_k}{n} + \frac{S_n}{n}
+			\end{align*}
+			כעת נוכל להשתמש במשפט 2.51 מאינפי 1, שאומר שסדרת הממוצעים החשבונית של סדרה מתכנסת מתכנסת לאותו הגבול,
+			ובעזרת האדטיביות של סכומי טורים נקבל ש:
+			\begin{align*}
+				\limf{n}{\infty} \frac{b_n}{n}
+				= \limf{n}{\infty} S_n -  \limf{n}{\infty}\frac{\sum_{k=1}^{n} S_k}{n} + \limf{n}{\infty} \frac{S_n}{n}
+				= S_a -  S_a + S_a \cdot 0
+				= 0
+			\end{align*}
+			כנדרש.
+		\end{proof}
+
+		\section*{שאלה 4}
+		נתון כי $a_n \neq 0$ לכל $n$.
+		הוכיחו כי הטור $\sum_{n=1}^\infty \brac{1 - \frac{\sin a_n}{a_n}}$ מתכנס אם"ם הטור $\sum_{n=1}^\infty a_n^2$ מתכנס.
+		\begin{proof}
+			נסמן את סדרת האיברים: $x_n = 1 - \frac{\sin a_n}{a_n}$
+			\begin{enumerate}
+				\item אם $a_n \not\to 0$ אזי הטור $\sum_{n=1}^\infty a_n^2$ מתבדר לפי התנאי ההכרחי,
+				 ומאינפי 1 קיימת תת סדרה $(a_{n_k})$ המתכנסת במובן הרחב,
+				אם $a_{n_k} \to \pm \infty$ אז $\frac{\sin a_{n_k}}{a_{n_k}} \to 0$ ולכן $x_{n_k} \to 1$
+				אם היא מתכנסת לגבול סופי אזי $x_{n_k} \to L$ ומכיוון ש $a_n \not\to 0$ אזי $\pip{\frac{\sin a_n}{a_n}} < 1$ ומכאן $L \neq 0$. \\
+				וקיבלנו שבכל מקרה $x_n \not\to 0$ ולכן לא עומד בתנאי ההכרחי, ובהכרח הטורים שניהם מתבדרים.
+
+				\item אם $a_n \to 0$ אזי נשתמש בפיתוח מקלורן של $\sin x$:
+				\begin{align*}
+					x_n
+					= 1 - \frac{a_n - \frac{a_n^3}{3!} + R_3(a_n)}{a_n}
+					= 1 - 1 + \frac{a_n^2}{6} - \frac{R_3(a_n)}{a_n}
+					= \frac{a_n^2}{6} - \frac{R_3(a_n)}{a_n}
+				\end{align*}
+				כעת נשתמש במבחן השוואה 5.15 ע"מ להראות שהתכנסות הטור הראשון מתקיימת אם"ם הטור השני מתכנס: \\
+				\begin{align*}
+					\limf{n}{\infty} \frac{x_n}{a_n^2}
+					= \limf{n}{\infty}\frac{\frac{a_n^2}{6} - \frac{R_3(a_n)}{a_n}}{a_n^2}
+					= \frac{1}{6} - \limf{n}{\infty} \frac{R_3(a_n)}{a_n^3}
+				\end{align*}
+				לפי הגדרת היינה $\limf{n}{\infty} \frac{R_3(a_n)}{a_n^3} = \limf{x}{0} \frac{R_3(x)}{x^3}$
+				ולפי משפט 4.7 $\limf{x}{0} \frac{R_3(x)}{x^3} = 0$
+				ולכן $\limf{n}{\infty} \frac{x_n}{a_n^2} = \frac{1}{6}$, כנדרש בתנאי מבחן 5.15, ומכאן שהטורים מתכנסים ומתבדרים יחדיו.
+			\end{enumerate}
+			בשתי האופציות הראינו שהטור הראשון מתכנס אם"ם השני מתכנס כנדרש.
+		\end{proof}
+
+		\pagebreak
+		\section*{שאלה 5}
+		הוכיחו או הפריכו את הטענות הבאות
+		\subsection*{סעיף א}
+		עבור סדרה $a_n$ של מספרים אי שליליים נסמן $b_n = a_{3n - 2} + a_{3n - 1} + a_n$, $n \geq 1$.
+		אם הטור $\sum b_n$ מתכנס אז גם $\sum a_n$ מתכנס.
+		\begin{proof}
+			נתון לנו כי איברי הסדרה אי שליליים ולכן $a_n \geq 0$
+			ומכאן שלכל $n$ מתקיים:
+			$a_n \leq a_{3n - 2} + a_{3n - 1} + a_n = b_n$
+			וקיבלנו ש $0 \leq a_n \leq b_n$ ולכן ממבחן ההשוואה 5.14 נקבל שאם הטור $\sum b_n$ מתכנס אזי גם הטור $\sum a_n$ מתכנס.
+			ולכן \textbf{הטענה נכונה}.
+		\end{proof}
+
+		\subsection*{סעיף ב}
+		אם הטור $\sum a_n$ מתכנס בהחלט אזי הטור $\sum (a_n + a_n^3)$ מתכנס.
+		\begin{proof}
+			מהתכנסות $\sum a_n$ נובע כי $a_n \to 0$ ולכן קיים $M$ כך ש $|a_n| \leq M$
+			נשים לב כי:
+			\begin{align*}
+				0 \leq |a_n + a_n^3| \leq |a_n + a_n M^2| = |a_n|(1 + M^2)
+			\end{align*}
+			הטור $\sum |a_n|(1 + M^2) = (1 + M^2) \sum |a_n|$ ולכן מתכנס כי נתון ש $\sum a_n$ מתכנס בהחלט. \\
+			ולכן ממבחן ההשוואה 5.14 נקבל ש $\sum |a_n + a_n^3|$ מתכנס ולכן $\sum a_n + a_n^3$ מתכנס בהחלט, ובפרט מתכנס. \\
+			ולכן \textbf{הטענה נכונה}.
+		\end{proof}
+		\subsection*{סעיף ג}
+		אם $f(x)$ מוגדרת בקטע $[0,1]$ והטור $\sum f(1/n)$ מתכנס, אז הטור $\sum f(1/n^2)$ מתכנס.
+		\begin{proof}
+			נתחיל בהוכחת טענת עזר:
+			\begin{lemma}\label{lemma:1}
+				לא קיים $x > 0 \in \NN$ כך שגם $\sqrt{x} \in \NN$ וגם $\sqrt{x+1} \in \NN$
+				\begin{proof}
+					נניח בשלילה שקיימים כאלה, נסמן $a = \sqrt{x}$, $b = \sqrt{x+1}$
+					ולכן: $(x+1) - x = b^2 - a^2 = 1$, \\
+					 נשתמש בהפרש ריבועים ונקבל $1 = b^2 - a^2 = (b+a)(b-a)$
+					 ובעצם קיבלנו ש $(b+a)$ ו $(b-a)$ הם ההופכיים זה של זה. אך המספר הטבעי היחיד שיש לו הופכי הוא 1 ולכן
+					 $(b+a) - (b-a) = 0$ ומכאן ש $2a = 0$ ולכן גם $a^2=x=0$ בסתירה להנחה ש $x>0$.
+				\end{proof}
+			\end{lemma}
+
+			כעת נציג דוגמא נגדית:
+			\begin{align*}
+				f(x) = \begin{cases}
+					\sqrt{x} &\text{ if } \frac{1}{x} \in \NN \land \frac{1}{\sqrt{x}} \in \NN \\
+					-\sqrt{x+1} &\text{ if } \frac{1}{x} \in \NN \land \frac{1}{\sqrt{x+1}} \in \NN \\
+					0 &\text{ otherwise or if x=0 } \\
+				\end{cases}
+			\end{align*}
+			פונקציה זו מוגדרת היטב, כי הוכחנו ב\ref{lemma:1} שאין 2 מספרים טבעיים עוקבים הגדולים מאפס כך ששניהם ריבועים.
+			בנוסף ניתן לראות שהיא מוגדרת ב $[0,1]$ו $f(1/n)$ זה בעצם המון אפסים, ולכל מספר ריבועי מופיע $1/n$ וגם $-1/n$,
+			 ולכן הסדרה שואפת לאפס, ומשנה סימן ולכן ממשפט לייבניץ הטור $\sum_{n=1}^\infty f(1/n)$ מתכנס. \\
+			אך $f(1/n^2)$ בעצם תמיד שווה ל $1/n$ מכיוון ש $1/\sqrt{n} \in \NN$ תמיד מתקיים. וידוע כי $\sum 1/n$ מתבדר, ולכן $\sum_{n=1}^\infty f(1/n^2)$ מתבדר.
+		\end{proof}
+
+\end{document}
