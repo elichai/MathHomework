@@ -245,14 +245,14 @@
 			\begin{align*}
 				f(x) = \begin{cases}
 					\sqrt{x} &\text{ if } \frac{1}{x} \in \NN \land \frac{1}{\sqrt{x}} \in \NN \\
-					-\sqrt{x+1} &\text{ if } \frac{1}{x} \in \NN \land \frac{1}{\sqrt{x+1}} \in \NN \\
+					-\sqrt{x+1} &\text{ if } \frac{1}{x} \in \NN \land \sqrt{\frac{1}{x}+1} \in \NN \\
 					0 &\text{ otherwise or if x=0 } \\
 				\end{cases}
 			\end{align*}
 			פונקציה זו מוגדרת היטב, כי הוכחנו ב\ref{lemma:1} שאין 2 מספרים טבעיים עוקבים הגדולים מאפס כך ששניהם ריבועים.
 			בנוסף ניתן לראות שהיא מוגדרת ב $[0,1]$ו $f(1/n)$ זה בעצם המון אפסים, ולכל מספר ריבועי מופיע $1/n$ וגם $-1/n$,
 			 ולכן הסדרה שואפת לאפס, ומשנה סימן ולכן ממשפט לייבניץ הטור $\sum_{n=1}^\infty f(1/n)$ מתכנס. \\
-			אך $f(1/n^2)$ בעצם תמיד שווה ל $1/n$ מכיוון ש $1/\sqrt{n} \in \NN$ תמיד מתקיים. וידוע כי $\sum 1/n$ מתבדר, ולכן $\sum_{n=1}^\infty f(1/n^2)$ מתבדר.
+			אך $f(1/n^2)$ בעצם תמיד שווה ל $1/n$ מכיוון ש $1/\sqrt{1/n^2} \in \NN$ תמיד מתקיים. וידוע כי $\sum 1/n$ מתבדר, ולכן $\sum_{n=1}^\infty f(1/n^2)$ מתבדר.
 		\end{proof}
 
 \end{document}
