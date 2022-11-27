@@ -1,0 +1,279 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage{amsmath,mathtools,enumerate,xparse,centernot,polyglossia,graphicx, aligned-overset}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=1.1in]{geometry}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the chA \mathcal{R} Acter \varnothing
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\graphicspath{ {./} }
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{טענת עזר}
+
+\DeclareMathOperator{\Img}{Im}
+
+\title{תורת הקבוצות - ממ"ן 11}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+
+	\section*{שאלה 1}
+	תהי $M$ קבוצה של מספרים טבעיים המוגדרת כך:
+	$m \in M$ אם"ם יש קבוצה סופית $A$ כך ש: $\pip{\PP(A) \sub A} = m$
+
+	\subsection*{סעיף א}
+	הוכיחו ש $5 \in M$
+	\begin{proof}
+		נסתכל על הקבוצה: $A = \set{\emptyset, \set{\emptyset}, \set{\set{\emptyset}}}$. \\
+		מהגדרת קבוצת החזקה נקבל ש: \\
+		$\PP(A) = \set{\emptyset, \set{\emptyset}, \set{\set{\emptyset}}, \set{\set{\set{\emptyset}}}, \set{\emptyset, \set{\emptyset}}, \set{\emptyset, \set{\set{\emptyset}}}, \set{\set{\emptyset}, \set{\set{\emptyset}}}, \set{\emptyset, \set{\emptyset}, \set{\set{\emptyset}}}}$. \\
+		ונראה כי: $\PP(A) \sub A = \set{\set{\set{\set{\emptyset}}}, \set{\emptyset, \set{\emptyset}}, \set{\emptyset, \set{\set{\emptyset}}}, \set{\set{\emptyset}, \set{\set{\emptyset}}}, \set{\emptyset, \set{\emptyset}, \set{\set{\emptyset}}}}$. \\
+		ולכן $\pip{\PP(A) \sub A} = 5$ ומכאן ש $5 \in M$.
+	\end{proof}
+	\subsection*{סעיף ב}
+	הוכיחו ש $10 \not\in M$.
+	\begin{proof}
+		מהגדרות 1.6+1.7 נקבל כי $\pip{\PP(A)} = 2^{\pip{A}}$.
+		ומכיוון שפעולת ההפרש יכולה להוריד לכל היותר $|A|$ איברים, ולא יכולה להוסיף איברים, אזי:
+		$2^{\pip{A}} \geq \pip{\PP(A) \sub A} \geq 2^{\pip{A}} - \pip{A}$.
+		נסמן $n = |A|$ ונוכיח באינדוקציה כי $2^{n+1} - n \geq 2^{n}$: \\
+		\textbf{בסיס האינדוקציה} בעבור $n = 0$: $1 = 2^1 - 1 \geq 2^0 = 1$, ובעבור $n = 1$: $3 = 2^2 - 1 \geq 2^1 = 2$ \\
+		\textbf{הנחת האינדוקציה:} $2^{n+1} - n \geq 2^{n}$  \\
+		\textbf{צעד האינדוקציה:}
+		\begin{alignat*}{2}
+			&2^{n+1} - n \geq 2^{n} &&\big\backslash \ \cdot 2 \\
+			&2^{n+2} - 2n \geq 2^{n+1} &&\big\backslash \ \forall n \in \NN \sub \set{0},  2n = n + n \geq n+1 \\
+			&2^{n+2} - (n+1) \geq 2^{n+2} - 2n \geq 2^{n+1} \\
+			&2^{n+2} - (n+1) \geq 2^{n+1}
+		\end{alignat*}
+		ובעצם קיבלנו שהחסם התחתון לכל $n+1$ גדול מהחסם העליון לכל $n$
+		אז ננסה להציב $n=3$ ו $n=4$ ונקבל:
+		\begin{enumerate}
+			\item אם $\pip{A} = 3$ אז: $8 \geq \pip{\PP(A) \sub A} \geq 5$.
+			\item ואם $\pip{A} = 4$ אז: $16 \geq \pip{\PP(A) \sub A} \geq 12$.
+		\end{enumerate}
+		ומכיוון שלכל $n \leq 3$ החסם העליון יהיה $8 \geq$ ולכן $10$ לא יכול להיות שם.
+		ולכל $n \geq 4$ החסם התחתון יהיה $\geq 12$ ולכן $10$ לא יכול להיות גם שם. \\
+		ובסה"כ קיבלנו ש $10 \not\in M$
+	\end{proof}
+	\subsection*{סעיף ג}
+	הוכיחו בעזרת משפט 1.6 וללא שימוש באינדוקציה, שלכל $n \in \NN$ מתקיים $2^n \geq 2n$.
+	\begin{proof}
+		אם $n \in \set{0,1}$ אזי זה מתקיים בבירור $2^0 \geq 2 \cdot 0 \land 2^1 \geq 2 \cdot 1$. \\
+		אחרת, נסתכל על קבוצה $A$ כאשר $|A| = n$ לפי משפט 1.6 קיימים $2^n$
+		תתי קבוצות, כאשר בין תתי הקבוצות נמצאים $n$ שמכילות איבר יחיד מ $A$,
+		 ובנוסף נסמן $x \in A$ ישנם $n-1$ תתי קבוצות מהצורה $\set{x, y}$ כאשר $x \neq y$.
+		וכמובן שגם הקבוצה הריקה $\emptyset$ נמצאת שם כי היא חלקית לכל קבוצה, נסכם ונקבל $n + (n-1) + 1 = 2n$ ומצאנו $2n$ תתי קבוצות של $A$ ומכיוון שישנם $2^n$ תתי קבוצות אזי $2^n \geq 2n$.
+	\end{proof}
+
+	\subsection*{סעיף ד}
+	הראו שהקבוצות $M$ ו $\NN \sub M$ אינסופיות.
+	\begin{proof}
+		\begin{itemize}
+			\item[א.] נניח בשלילה ש $M$ סופית, אזי קיים $n = max\set{M}$, נסתכל על קבוצה $A$ כך ש $|A| = n+1$ ולכן $\pip{\PP(A)} = 2^{n+1}$
+			נסמן $m = \pip{\PP(A) \sub A}$ ונקבל $m \geq 2^{n+1} - (n+1)$ ומכיוון ש $2^{n+1} \geq 2(n+1)$ אזי $2^n - (n+1) \geq n+1 > n$ וקיבלנו ש $m \in M$ וגם $m > n$ בסתירה לזה ש $m = max\set{M}$, ומכאן ש $M$ אינסופית.
+			\item נניח בשלילה כי $\NN \sub M$ סופית,
+		\end{itemize}
+	\end{proof}
+
+	\section*{שאלה 2}
+	נגדיר על $\PP(\NN)$ את היחס $\triangleq$ כך: $A \triangleq B$ אם"ם $A \Delta B$ היא קבוצה סופית
+
+	\subsection*{סעיף א}
+	הוכיחו שהיחס $\triangleq$ הוא יחס שקילות על $\PP(\NN)$.
+	\begin{proof} \nl
+		\begin{itemize}
+			\item[א.] \textbf{רפלקסיבי:} $A \Delta A \overset{\ref{lemma:1}}= \emptyset \Rightarrow A \triangleq A$ (הקבוצה הריקה היא סופית)
+			\item[ב.] \textbf{סימטרי:} מכיוון שההפרש הסימטרי הוא סימטרי אזי אם $A \Delta B$ סופי וודאי ש $B \Delta A$ סופי.
+			\item[ג.] \textbf{טרנזיטיבי:} יהי $A, B, C \in \PP(\NN)$ כך ש $A \Delta B$ וגם $B \Delta C$ שתיהן סופיות.
+			$(A \Delta B) \Delta (B \Delta C)$ מכיוון שגם צד ימין וגם צד שמאל סופיים, וההפרש הסימטרי הוא קבוצת כל העצמים שנמצאים או $A$ או ב $B$ אך לא בשניהם, אז וודאי שההפרש הסימטרי בין 2 קבוצות סופיות הוא סופי, ולכן גם הביטוי הזה סופי, ומכאן:
+			\begin{align*}
+				(A \Delta B) \Delta (B \Delta C) \overset{\ref{lemma:1}}=
+				A \Delta (B \Delta B) \Delta C \overset{\ref{lemma:1}} =
+				A \Delta (\emptyset) \Delta C \overset{\ref{lemma:1}} =
+				A \Delta C
+			\end{align*}
+			וקיבלנו בעצם ש $A \Delta C$ סופית ולכן $A \triangleq C$ כנדרש.
+			\begin{lemma} \label{lemma:1}
+				\begin{itemize}
+					\item[א.] ההפרש הסימטרי הוא קיבוצי: $(A \Delta B) \Delta C = A \Delta (B \Delta C)$
+					\item[ב.] $A \Delta A = \emptyset$
+					\item[ג.] $A \Delta \emptyset = A$
+				\end{itemize}
+				\begin{proof}
+					\item[א.] $x \in A \Delta B$ אם"ם $x \in A$ או $x \in B$ אך לא בשניהם, ולכן $x \in (A \Delta B) \Delta C$ אומר שאו $x \in C \land x \not\in (A \Delta B)$ או $x \not\in C \land x \in (A \Delta B)$ ז"א ש $x \in A \Delta (B \Delta C)$ אם"ם $x$ נמצא במספר אי זוגי של קבוצות.
+					ולכן $x \in A \Delta (B \Delta C) \iff x \in (A \Delta B) \Delta C$.
+					\item[ב.] $A \Delta A = (A \sub A) \cup (A \sub A) = \emptyset \cup \emptyset = \emptyset$
+					\item[ג.] $A \Delta \emptyset = (A \cup \emptyset) \sub (A \cap \emptyset) = A \sub \emptyset = A$
+				\end{proof}
+
+			\end{lemma}
+		\end{itemize}
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	הראו שקבוצת כל התת-קבוצות הסופיות של $\NN$ היא מחלקת שקילות לפי $\triangleq$
+	\begin{proof}
+		מכיוון שההפרש הסימטרי הוא קבוצת כל העצמים באחת הקבוצות אך לא בשניהן, אזי ההפרש הסימטרי של כל שתי קבוצות סופיות הוא סופי ולכן כל שתי קבוצות סופיות $A, B \in \PP(\NN)$ מקיימות $A \triangleq B$ ומכיוון שזה יחס שקילות אזי הן מחלקת שקילות.
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	הראו שאם $A \triangleq B$ אז לכל $C \in \PP(\NN)$ מתקיים $A \Delta C \triangleq B \Delta C$
+	\begin{proof}
+		\begin{align*}
+			(A \Delta C) \Delta (B \Delta C) \overset{\ref{lemma:1} + \text{חילופיות}}=
+			A \Delta (C \Delta C) \Delta B \overset{\ref{lemma:1}}=
+			A \Delta \emptyset \Delta B \overset{\ref{lemma:1}}=
+			A \Delta B
+		\end{align*}
+		ומכאן שאם $A \Delta B$ סופית אזי גם $(A \Delta C) \Delta (B \Delta C)$ סופית ולכן $A \Delta C \triangleq B \Delta C$
+	\end{proof}
+
+	\subsection*{סעיף ד}
+	הראו שאם $A \triangleq B$ אז $A^c \triangleq B^c$
+	\begin{proof}
+		\begin{align*}
+			A \Delta B
+			&= (A \cup B) \sub (A \cap B)
+			\ontop{(1.21)}= (A \cup B) \cap (A \cap B)^c
+			\ontop{(דה מורגן)}= (A \cup B) \cap (A^c \cup B^c) \\
+			\ontop{(חילופיות)}&= (A^c \cup B^c) \cap (A \cup B)
+			\ontop{(1.21)}= (A^c \cup B^c) \sub (A \cup B)^c
+			\ontop{(דה מורגן)}= (A^c \cup B^c) \sub (A^c \cap B^c)
+			= A^c \Delta B^c
+		\end{align*}
+		וקיבלנו ש $A \Delta B = A^c \Delta B^c$ ולכן $A \triangleq B \iff A^c \triangleq B^c$.
+	\end{proof}
+
+	\subsection*{סעיף ה}
+	מצאו את מחלקת השקילות לפי $\triangleq$ ש $\NN$ איבר בה.
+	\begin{proof}
+		$\set{A \in \PP(\NN) | (\NN \sub A) \text{finite is }}$
+		מהגדרת היחס, כל תת קבוצה $A$ של $\NN$ שמכילה אינסוף מאיברי $\NN$ למעט מספר סופי של איברים, ההפרש הסימטרי שלה עם $\NN$ יהיה אותם מספר סופי של איברים, ולכן סופי.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 3}
+	לכל $n \in \NN$ יהי $R_n$ יחס סדר מלא על הקבוצה $A$. נסמן $R = \lim\sup R_n$ ונניח ש $R$ הוא יחס טרנזיטיבי.
+	הוכיחו ש $R = \lim\inf R_n$ וש $R$ הוא יחס סדר מלא על $A$.
+
+	\begin{proof}
+		משאלה 46 בפרק 1 אנו מקבלים כי: $\lim \inf R_n \subseteq \lim \sup R_n = R$ ע"מ להוכיח שוויון נוכיח הכלה בכיוון השני: \\
+		יהי $\ang{a,b} \in R$ נניח בשלילה ש $\ang{a,b} \not\in \lim\inf R_n$ מהגדרת הגבול התחתון נובע כי קיימים אינסוף $n$ים כך ש $\ang{a,b} \not\in R_n$
+		 ומכיוון ש $R_n$ יחס מלא ו $a \neq b$ אזי $\ang{b,a} \in R_n$(עבור אינסוף $n$ים) ולכן מהגדרת הגבול העליון $\ang{b,a} \in R$ ומטרנזיטיביות של $R$ נקבל כי:
+		 $\ang{a,a} \in R$ ז"א ש $\ang{a,a} \in R_n$ בעבור איזשהו $n$ בסתירה להיותו אנטי רפלקסיבי.
+		 ולכן בהכרח $R = \lim \sup R_n = \lim\inf R_n$. \\
+		 נשים לב כי במהלך ההוכחה הראינו ש $R$ אנטי רפלקסיבי. וגם שלא יכול להיות שגם $aRb$ וגם $bRa$ כל שנותר להראות זה את התכונה האחרונה של משווה: \\
+		 יהי $\ang{a,b} A \times A$ כך ש $\ang{a,b} \not\in R \land \ang{b,a} \not\in R$ מהגדרת הגבול התחתון ישנם רק מספר סופי(אם בכלל) של $R_n$ים שעבורם $\ang{a,b} \in R_n$ ובנוסף מספר סופי אם בכלל ש $\ang{a,b} \not\in R_n$, ז"א שישנם $n$ים שעבורם $\ang{a,b} \not\in R_n \land \ang{b,a} \not\in R_n$ ומכוון שהם יחס סדר מלא, בהכרח $a=b$ כנדרש.
+	\end{proof}
+
+
+	\section*{שאלה 4}
+	תהי $\ang{A, \prec}$ קבוצה סדורה חלקית. יהיו $a, b \in A$ ותהי $J = \set{x \in A | a \prec x \prec b}$.
+	נגדיר $\prec\ast = \prec \sub (J \times J)$, כלומר $\prec\ast$ הוא יחס נוסף על $A$ המוגדר כך:
+	$\forall x,y \in A$ מתקיים $x \prec\ast y$ אם"ם $x \prec y$ וגם $\ang{x,y} \not\in J \times J$
+
+	\subsection*{סעיף א}
+	הוכיחו ש $\ang{A, \prec\ast}$ היא קבוצה סדורה חלקית.
+	\begin{proof}
+		\begin{itemize}
+			\item[א.] \textbf{טרנזטיבי:}  יהי $x,y,z \in A$ כך ש $x \prec\ast y$ ו $y \prec\ast z$
+			מהגדרת $\prec\ast$ נקבל ש $x \prec y \prec z$($\prec$ טרנזיטיבי) וגם $\ang{x, y} \not \in J \times J \Rightarrow x \not\in J \lor y \not\in J$ ובצורה דומה $y \not\in J \lor z \not\in J$
+			נפצל לאופציות:
+			\begin{enumerate}
+				\item $y \in J$ לכן $x \not\in J$ וגם $z \not\in J$ ולכן $\ang{x,z} \not\in J \times J$
+				\item $y \not\in J$ ז"א ש $y \prec a \lor b \prec y$ אם $y \prec a$ מכיוון ש $x \prec y$ מטרנזיטיביות נקבל ש $x \prec a$ ז"א $x \not\in J$, ואם $b \prec y$ אז מכיוון ש $y \prec z$ נקבל $b \prec z$ ולכן $z \not\in J$
+				בכל מקרה $\ang{x,z} \not\in J$
+			\end{enumerate}
+			וקיבלנו שבכל מצב $\ang{x,z} \not \in J$ ומטרנזיטיביות $\prec$ נקבל ש $x \prec z$ וביחד $x \prec\ast z$.
+			\item[ב.] \textbf{אי רפלקסיבי} נובע ישירות מהאי רפלקסיביות של $\prec$, יהי $x \in A$ אזי $x \not\prec x$ ולכן התנאי $x \prec x \and \ang{x,x} \not\in J \times J$ לא מתקיים.
+		\end{itemize}
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	יתכן, לדוגמא:
+	$A = \set{0,1,2}$ נסמן $a = 0, b = 2$ ו $\prec = <$ נקבל ש $J = \set{1}$ ו $0 < 1 < 2$ וגם $0 \prec\ast 1 \prec\ast 2$ ז"א $\prec = \prec\ast$ מכיוון שרק $\ang{1,1} \in J \times J$ והיחס סדר גם ככה לא משווה.
+	וקיבלנו ש $\ang{A, \prec\ast}$ קבוצה סדורה.
+
+
+	\pagebreak
+	\section*{שאלה 5}
+	תהיינה $A,B,C$ קבוצות ותהי $f: A \rightarrow B$ פונקציה.
+	לכל $g,h: B \rightarrow C$ נסמן $g \approx_f h$ אם"ם $g \circ f = h \circ f$.
+
+	\subsection*{סעיף א}
+	הוכיחו כי היחס $\approx_f$ הוא יחס שקילות על הקבוצה $C^B$
+
+	\begin{proof}
+		\begin{itemize}
+			\item[א.] \textbf{רפלקסיבי:} תהי $g \in C^B$ $g \circ f = g \circ f$
+			\item[ב.] \textbf{סימטרי:} יהיו $g,h \in C^B$ כך ש $g \approx_f h$ ז"א $g \circ f = h \circ f$ מסימטריות יחס השוויון על פונקציות נקבל $h \circ f = g \circ f \Rightarrow h \approx_f g$
+			\item[ג.] \textbf{טרנזיטיבי:} יהיו $g,h,j \in C^B$ כך ש $g \approx_f h \land h \approx_f j$ ז"א ש $g \circ f = h \circ f \land h \circ f = j \circ f$ וטרנזיטיביות יחס השוויון על פונקציות נקבל ש $g \circ f = j \circ f \Rightarrow g \approx_f j$.
+		\end{itemize}
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	הוכיחו כי אם אחת ממחלקות השקילות של $\approx_f$ היא קבוצה סופית, אז כולן קבוצות סופיות ובכולן אותו מספר איברים
+
+	\begin{proof}
+		תהי $g \in C^B$ נסתכל על מחלקת השקילות של $g$ שנסמן $S^{\approx_f}_g = \set{h \in C^B| h \approx_f g}$. \\
+		ז"א שלכל $x \in \Img f$ נקבל $g(x) = h(x)$ אך קיים לפחות $x \in B$ יחיד כך ש $x \not\in \Img f \land g(x) \neq h(x)$, ז"א שישנם בדיוק $\pip{C^{B \sub \Img f}} = |C|^{\pip{B \sub \Img f}}$ פונקציות כאלו.
+		ומכיוון שזה נכון לכל $g \in C^B$ אז מספיק פונקציה אחת שמחלקת השקילות שלה בגודל סופי ובהכרח כל מחלקות השקילות הן בגודל $|C|^{\pip{B \sub \Img f}}$.
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	הראו שאם $|C| = 2$ אז לא ייתכן שבמחלקת שקילות של $\approx_f$ יש בדיוק שלושה איברים
+
+	\begin{proof}
+		נניח בשלילה שקיים $g \in C^B$ כך ש $\pip{S^{\approx_f}_g} = 3$ מהסעיף הקודם אנו מקבלים כי:
+		\begin{align*}
+			|C|^{\pip{B \sub \Img f}} = 3 \\
+			2^{\pip{B \sub \Img f}} = 3 \\
+			\pip{B \sub \Img f} = \log_2{3}
+		\end{align*}
+		וזה לא אפשרי כי מספר הפונקציות חייב להיות טבעי אך $\log2_{3} \not\in \NN$.
+	\end{proof}
+
+
+	\section*{שאלה 6}
+	תהי $f: \NN^{\NN} \rightarrow \NN^{\NN}$ פונקציה מקבוצת הסדרות של מספרים טבעיים אל קבוצת הסדרות של מספרים טבעיים המוגדרת כך:
+	לכל סדרה $\ang{a_n | n \in \NN}$ נגדיר $f(\ang{a_n | n \in \NN}) = \ang{b_n | n \in \NN}$ כאשר $b_n = \max\set{a_n, a_{n+1}}$ לכל $n \in \NN$
+	הוכיחו או הפריכו האם $f$ חח"ע והאם היא על.
+
+	\begin{proof}
+		נפריך,
+		נסתכל על: $a_n = \ang{0,7,2,3,4...}, c_n = \ang{1,7,2,3,4...}$ \\
+		ונקבל: $f(\ang{0,7,2,3,4...}) = f(\ang{1,7,2,3,4...}) = \ang{7,7,3,4...}$
+		ולכן $f$ לא חד חד ערכית. \\
+
+		ובנוסף נסתכל על: $b_n = \ang{0,8,0,2,3...}$
+		לפי הגדרת הפונקציה נקבל ש: \\
+		$0=\max\set{a_0, a_1}, 8=\max\set{a_1, a_2}, 0=\max\set{a_2, a_3}$
+		מתוך השוויון הראשון נקבל ש: $a_0=a_1=0$ ולכן מהשוויון השני נקבל ש: $a_2 = 8$ אך מהשוויון השלישי נקבל ש $a_2=a_3=0$ בסתירה לזה ש $a_2=8$
+		ולכן לא קיימת סדרה $a_n$ כך ש $f(a_n) = b_n$ ומכאן ש $f$ אינה על.
+	\end{proof}
+\end{document}
