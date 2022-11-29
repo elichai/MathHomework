@@ -1,0 +1,396 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{polyglossia}
+\usepackage{fontspec}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\newfontface\niceee{Brush Script MT}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\newtheorem{lemma}{טענת עזר}
+\title{אלגברה לינארית 2 - ממ"ן 11}
+\author{אליחי טורקל \ID}
+\date\today
+
+\DeclareFontFamily{OT1}{cmrx}{}
+\DeclareFontShape{OT1}{cmrx}{m}{n}{<->cmr10}{}
+\let\saveLongrightarrow\Longrightarrow
+\makeatletter
+\renewcommand*{\Longrightarrow}{%
+    \mathrel{\rlap{\fontfamily{cmrx}\fontencoding{OT1}\selectfont=}%
+    \hphantom{\saveLongrightarrow}%
+    \llap{$\m@th\Rightarrow$}}}
+\makeatother
+
+
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+	\section*{שאלה 1}
+	יהי $\set{v_1, \ddots v_n}$ בסיס אורתונורמלי במרחב $\RR^n$
+	הוכיחו ש: $\sum_{i=1}^n v_i^t \cdot v_i = I_{n\times n}$, כאשר $v_i$ הוא וקטור שורה.
+	\begin{proof}
+
+	\end{proof}
+
+	\pagebreak
+
+	\section*{שאלה 2}
+	יהי $V$ מרחב אוניטרי ממימד סופי, ויהיו $x$ ו $y$ שני וקטורים ב $V$ המקיימים: \\
+	$\norm{x} = \norm{y} = 1 \land \ang{x,y} = 0$. \\
+	הוכיחו כי קיימת טרנספורמציה אוניטרית $T: V \rightarrow V$ כך ש $T(3x+4y) = 3x - 4y$
+
+	\begin{proof}
+		נמצא בסיס $B$ למקור ההעתקה ובסיס $C$ לתמונה, ונשתמש בנתון ש: ${\norm{x}=\norm{y}=1}$
+		\begin{align*}
+			&B_1 = \frac{3x + 4y}{5} \\
+			&\norm{B_1}^2 = \frac{9}{25} \ang{x,x} + \frac{16}{25} \ang{y,y} = \frac{25}{25} \cdot 1 \\
+			&C_1 = \frac{3x - 4y}{5} \\
+			&\norm{C_1}^2 = \frac{9}{25} \ang{x,x} + \frac{16}{25} \ang{y,y} = \frac{25}{25} \cdot 1 \\
+		\end{align*}
+		וקיבלנו 2 וקטורים עם נורמה של 1, ולכן בעזרת גרם שמידט נוכל להשלים בסיס אורתונורמלי $B$ למקור ו $C$ לתמונה. \\
+		ונגדיר את $T$ לפי איברי הבסיס, ולכן היא תהיה העתקה לינארית: $T(B_i) = C_i$. \\
+		וממשפט 2.3.3ב נקבל כי מכיוון ש $T$ מעתיקה בסיס אורתונרמלי של $V$ לבסיס אורתונורמלי אחר אזי $T$ היא העתקה אוניטרית ומתקיים: \\
+		$T(3x+4y) = T(5 \cdot B_1) = 5T(B_1) = 5C_1 = 3x - 4y$ כנדרש.
+	\end{proof}
+
+
+	\pagebreak
+	\section*{שאלה 3}
+	\subsection*{סעיף א}
+	יהי $V$ מרחב מכפלה פנימית, ויהי $w_0 \in V$ וקטור המקיים $\norm{w_0} = 1$.
+	נגדיר העתקה $T: V \rightarrow V$ כך:
+	$T(v) = v - 2\ang{v, w_0}w_0$ לכל $v \in V$.
+	הוכיחו כי $T$ טרנסופרמציה לינארית, צמודה לעצמה ואוניטרית.
+	\begin{proof}
+		\begin{enumerate}
+			\item \textbf{לינאריות:} $v_1, v_2 \in V$ ו $\alpha \in \FF$:
+			\begin{align*}
+				T(\alpha (v_1 + v_2))
+				&= \alpha (v_1 + v_2) - 2\ang{\alpha (v_1 + v_2), w_0}w_0 \\
+				&= \alpha (v_1 + v_2) - 2\alpha(\ang{v_1, w_0} + \ang{v_2, w_0})w_0 \\
+				&= \alpha v_1 + \alpha v_2 - 2\alpha\ang{v_1, w_0}w_0 - 2\alpha\ang{ v_2, w_0}w_0 \\
+				&= \alpha (v_1 - 2\ang{\alpha v_1, w_0}w_0) + \alpha (v_2 - 2\ang{v_2, w_0}w_0) \\
+				&= \alpha T(v_1) + \alpha T(v_2)
+			\end{align*}
+			\item \textbf{צמודה לעצמה} יהי $u, v \in V$, ויהי $W = Span \set{w_0}$  ז"א לכל $v_1 \in W$ קיים $\alpha \in \FF$ כך ש: $v_1 = \alpha w_0$
+			 ולכן מלינארית 1: ${V = W \bigoplus W^{\perp}}$,
+			 ז"א לכל $v \in V$ קיימים $v_1 \in W, v_2 \in W^{\perp}$ כך ש $v = v_1 + v_2$ \\
+			 נתחיל בלהוכיח כי: $T(v) = v_2 - v_1$
+			 \begin{proof}
+				\begin{align*}
+					T(v)
+					= T(v_1 + v_2)
+					&= (v_1 + v_2) - 2\ang{v_1 + v_2, w_0}w_0 \\
+					&= v_1 + v_2 - 2\ang{v_1, w_0}w_0 -2\ang{v_2, w_0}w_0 \\
+					&= v_1 + v_2 - 2\ang{v_1, w_0}w_0 - 2 \cdot 0 \cdot w_0 \\
+					&= v_1 + v_2 - 2\ang{v_1, w_0}w_0 \\
+					&= v_1 + v_2 - 2\ang{\alpha w_0, w_0}w_0 \\
+					&= v_1 + v_2 - 2\alpha\ang{w_0, w_0}w_0 \\
+					&= v_1 + v_2 - 2\alpha \cdot 1 \cdot w_0 \\
+					&= v_1 + v_2 - 2\alpha w_0 \\
+					&= v_1 + v_2 - 2 v_1 \\
+					&= v_2 - v_1 \\
+				\end{align*}
+			 \end{proof}
+			 וכעת נוכיח שהיא צמודה לעצמה:
+			\begin{align*}
+				\ang{T(u), v} \\
+				&= \ang{u_2 - u_1, v_1 + v_2} \\
+				&= \ang{u_2, v_1 + v_2} - \ang{u_1, v_1 + v_2} \\
+				&= \ang{u_2, v_1} + \ang{u_2, v_2} - \ang{u_1, v_1} - \ang{u_1, v_2} \\
+				&= 0 + \ang{u_2, v_2} - \ang{u_1, v_1} - 0 \\
+				&= \ang{u_1, v_2} + \ang{u_2, v_2} - \ang{u_1, v_1} - \ang{u_2, v_1} \\
+				&= \ang{u_1, v_2} - \ang{u_1, v_1} + \ang{u_2, v_2} - \ang{u_2, v_1} \\
+				&= \ang{u_1, v_2 - v_1} + \ang{u_2, v_2 - v_1} \\
+				&= \ang{u_1 + u_2, v_2 - v_1 } \\
+				&= \ang{u, T(v)}
+			\end{align*}
+			\item \textbf{אוניתרית:} לפי הגדרה 2.3.1 צריך להוכיח ש $\overline{T}\circ T = I$ אך מכיוון שהיא צמודה לעצמה זה שקול ל $T\circ T = I$: \\
+			יהי $v \in V$:
+			\begin{align*}
+				T(T(v))
+				&= T(v_2 - v_1) \\
+				&= v_2 - 2\ang{v_2, w_0}w_0 - v_1 - 2\ang{-v_1, w_0}w_0 \\
+				&= v_2 -2 \cdot 0 w_0 - v_1 + 2\alpha\ang{w_0, w_0}w_0 \\
+				&= v_2 - v_1 + 2\alpha \cdot 1 \cdot w_0 \\
+				&= v_2 - v_1 + 2\alpha\cdot w_0 \\
+				&= v_2 - v_1 + 2v_1 \\
+				&= v_2 + v_1
+				= v
+			\end{align*}
+			וקיבלנו כי $T(T(v)) = v$
+		\end{enumerate}
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	האם קיימת מטריצה אורתוגונלית בעלת שורה ראשונה: $\brac{\frac{1}{3}, \frac{2}{3}, \frac{2}{3}}$
+	\begin{proof}
+		\begin{align*}
+			A = \begin{pmatrix}
+					\vdots & \vdots & \vdots \\
+					A_1 & A_2 & A_3 \\
+					\vdots & \vdots & \vdots
+			\end{pmatrix} =
+			\begin{pmatrix}
+					\frac{1}{3} & \frac{2}{3} & \frac{2}{3} \\
+					\frac{2}{\sqrt{5}} & 0 & -\frac{1}{\sqrt{5}} \\
+					\frac{2}{3\sqrt{5}} & - \frac{5}{3\sqrt{5}} & \frac{4}{3\sqrt{5}} \\
+				\end{pmatrix}
+		\end{align*}
+		נבדוק את כל המכפלות הפנימיות בין הוקטורים:
+		\begin{align*}
+			s
+		\end{align*}
+	\end{proof}
+	\subsection*{סעיף ג}
+	יהי $W \subset \RR^5$ תת מרחב של $\RR^5$ וגם $dim(W) = 3$, ממשפט 9.6.1 נקבל ש:
+	ממשפט 8.3.6 נובע כי $dim(W \cap Ker \ T) = dim(W) + dim(Ker \ T) - dim(W + Ker \ T)$, \\
+	נשתמש באי שוויון מהמשפט הקודם ונקבל $dim(W \cap Ker \ T) \geq 3 + 3 - dim(W + Ker \ T)$
+	ובנוסף אנו יודעים כי $dim(W + Ker \ T) \leq 5$ כי הוא תת מרחב של $\RR^5$ ואם נכניס גם את זה לאי שוויון נקבל $dim(W \cap Ker \ T) \geq 6 -5 \geq 1$
+	ומכיוון ש $dim(\set{0}) = 0 \not \geq 1$ אזי $W \cap Ket \ T \neq \set{0}$ כנדרש.
+
+	\pagebreak
+	\section*{שאלה 4}
+	\subsection*{סעיף א}
+	נתון כי $(0,4,2) \not \in Im \ T$ ז"א שאין פתרון למערכת $[T]_B[v]_B = [(0,4,2)]_B$, נבדוק בעבור אילו ערכי $a$ אין למערכת הנ"ל אף פתרון.
+	בעבור זאת נחשב את הקאוררדינטות של $v$ לפי הבסיס $B$ בעזרת מטריצת המקדמים:
+	\begin{align*}
+		\brac{\begin{array}{ccc|c}
+			1 & 1 & 0 & 0 \\
+			1 & 0 & 1 & 4 \\
+			0 & 1 & 1 & 2
+		\end{array}}
+	\end{align*}
+	ולכן $[(0,4,2)]_B = \begin{pmatrix}
+		1 \\
+		-1 \\
+		3
+	\end{pmatrix}$
+	כעת נציב את זה כפתרון למערכת $[T]_B$ ע"מ לראות בעבור אילו ערכי $a$ אין למערכת פתרון:
+	\begin{align*}
+		\brac{\begin{array}{ccc|c}
+			1 & 0 & 1 & 1 \\
+			0 & 1 & a & -1 \\
+			5 & a & 13-2a & 3
+		\end{array}} \overset{R_3 = R_3 - 5R_1 -aR_2}\Rightarrow
+		\brac{\begin{array}{ccc|c}
+			1 & 0 & 1 & 1 \\
+			0 & 1 & a & -1 \\
+			0 & 0 & 8-2a-a^2 & a-2
+		\end{array}}
+	\end{align*}
+	ונראה, שאם יש $a$ שבעבורו נקבל בשורה האחרונה שורת אפסים ששווה למספר ששונה מאפס אזי אין פתרון.
+	ולכן נראה מתי $8-2a-a^2$ מתאפס בלי ש $a-2$ מתאפס, $8-2a-a^2=-(a+4)(a-2)$ אך $a=2$ יאפס גם את התוצאה, ועל כן $a=-4$ זה הערך היחיד שעבורו נקבל שורת סתירה.
+	ולכן $a=-4$.
+
+	\subsection*{סעיף ב}
+	נציב את $a=-4$ במטריצה ונקבל:
+	$[T]_B = \begin{pmatrix}
+		1 & 0 & 1 \\
+		0 & 1 & -4 \\
+		5 & -4 & 21 \\
+	\end{pmatrix}$.
+	לפי למה 3.9.6 נקבל ש $Im \ T = Sp\set{T(1,1,0), T(1,0,1), T(0,1,1)}$ שהוא בעצם מרחב העמודות של $[T]_B$ ועל כן נשחלף אותה ונדרג ע"מ למצוא בסיס ל $Im \ T$:
+	\begin{align*}
+		[T]_B^t = \begin{pmatrix}
+			1 & 0 & 5 \\
+			0 & 1 & -4 \\
+			1 & -4 & 21 \\
+		\end{pmatrix} \overset{R_3 = R_3 - R_1 + 4R_2}\Rightarrow
+		\begin{pmatrix}
+			1 & 0 & 5 \\
+			0 & 1 & -4 \\
+			0 & 0 & 0 \\
+		\end{pmatrix}
+	\end{align*}
+	וקיבלנו שהבסיס של $[Im \ T]_B$ הוא $\set{(1,0,5), (0,1,-4)}$ נמיר מקאורדינטות חזרה לוקטורים ונקבל: $v_1 = 1 \cdot (1,1,0) + 0 \cdot (1,0,1) + 5 \cdot (0,1,1) = (1,6,5)$. \\
+	ובנוסף $v_2 = 0 \cdot (1,1,0) + 1 \cdot (1,0,1) -4 \cdot (0,1,1) = (1,-4, -3)$
+	ובסה"כ קיבלנו שהבסיס של $Im \ T$ הוא $\set{(1,6,5), (1,-4,-3)}$. \\
+	ע"מ למצוא בסיס ל $Ker \ T$ נסתכל על המשוואה $[T]_B[v]_B = 0$ ונפתור אותה בעזרת מטריצת המקדמים של $[T]_B$ (שמהווה לנו מערכת משוואות הומוגנית):
+	\begin{align*}
+		\begin{pmatrix}
+			1 & 0 & 1 \\
+			0 & 1 & -4 \\
+			5 & -4 & 21 \\
+		\end{pmatrix}
+		\overset{R_3 - 5R_1 + 4R_2}\Rightarrow
+		\begin{pmatrix}
+			1 & 0 & 1 \\
+			0 & 1 & -4 \\
+			0 & 0 & 0 \\
+		\end{pmatrix}
+	\end{align*}
+	ובעצם קיבלנו את הפתרון: $\begin{cases}
+		x + z = 0 \Rightarrow x = -z\\
+		y - 4z = 0 \Rightarrow y = 4z\\
+		0 = 0
+	\end{cases}$
+	כאשר $z$ הוא משתנה חופשי, ועל כן קיבלנו שהבסיס של $[Ker \ T]_B$ הוא $\set{(-1,4,1)}$ נמיר חזרה לקואורדינטות, ונקבל:
+	$v = -1 \cdot (1,1,0) + 4 \cdot (1,0,1) + 1 \cdot (0,1,1) = (3, 0, 5)$ ועל כן $\set{(3,0,5)}$ הוא הבסיס של $Ker \ T$.
+
+
+	\subsection*{סעיף ג}
+	מתוך משפט 10.6.1 נקבל ש $[T]_E = M^{-1}[T]_BM$ ועל כן $M^{-1}$ היא מטריצת המעבר מ $B$ ל $E$ ומכיוון ש$E$ זה הבסיס הסטנדרטי, אז זה פשוט הוקטורים של $B$ כוקטורי עמודה:
+	$M^{-1} = \begin{pmatrix}
+		1 & 1 & 0 \\
+		1 & 0 & 1 \\
+		0 & 1 & 1
+	\end{pmatrix}$
+	עכשיו נדרג את המטריצה ביחד עם מטריצת היחידה ע"מ למצוא את $M$:
+	\begin{align*}
+		&\brac{\begin{array}{ccc|ccc}
+			1 & 1 & 0 & 1 & 0 & 0\\
+			1 & 0 & 1 & 0 & 1 & 0\\
+			0 & 1 & 1 & 0 & 0 & 1 \\
+		\end{array}} \overset{R_2 = R_2 - R_1}\Rightarrow
+		\brac{\begin{array}{ccc|ccc}
+			1 & 1 & 0 & 1 & 0 & 0\\
+			0 & -1 & 1 & -1 & 1 & 0\\
+			0 & 1 & 1 & 0 & 0 & 1 \\
+		\end{array}} \overset{R_3 = R_3 + R_2}{\underset{R_1 = R_1 + R_2}\Rightarrow} \\
+		&\brac{\begin{array}{ccc|ccc}
+			1 & 0 & 1 & 0 & 1 & 0\\
+			0 & -1 & 1 & -1 & 1 & 0\\
+			0 & 0 & 2 & -1 & 1 & 1 \\
+		\end{array}} \overset{R_1 = R_1 - 0.5R_3}{\underset{R_2 = R_2 + 0.5R_3}\Rightarrow}
+		\brac{\begin{array}{ccc|ccc}
+			1 & 0 & 0 & 0.5 & 0.5 & -0.5\\
+			0 & -1 & 0 & -0.5 & 0.5 & -0.5 \\
+			0 & 0 & 2 & -1 & 1 & 1 \\
+		\end{array}} \overset{R_2 = -R_2}{\underset{R_3 = 0.5R_3}\Rightarrow} \\
+		&\brac{\begin{array}{ccc|ccc}
+			1 & 0 & 0 & 0.5 & 0.5 & -0.5\\
+			0 & 1 & 0 & 0.5 & -0.5 & 0.5 \\
+			0 & 0 & 1 & -0.5 & 0.5 & 0.5 \\
+		\end{array}}
+	\end{align*}
+	וקיבלנו ש: $M = \begin{pmatrix}
+		0.5 & 0.5 & -0.5\\
+		0.5 & -0.5 & 0.5 \\
+		-0.5 & 0.5 & 0.5 \\
+	\end{pmatrix}$
+	נשתמש במשפט 10.6.1 ונחשב:
+	\begin{align*}
+		[T]_E &=
+		\begin{pmatrix}
+			1 & 1 & 0 \\
+			1 & 0 & 1 \\
+			0 & 1 & 1
+		\end{pmatrix} \cdot
+		\begin{pmatrix}
+			1 & 0 & 1 \\
+			0 & 1 & -4 \\
+			5 & -4 & 21 \\
+		\end{pmatrix} \cdot
+		\begin{pmatrix}
+			0.5 & 0.5 & -0.5\\
+			0.5 & -0.5 & 0.5 \\
+			-0.5 & 0.5 & 0.5 \\
+		\end{pmatrix} \\
+		&= \begin{pmatrix}
+			1 & 1 & -3 \\
+			6 & -4 & 22 \\
+			5 & -3 & 17
+		\end{pmatrix} \cdot
+		\begin{pmatrix}
+			0.5 & 0.5 & -0.5\\
+			0.5 & -0.5 & 0.5 \\
+			-0.5 & 0.5 & 0.5 \\
+		\end{pmatrix} =
+		\begin{pmatrix}
+			\frac{5}{2} & -\frac{3}{2} & -\frac{3}{2} \\
+			-10 & 16 & 6 \\
+			-\frac{15}{2} & \frac{25}{2} & \frac{9}{2}
+		\end{pmatrix}
+	\end{align*}
+
+	נכפול את $\begin{pmatrix}
+		x \\
+		y \\
+		z
+	\end{pmatrix}$ ב $M$ ע"מ לקבל את $[T(x,y,z)]_E$:
+	\begin{align*}
+		[T(x,y,z)]_E =
+		\begin{pmatrix}
+			\frac{5}{2} & -\frac{3}{2} & -\frac{3}{2} \\
+			-10 & 16 & 6 \\
+			-\frac{15}{2} & \frac{25}{2} & \frac{9}{2}
+		\end{pmatrix} \cdot
+		\begin{pmatrix}
+			x \\
+			y \\
+			z
+		\end{pmatrix} =
+		\begin{pmatrix}
+			\frac{5}{2}x - \frac{3}{2}y - \frac{3}{2}z \\
+			-10x + 16y + 6z \\
+			-\frac{15}{2}x + \frac{25}{2}y + \frac{9}{2}z
+		\end{pmatrix}
+	\end{align*}
+	וקיבלנו ש $T(x,y,z) = (\frac{5}{2}x - \frac{3}{2}y - \frac{3}{2}z, -10x + 16y + 6z, -\frac{15}{2}x + \frac{25}{2}y + \frac{9}{2}z)$
+
+	\section*{שאלה 5}
+	לפי 10.5.2 נקבל ש $T$ היא איזומורפיזם אמ"מ $[T]_E$ הפיכה. ולכן נחשב את ההופכי שלה בעזרת דירוג $[T]_E$:
+	מתוך ההגדרה של $T$ נבנה מטריצת מקדמים ונדרגה ביחד עם מטריצת היחידה:
+	\begin{align*}
+		&\brac{\begin{array}{ccc|ccc}
+			1 & 0 & -2 & 1 & 0 & 0 \\
+			2 & -1 & 3 & 0 & 1 & 0 \\
+			4 & 1 & 8 & 0 & 0 & 1 \\
+		\end{array}} \overset{R_2 = R_2 -2R_1}{\underset{R_4 = R_4 - 4R_1}\Rightarrow}
+		\brac{\begin{array}{ccc|ccc}
+			1 & 0 & -2 & 1 & 0 & 0 \\
+			0 & -1 & 7 & -2 & 1 & 0 \\
+			0 & 1 & 16 & -4 & 0 & 1 \\
+		\end{array}} \overset{R_3 = R_3 + R_2}{\Rightarrow} \\
+		&\brac{\begin{array}{ccc|ccc}
+			1 & 0 & -2 & 1 & 0 & 0 \\
+			0 & -1 & 7 & -2 & 1 & 0 \\
+			0 & 0 & 23 & -6 & 1 & 1 \\
+		\end{array}} \overset{R_2 = -R_2}{\underset{R_3 = R_3/23}\Rightarrow}
+		\brac{\begin{array}{ccc|ccc}
+			1 & 0 & -2 & 1 & 0 & 0 \\
+			0 & 1 & -7 & 2 & -1 & 0 \\
+			0 & 0 & 1 & -\frac{6}{23} & \frac{1}{23} & \frac{1}{23} \\
+		\end{array}} \overset{R_1 = R_1 + 2R_3}{\underset{R_2 = R_2 + 7R_3}\Rightarrow} \\
+		&\brac{\begin{array}{ccc|ccc}
+			1 & 0 & 0 & \frac{11}{23} & \frac{2}{23} & \frac{2}{23} \\
+			0 & 1 & 0 & \frac{4}{23} & -\frac{16}{23} & \frac{7}{23} \\
+			0 & 0 & 1 & -\frac{6}{23} & \frac{1}{23} & \frac{1}{23} \\
+		\end{array}}
+	\end{align*}
+
+	ובעצם גם הוכחנו ש $T$ זה איזומורפיזם, וגם מצאנו את $([T]_E)^{-1} = \begin{pmatrix}
+		\frac{11}{23} & \frac{2}{23} & \frac{2}{23} \\
+		\frac{4}{23} & -\frac{16}{23} & \frac{7}{23} \\
+		-\frac{6}{23} & \frac{1}{23} & \frac{1}{23} \\
+	\end{pmatrix}$
+	נציב את הקואורדינטות ונקבל: $T^-1 = (\frac{11}{23}x +  \frac{2}{23}y + \frac{2}{23}z),
+	(\frac{4}{23}x + -\frac{16}{23}y +  \frac{7}{23}z),
+	(-\frac{6}{23}x + \frac{1}{23}y + \frac{1}{23}z)$
+
+\end{document}
