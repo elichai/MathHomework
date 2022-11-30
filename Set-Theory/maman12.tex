@@ -1,0 +1,220 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage{amsmath,mathtools,enumerate,xparse,centernot,polyglossia,graphicx, aligned-overset}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=1.1in]{geometry}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the chA \mathcal{R} Acter \varnothing
+\usepackage[normalem]{ulem} % [normalem] prevents the package from changing the default behavior of `\emph` to underline.
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\graphicspath{ {./} }
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{טענת עזר}
+
+\DeclareMathOperator{\Img}{Im}
+\title{תורת הקבוצות - ממ"ן 12}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+
+	\section*{שאלה 1}
+	$\set{A,B,C}$
+	הראו שאם $A \neq \emptyset$ ויש תת קבוצה $B \subseteq A$ כך ש $\pip{A} = \pip{B} = \pip{A \sub B}$
+	\begin{proof}
+		אם $A = B$ אזי $A \sub B = \emptyset$ אך נתון ש $\pip{A} = \pip{A \sub B}$ ולכן גם $A = \emptyset$ בסתירה לנתון ש $A \neq \emptyset$.
+		ולכן בהכרח $A \neq B$ ש $B \subset A$ ובעצם קיבלנו קבוצה ששקולה לתת קבוצה ממש שלה, ולכן לפי משפט נ.6 נקבל ש $A$ אינסופית.
+	\end{proof}
+
+	\section*{שאלה 2}
+	תהיינה $A$ ו $B$ קבוצות אינסופיות. נסמן: ${\kappa_1} = \pip{A}$ ו ${\kappa_2} = \pip{B}$, הוכיחו או הפריכו:
+
+	\subsection*{סעיף א}
+	קבוצת הפונקציות מ $A$ ל $\PP(B)$ שקולה לקבוצת הפונקציות מ $B$ ל $\PP(A)$.
+	\begin{proof}
+		קבוצת הפונקציות מ $A$ ל $\PP(B)$ היא בעצם: $\PP(B)^A$ ועוצמתה היא $\pip{\PP(B)}^{\pip{A}}$. \\
+		בצורה דומה קבוצת הפונקציות מ $B$ ל $\PP(A)$ היא $\PP(A)^B$ ועוצמתה היא $\pip{\PP(A)}^{\pip{B}}$.
+		\begin{align*}
+			&\pip{\PP(B)}^{\pip{A}} = (2^{\kappa_2})^{\kappa_1} \overset{5.15}= 2^{{\kappa_2} \cdot {\kappa_1}} \\
+			&\pip{\PP(A)}^{\pip{B}} = (2^{\kappa_1})^{\kappa_2} \overset{5.15}= 2^{{\kappa_1} \cdot {\kappa_2}} \overset{5.11}= 2^{{\kappa_2} \cdot {\kappa_1}}
+		\end{align*}
+		וקיבלנו שלשתיהן יש את אותה העוצמה, ולכן הן שקולות זו לזו.
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	קבוצת הפונקציות מ $\PP(A)$ ל $B$ שקולה לקבוצת הפונקציות מ $\PP(B)$ ל $A$.
+	\begin{proof}
+	קבוצת הפונקציות מ $\PP(A)$ ל $B$ היא בעצם $B^{\PP(A)}$ וקבוצת הפונקציות מ $\PP(B)$ ל $A$ היא בעצם $A^{\PP(B)}$. \\
+	נוכיח שהטענה לא נכונה ע"י דוגמא נגדית, נסמן: $A = \NN$ ו $B = \RR$:
+	\begin{align*}
+		&\pip{B^{\PP(A)}} = \pip{B}^{\pip{\PP(A)}} = {\pip{\RR}}^{\pip{\PP(\NN)}} = \aleph^{2^{\aleph_0}} = \aleph^{\aleph} = (2^{\aleph_0})^\aleph = 2^{\aleph_0 \cdot \aleph} = 2^\aleph = \aleph' \\
+		&\pip{A^{\PP(B)}} = \pip{A}^{\pip{\PP(B)}} = \pip{\NN}^{\pip{\PP(\RR)}} = {\aleph_0}^{2^\aleph} = {\aleph_0}^{\aleph'} > \aleph'
+	\end{align*}
+	ולסיכום קיבלנו כי: $\pip{A^{\PP(B)}} > \aleph' = \pip{B^{\PP(A)}}$ ומכאן ש: $\pip{A^{\PP(B)}} > \pip{B^{\PP(A)}}$
+	בסתירה למשפט.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 3}
+	תהי $f: \NN^{\NN} \rightarrow \NN^{\NN}$ פונקציה מקבוצת הסדרות של מספרים טבעיים אל קבוצת הסדרות של מספרים טבעיים המוגדרת כך:
+	לכל סדרה $\ang{A_n | n \in \NN}$ נגדיר: $f(\ang{a_n | n \in \NN}) = \ang{b_n | n \in \NN}$
+	כאשר $b_n = max\set{a_n, a_{n+1}}$ לכל $n \in \NN$. הוכיחו כי $\pip{Im  f} = \pip{\NN^{\NN}}$
+	\begin{proof}
+		התמונה של פונקציה תמיד מוכלת בטווח ולכן $Im  f \subseteq \NN^{\NN}$ ומכאן שגם $\pip{Im  f} \leq \pip{\NN^{\NN}}$, כעת נוכיח את הכיוון השני ע"י הצגת פונקציה חח"ע: \\
+		יהי $g: \NN^{\NN} \rightarrow Im  f$ פונקציה המוגדרת כך: $g(\ang{a_n | n \in \NN}) = \ang{c_n | c_n = \sum_{k=0}^{n}}$
+		ז"א הפונקציה מקבלת סדרת מספרים טבעיים, ומחזירה סדרה שהאיבר ה $k$ בה הוא סכום כל ה $k$ איברים הראשונים בסדרת המקור. \\
+		ובכך זה מייצר סדרה עולה, ולכן סדרה זו בהכרח תהיה בתמונה של $f$. ז"א $Im  g \subseteq Im  f$. כעת נוכיח שהיא חח"ע: \\
+		נניח בשלילה ש $g$ לא חח"ע, ז"א שקיימים $x_n, y_n \in \NN^{\NN}$ כך ש $x_n \neq y_n$ וגם $g(x_n) = g(y_n)$,
+		ז"א ${\text{שלכל}^\dagger}$ $k > n$ מתקיים: $\sum_{i=0}^k x_i = \sum_{i=0}^k y_i$ נוכיח באינדוקציה שמכאן נובע שהסדרות שוות זו לזו: \\
+		\textbf{בסיס האינדוקציה:} $k=0$: $\sum_{i=0}^0 x_i = x_0 = \sum_{i=0}^0 y_i = y_0$. \\
+		\textbf{הנחת האינדוקציה:} נניח כי $\sum_{i=0}^k x_i = \sum_{i=0}^k y_i \rightarrow \forall i, x_i = y_i$ \\
+		\textbf{צעד האינדוקציה:} נוכיח בעבור
+		\begin{align*}
+			\sum_{i=0}^{k+1} x_i = \sum_{i=0}^{k+1} y_i
+			\Rightarrow \sum_{i=0}^{k+1} x_i + x_{k+1} = \sum_{i=0}^{k} y_i + y_{k+1}
+			\overset{\dagger}\Rightarrow x_{k+1} = y_{k+1}
+		\end{align*}
+		וביחד קיבלנו כי הסדרות הללו בהכרח שוות בסתירה להנחה ש $x_n \neq y_n$ ולכן $g$ היא חח"ע. \\
+		ומכאן ש $\pip{\NN^{\NN}} \geq \pip{Im f}$ וביחד קיבלנו כי: $\pip{Im  f} \leq \pip{\NN^{\NN}} \leq \pip{Im  f}$ ז"א $\pip{Im f} = \pip{\NN^{\NN}}$ כנדרש.
+	\end{proof}
+
+
+	\section*{שאלה 4}
+	מצאו את עצמת קבוצת התת קבוצות הבנות מניה של מספרים ממשיים.
+	\begin{proof}
+		נסמן ב $A$ את הקבוצה הנ"ל. ונוכיח כל כיוון בנפרד:
+		\begin{enumerate}
+			\item $\boldsymbol{:\pip{A} \geq \aleph}$
+			 נציג פונקציה חד חד ערכית $f: \RR \rightarrow A$ בצורה הבאה: $f(x) = \set{x}$, ז"א לכל $x \in \RR$ נחזיר את הקבוצה $\set{x}$ שהיא מוכלת ב $A$ מכיוון שהיא קבוצה בת מניה(איבר יחיד) של מספרים ממשיים.
+			 \item $\boldsymbol{:\pip{A} \leq \aleph}$ נראה פונקציית על $f: \RR^{\NN} \rightarrow A$ בצורה הבאה: לכל $a \in A$, $a$ היא בעצם קבוצה בת מניה של ממשיים, ולכן קיימת $g \in \RR^{\NN}$ כך ש $g[\NN] = a$ ונגדיר $f(a) = g$ (היא קיימת מכיוון שהטבעיים הם בני מניה, וגם הקבוצה הזו בת מניה, ולכן קיימת פונקציה חח"ע  מהטבעיים לכל קבוצה בת מניה).
+			 והוכנו כי $\aleph = \aleph^{\aleph_0} = \pip{\RR^{\NN}} \leq \pip{A}$ לפי שאלה 1 בפרק 5.
+		\end{enumerate}
+		וביחד קיבלנו כי: $\aleph \leq \pip{A} \leq \aleph$ ז"א $\pip{A} = \aleph$.
+	\end{proof}
+
+
+	\pagebreak
+	\section*{שאלה 5}
+	תהי $A$ תת קבוצה של $\RR$, מספר ממשי $x$ נקרא \dashuline{נקודת עיבוי} של $A$ אם"ם לכל $a, b \in \RR$ כך ש $a < x < b$ מתקיים $\pip{A \cap \brac{a,b}} > \aleph_0$.
+	תהי $C$ קבוצת \dashuline{נקודות העיבוי} של $A$.
+	\subsection*{סעיף א}
+	הוכיחו או הפריכו: $C \subseteq A$.
+	\begin{proof}
+		נפריך את הטענה באצמעות דוגמא נגדית: $A = (0, 1) \sub \frac{1}{2}$.
+		וניתן לראות כי $\frac{1}{2}$ היא נקודת עיבוי מכיוון שלכל $a, b \in \RR$ שעבורם מתקיים $a < \frac{1}{2} < b$
+		מתקיים: $A \cap (a,b) = (max\set{0,a}, min\set{1, b}) \sub \frac{1}{2}$ ולכן: $\pip{A \cap (a,b)} = \aleph > \aleph_0$ (כי זה מקטע של מספרים ממשיים).
+		ולכן $\frac{1}{2} \in C$ ומאידך $\frac{1}{2} \not\in A$, ז"א $C \not\subseteq A$.
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	הוכיחו או הפריכו: אם $A \subseteq B \subseteq \RR$ אז כל נקודת עיבוי של $A$ היא גם נקודת עיבוי של $B$
+	\begin{proof}
+		נוכיח את הטענה: יהיה $x$ נקודת עיבוי של $A$, אזי לכל $a,b \in \RR$ כך ש: $a < x < b$ מתקיים:
+		$|A \cap (a,b)| > \aleph_0$, ולכל $z \in A \cap (a,b) \Rightarrow z \in A \land z \in (a,b)$  ומכיוון ש $A \subseteq B$ אזי $z \in B$ ז"א $z \in B \cap (a,b)$
+		וקיבלנו ש: $\pip{B \cap (a,b)} \geq \pip{A \cap (a,b)} > \aleph_0$ ז"א $x$ היא גם נקודת עיבוי של $B$.
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	הוכיחו כי אם $A$ אינה בת מניה אז $A \cap C \neq \emptyset$.
+	\begin{proof}
+		נוכיח זו באמצעות סעיף ד,
+		נניח בשלילה כי $A \cap C = \emptyset$ ומכאן ש: $A \sub C = A$ ולכן $A \sub C$ אינה בת מניה, בסתירה לסעיף ד.
+		ומכאן ש $A \cap C \neq \emptyset$ כנדרש.
+	\end{proof}
+
+	\subsection*{סעיף ד}
+	הוכיחו כי $A \sub C$ בת מניה.
+
+	\begin{proof}
+		יהי $x \in A \sub C$ ז"א $x$ אינה נקודת עיבוי, לפי שלילת ההגדרה נקבל שקיימים $a,b \in \RR$ כך ש $a < x < b$ ומתקיים $\pip{A \cap (a,b)} \leq \aleph_0$,
+		מצפיפות הרציונליים בממשיים אנו יודעים כי קיימים $q,r \in \QQ$ כך ש $a < q < x < r < b$ ז"א $(q, r) \subseteq (a,b) \land x \in (q,r)$.
+		ולכן מתקיים: $\pip{A \cap (q,r)} \leq \pip{A \cap (a,b)} \leq \aleph_0$.
+		וקיבלנו שלכל $x$ שאינה נקודת עיבוי, קיים מקטע שנוכל לייצג באמצעות $\ang{q, r} \in \QQ \times \QQ$ שהחיתוך של $A$ איתו היא בת מניה.
+		ומכיוון ש $\pip{\QQ \times \QQ} = \aleph_0 \cdot \aleph_0 = \aleph_0$ אזי כמות המקטעים הללו היא בת מניה. \\
+		נסמן ב $V \subseteq \set{\ang{q,r} | \ang{q,r} \in \QQ \times \QQ}$ את קבוצת כל המקטעים הללו, ז"א שלכל $x$ שאינה נקודת עיבוי, קיימים $\ang{q,r} \in V$ כך ש $x \in \ang{q,r}$,
+		ולכן: $A \sub C \subseteq \bigcup\limits_{v\in V}v$. וכעת נשים לב לעוצמות:
+		\begin{align*}
+			&A \sub C \subseteq \bigcup\limits_{v\in V}v \subseteq \QQ \times \QQ \\
+			&\pip{A \sub C} \leq \pip{\bigcup\limits_{v\in V}v} \leq \pip{\QQ \times \QQ} = \aleph_0 \times \aleph_0 = \aleph_0 \\
+		\end{align*}
+		וקיבלנו ש: $\pip{A \sub C} \leq \aleph_0$ ז"א $A \sub C$ בת מניה כנדרש.
+	\end{proof}
+
+
+	\pagebreak
+	\section*{שאלה 6}
+	תהי $\kappa$ עוצמה שמקיימת: $2 \leq \kappa \leq \aleph'$ הוכיחו כי: $\kappa^{\aleph'} = 2^{2^{2^{\aleph_0}}}$
+	\begin{proof}
+		נפתח את העוצמות:
+		\begin{align*}
+			&2^{2^{2^{\aleph_0}}}
+			= 2^{2^{\aleph}}
+			= 2^{\aleph'} \\
+			&\aleph'^{\aleph'}
+			= {2^{\aleph}}^{\aleph'}
+			= 2^{\aleph \cdot \aleph'}
+			= 2^{\aleph'}
+		\end{align*}
+		מתוך הנתון ש: $2 \leq \kappa \leq \aleph'$ וממשפט 5.12 נקבל כי:
+		\begin{align*}
+			2^{\aleph'} \leq \kappa^{\aleph'} \leq \aleph'^{\aleph'} = 2^{\aleph'}
+			\Rightarrow \kappa^{\aleph'} = 2^{\aleph'} = 2^{2^{2^{\aleph_0}}}
+		\end{align*}
+	\end{proof}
+
+	\section*{שאלה 7}
+	לכל $x \in \RR$ תהי $\kappa_x$ עוצמה. הוכיחו או הפריכו:
+
+	\subsection*{סעיף א}
+	אם לכל $x \in \RR$ מתקיים: $\kappa_x \leq \aleph$ אז $\prod\limits_{x \in \RR} \kappa_x \leq \aleph$
+	\begin{proof}
+		נפריח את המשפט, נסמן: $\kappa_x = \aleph$ לכל $x \in \RR$
+		\begin{align*}
+			\prod\limits_{x \in \RR} \kappa_x
+			= \prod\limits_{x \in \RR} \aleph
+			\overset{(5.20)} = \aleph^{\aleph}
+			= {2^{\aleph_0}}^{\aleph}
+			= 2^{\aleph_0 \cdot {\aleph}}
+			= 2^{\aleph} = \aleph' > \aleph
+		\end{align*}
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	אם לכל $x \in \RR$ מתקיים: $\kappa_x \leq \aleph'$ אז $\prod\limits_{x \in \RR} \kappa_x \leq \aleph'$
+
+	\begin{proof}
+		נוכיח את המשפט:
+		\begin{align*}
+			\prod\limits_{x \in \RR} \kappa_x
+			\overset{5.18 \land \kappa_x \leq \aleph'}\leq \prod\limits_{x \in \RR} \aleph'
+			\overset{(5.20)} = \aleph'^{\aleph}
+			= {2^{\aleph}}^{\aleph}
+			= 2^{\aleph\cdot {\aleph}}
+			= 2^{\aleph}
+			= \aleph'
+		\end{align*}
+	\end{proof}
+\end{document}
