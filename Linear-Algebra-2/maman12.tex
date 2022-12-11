@@ -1,0 +1,450 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{polyglossia}
+\usepackage{fontspec}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\newfontface\niceee{Brush Script MT}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\newtheorem{lemma}{טענת עזר}
+\title{אלגברה לינארית 2 - ממ"ן 12}
+\author{אליחי טורקל \ID}
+\date\today
+
+\DeclareFontFamily{OT1}{cmrx}{}
+\DeclareFontShape{OT1}{cmrx}{m}{n}{<->cmr10}{}
+\let\saveLongrightarrow\Longrightarrow
+\makeatletter
+\renewcommand*{\Longrightarrow}{%
+    \mathrel{\rlap{\fontfamily{cmrx}\fontencoding{OT1}\selectfont=}%
+    \hphantom{\saveLongrightarrow}%
+    \llap{$\m@th\Rightarrow$}}}
+\makeatother
+
+
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+	\section*{שאלה 1}
+	נתונות המטריצות הבאות:
+	\begin{align*}
+		A_1 = \begin{pmatrix}
+			0 & 3i \\
+			-3i & 0 \\
+		\end{pmatrix},
+		A_2 = \begin{pmatrix}
+			1 & 2i \\
+			0 & 1 \\
+		\end{pmatrix},
+		A_3 = \begin{pmatrix}
+			0 & 1 & 1 \\
+			1 & 0 & 1 \\
+			1 & 1 & 0
+		\end{pmatrix}
+	\end{align*}
+	\subsection*{סעיף א}
+	מצאות את כל המטריצות הנורמליות
+	\begin{proof}
+		\begin{align*}
+			\overline{A_1} = \begin{pmatrix}
+				0 & 3i \\
+				-3i & 0 \\
+			\end{pmatrix},
+			\overline{A_2} = \begin{pmatrix}
+				1 & 0 \\
+				-2i & 1 \\
+			\end{pmatrix},
+			\overline{A_3} = \begin{pmatrix}
+				0 & 1 & 1 \\
+				1 & 0 & 1 \\
+				1 & 1 & 0
+				\end{pmatrix}
+		\end{align*}
+		ואנו רואים כי $A_1, A_3$ צמודות לעצמן ולכן בהכרח נורמליות. כעת נבדוק את $A_2$:
+		\begin{align*}
+			&A_2\overline{A_2} =
+			\begin{pmatrix}
+				1 & 2i \\
+				0 & 1 \\
+			\end{pmatrix} \cdot
+			\begin{pmatrix}
+				1 & 0 \\
+				-2i & 1 \\
+			\end{pmatrix} =
+			\begin{pmatrix}
+				5 & 2i \\
+				-2i & 1 \\
+			\end{pmatrix} \\
+			&\overline{A_2}A_2 =
+			\begin{pmatrix}
+				1 & 0 \\
+				-2i & 1 \\
+			\end{pmatrix} \cdot
+			\begin{pmatrix}
+				1 & 2i \\
+				0 & 1 \\
+			\end{pmatrix} =
+			\begin{pmatrix}
+				1 & 2i \\
+				-2i & 5 \\
+			\end{pmatrix}
+		\end{align*}
+		וקיבלנו ש $A_1, A_3$ נורמליות ו $A_2$ לא.
+	\end{proof}
+	ולכן לפי משפט 3.2.1 המטריצות הנ"ל לכסינות אוניטרית, כעת נמצא את המטריצות המלכסנות אותן:
+	\begin{enumerate}
+		\item \textbf{בעבור} $\boldsymbol{A_1}$:
+		\begin{proof}
+			\begin{align*}
+				det(tI - A_1)
+				= \pip{\begin{pmatrix}
+					t & - 3i \\
+					3i & t \\
+				\end{pmatrix}}
+				= t^2 - (3i \cdot (-3i))
+				= t^2 - 3^2
+				= (t-3)(t+3)
+			\end{align*}
+			וקיבלנו שהערכים העצמיים של $A_1$ הם $3, -3$ שניהם עם ריבוי אלגברי 1, נמצא כעת את תתי המרחבים שלהם:
+			\begin{align*}
+				V_3 = \begin{pmatrix}
+					3 & - 3i \\
+					3i & 3 \\
+				\end{pmatrix}
+				\overset{R_2 = R_2 - i \cdot R_1}\Rightarrow
+				\begin{pmatrix}
+					3 & - 3i \\
+					0 & 0 \\
+				\end{pmatrix}
+				\overset{R_1 = \frac{1}{3}R_1}\Rightarrow
+				\begin{pmatrix}
+					1 & -i \\
+					0 & 0 \\
+				\end{pmatrix}
+			\end{align*}
+			וקיבלנו $x - yi = 0$ ומכאן $x = yi$ ז"א $\boxed{V_3 = Sp\set{(i, 1)}}$
+			בצורה דומה:
+			\begin{align*}
+				V_{-3} = \begin{pmatrix}
+					-3 & - 3i \\
+					3i & -3 \\
+				\end{pmatrix}
+				\overset{R_2 = R_2 + i \cdot R_1}\Rightarrow
+				\begin{pmatrix}
+					-3 & - 3i \\
+					0 & 0 \\
+				\end{pmatrix}
+				\overset{R_1 = -\frac{1}{3}R_1}\Rightarrow
+				\begin{pmatrix}
+					1 & i \\
+					0 & 0 \\
+				\end{pmatrix}
+			\end{align*}
+			וקיבלנו: $x + yi = 0$ ומכאן $x = -yi$ ז"א $\boxed{V_{-3} = Sp\set{(-i, 1)}}$, כעת נחשב נורמות:
+			\begin{align*}
+				&\norm{(i, 1)} = \sqrt{\pip{i}^2 + \pip{1}^2} = \sqrt{1 + 1} = \sqrt{2} \\
+				&\norm{(-i, 1)} = \sqrt{\pip{-i}^2 + \pip{1}^2} = \sqrt{1 + 1} = \sqrt{2} \\
+				&\ang{(i, 1), (-i, 1)} = \sqrt{i \cdot i + 1 \cdot 1} = 0
+			\end{align*}
+			וקיבלנו שהוקטורים כבר אורתוגונלים זה לזה (המכפלה הפנימית שלהם היא אפס) והנורמה שלהם שווה ל $\sqrt{2}$ וכעת נציב את הוקטורים המנורמלים כעמודות במטריצה, והיא המטריצה האוניטרית המלכסנת:
+			\begin{align*}
+				\boxed{
+					\begin{pmatrix}
+						\frac{i}{\sqrt{2}} & - \frac{i}{\sqrt{2}} \\
+						\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+					\end{pmatrix}
+				}
+			\end{align*}
+		\end{proof}
+
+	\item \textbf{בעבור} $\boldsymbol{A_3}$:
+	\begin{proof}
+		\begin{align*}
+			det(tI - A_3)
+			&= \pip{\begin{pmatrix}
+				t & -1 & -1 \\
+				-1 & t & -1 \\
+				-1 & -1 & t
+			\end{pmatrix}} \\
+			&\ontop{לפי שורה 1}=
+			t \cdot \pip{\begin{pmatrix}
+				t & -1 \\
+				-1 & t \\
+			\end{pmatrix}}
+			+ 1 \cdot \pip{\begin{pmatrix}
+				-1 & -1 \\
+				-1 & t \\
+			\end{pmatrix}}
+			- 1 \cdot \pip{\begin{pmatrix}
+				-1 & t \\
+				-1 & -1
+			\end{pmatrix}} \\
+			&= t \cdot (t^2 - 1) + 1(-t - 1) - 1(1 + t)
+			= t^3 - t -t -1 -1 -t \\
+			&= t^3 -3t -2
+			= \boxed{(t+1)^2(t-2)}
+		\end{align*}
+		וקיבלנו את הערכים העצמיים של $A_3$: $-1, 2$, כעת נמצא את תתי המרחבים:
+		\begin{align*}
+			V_{-1}
+			&= \begin{pmatrix}
+				-1 & -1 & -1 \\
+				-1 & -1 & -1 \\
+				-1 & -1 & -1
+			\end{pmatrix}
+			\overset{R_2 = R_2 + R_1}{\underset{R_3 = R_3 + R_1}\Rightarrow}
+			\begin{pmatrix}
+				-1 & -1 & -1 \\
+				0 & 0 & 0 \\
+				0 & 0 & 0
+			\end{pmatrix}
+			\overset{R_1 = -R_1}\Rightarrow
+			\begin{pmatrix}
+				1 & 1 & 1 \\
+				0 & 0 & 0 \\
+				0 & 0 & 0
+			\end{pmatrix}
+		\end{align*}
+		וקיבלנו $x+y+z = 0$ ז"א $x = -y-z$ כעת נוציא מקדמים: \\
+		${(-y-z, y, z) \Rightarrow y(-1,1,0) + z(-1,0,1)}$
+		ולכן $V_{-1} = Sp\set{(-1,1,0), (-1,0,1)}$
+		נשתמש געת בגרם-שמידט ע"מ לבנות בסיס אורתונורמלי:
+		\begin{align*}
+			&u_1 = (-1,1,0) \\
+			&u_2 = (-1,0,1) - \frac{\ang{(-1,0,1), (-1,1,0)}}{\norm{(-1,1,0)}^2} \cdot (-1,1,0)
+			= (-1,0,1) - \frac{1}{2} \cdot (-1,1,0)
+			= (-\frac{1}{2},-\frac{1}{2},1) \\
+			&u_1^{*}
+			= \frac{(-1,1,0)}{\norm{(-1,1,0)}}
+			= \frac{(-1,1,0)}{\sqrt{2}}
+			= \brac{- \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0} \\
+			&u_2^{*} = \frac{(-\frac{1}{2},-\frac{1}{2},1)}{\norm{(-\frac{1}{2},-\frac{1}{2},1)}}
+			= \frac{(-\frac{1}{2},-\frac{1}{2},1)}{\sqrt{\frac{1}{4} + \frac{1}{4} + 1}}
+			= \frac{(-\frac{1}{2},-\frac{1}{2},1)}{\frac{\sqrt{6}}{2}}
+			= \brac{-\frac{1}{\sqrt{6}},-\frac{1}{\sqrt{6}},\sqrt{\frac{2}{3}}} \\
+			&\text{ Check: Sanity}
+			\ang{u_1^{*}, u_2^{*}}
+			= \ang{\brac{- \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0}, \brac{-\frac{1}{\sqrt{6}},-\frac{1}{\sqrt{6}},\sqrt{\frac{2}{3}}}}
+			= \sqrt{\frac{1}{\sqrt{12}} - \frac{1}{\sqrt{12}} + 0} = 0
+		\end{align*}
+		וקיבלנו בסיס אורתונורמלי: $\boxed{V_{-1} = Sp\set{\brac{- \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0}, \brac{-\frac{1}{\sqrt{6}},-\frac{1}{\sqrt{6}},\sqrt{\frac{2}{3}}}}}$ \\
+		בצורה דומה, נחשב את התת מרחב של הע"ע $2$:
+		\begin{align*}
+			V_{-1}
+			&= \begin{pmatrix}
+				2 & -1 & -1 \\
+				-1 & 2 & -1 \\
+				-1 & -1 & 2
+			\end{pmatrix}
+			\overset{R_2 = 2R_2 + R_1}{\underset{R_3 = 2R_3 + R_1}\Rightarrow}
+			\begin{pmatrix}
+				2 & -1 & -1 \\
+				0 & 3 & -3 \\
+				0 & -3 & 3
+			\end{pmatrix}
+			\overset{R_3 = R_3 + R_2}\Rightarrow
+			\begin{pmatrix}
+				2 & -1 & -1 \\
+				0 & 3 & -3 \\
+				0 & 0 & 0
+			\end{pmatrix}
+		\end{align*}
+		וקיבלנו $\begin{cases}
+			2x - y - z = 0 \\
+			3y - 3z = 0
+		\end{cases}$
+		ומכאן נובע ש $y = z$, $x = \frac{y+z}{2} = y$ ז"א: $\boxed{V_2 = Sp\set{(1,1,1)}}$
+		זהו וקטור יחיד ולכן קבוצה אורתוגונלית, כעת ננרמל אותו $u_1 = \frac{(1,1,1)}{\norm{(1,1,1)}} = \frac{(1,1,1)}{\sqrt{3}} = (\frac{1}{3}, \frac{1}{3}, \frac{1}{3})$.
+		נשים את שלושת הוקטורים כעמודים ע"מ למצוא את המטריצה המלכסנת:
+		\begin{align*}
+			\boxed{
+				\begin{pmatrix}
+					-\frac{1}{\sqrt{2}} & - \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{3}}\\
+					\frac{1}{\sqrt{2}} & - \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{3}}\\
+					0 & \sqrt{\frac{2}{3}} & \frac{1}{\sqrt{3}}
+				\end{pmatrix}
+			}
+		\end{align*}
+	\end{proof}
+\end{enumerate}
+
+	\pagebreak
+	\subsection*{סעיף ב}
+	מצאו את כל המטריצות האוניטריות
+	\begin{proof}
+		$A_2$ לא יכולה להיות אוניטרית מכיוון שאינה נורמלית.
+		ממשפט 2.3.6 שורות מטריצה אוניטרית צריכות הינן בסיס אורתונורמלי של $\FF^n$ אז נבדוק את הנורמה של השורה הראשונה של $A_1$:
+		\[
+		\norm{(0, 3i)} = \sqrt{0 \cdot \overline{0} + 3i \cdot \overline{3i}}
+		= \sqrt{\pip{3i}^2} = \pip{3i} = \sqrt{0^2 + 3^2} = 3
+		\]
+		וקיבלנו שוקטור השורה הראשון של $A_1$ הוא בעל נורמה 3 ולכן לא אורתונורמלי. \\
+		בצורה דומה נבדוק את השורה הראשונה של $A_3$
+		\[
+		\norm{(0,1,1)} = \sqrt{0^2 + 1^2 + 1^2} = \sqrt{2}
+		\]
+		וקיבלנו שהנורמה של השורה הראשונה אינה אחת ולכן השורות אינן מהוות בסיס אורתונורמלי ל $\FF^3$ ולכן המטריצה אינה אוניטרית.
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	מצאו את כל המטריצות החיוביות לחלוטין
+	\begin{proof}
+		המטריצה $A_2$ לא צמודה לעצמה ולכן לא יכולה להיות חיובית לחלוטין.
+		ממשפט 3.3.2 אנו יודעים שמטריצה היא חיובית לחלוטין אם"ם כל הערכים העצמיים שלה חיוביים,
+		אך הראינו כבר כי $-3$ הוא ע"ע של $A_1$ ו $-1$ הוא ע"ע של $A_3$ ולכן שתיהן לא חיובית לחלוטין.
+	\end{proof}
+	\pagebreak
+
+	\section*{שאלה 2}
+	יהי $V$ מרחב אוניטרי ממימד סופי. תהי $T: V \rightarrow V$ העתקה לינארית צמודה לעצמה ואוניטרית.
+	הוכיחו שקיים $W$ תת מרחב של $V$ כך ש $T(v) = v'' -v'$ לכל $v \in V$ המקיים $v = v' + v''$ כאשר $v' \in W$, $v'' \in W^{\perp}$.
+	\begin{proof}
+		נתון ש $T$ צמודה לעצמה, ז"א $T = T^{\ast}$ וגם אוניטרית ז"א $TT^{\ast} = I$ וביחד $T^2 = I$. \\
+		ולכן $T$ היא גם נורמלית.
+		אנו צריכים להוכיח כי
+		\[T(v) = T(v' + v'') = T(v') + T(v'') = v'' - v'\]
+		ממשפט 2.4.3 נובע כי הערכים העצמיים של $T$ הם: $\pm 1$, ולכן נסמן, $W = V_1$ ז"א המרחב העצמי של הע"ע 1.
+		נסמן $T(v') = -v'$ ז"א $v' \in W=V_1$, וגם $T(v'') = v''$ ז"א $v'' \in V_2$
+		 וממשפט 3.4.1 נובע כי $V_1 \perp V_{-1}$ ז"א $V_{-1} \subseteq W^{\ast}$
+		 ולכן מתקיים $T(v') + T(v'') = -v' + v'' = v'' - v'$, כמובן שאם $1$ או $-1$ אינם ע"ע של $T$ אזי המרחב המתאים יהיה ריק והוקטור המתאים יהיה אפס.
+		 אך לא יכול להיות ששניהם יהיו אפס כי אז נקבל ש $T$ אינה לכסינה, בסתירה למשפט 3.2.1. ולכן לפחות אחד מ $V_1 \lor V_{-1}$ אינם ריקים. \\
+		 ובסה"כ הראינו שקיים מרחב $W = V_1$ כך ש $v' \in W$, $v'' \in V_{-1} \subseteq W^{\ast}$ \\
+		 כך ש $T(v' + v'') = v'' - v'$ כנדרש.
+	\end{proof}
+
+
+	\section*{שאלה 3}
+	תהי $A \in M^{\RR}_{n\times n}$ הוכיחו כי: $M = 2A^tA + 3AA^t$ ניתנת לליכסון, וכי הערכים העצמיים שלה הם מספרים ממשיים אי שליליים.
+
+	\begin{proof}
+		נתחיל בלהראות כי $M$ סימטרית:
+		\[
+		M^t
+		= (2A^tA + 3AA^t)^t
+		= 2(A^tA)^t + 3(AA^t)^t
+		= 2(A^t)^tA^t + 3(A^t)^tA^t
+		= 2AA^t + 3AA^t
+		= M
+		\]
+		ולכן ממשפט 3.2.1 נקבל כי $M$ לכסינה. ובנוסף נקבל כי $A$ נורמלית (מכיוון שהיא סימטרית וממשית ולכן צמודה לעצמה)
+		ולכן ממשפט 3.2.6 וקטורים עצמיים של $M$ השייכים לע"ע שונים הם אורתוגונלים זה לזה.
+		יהי $v \neq 0$ וקטור עצמי של $M$ ויהי $t \in \RR$ ע"ע של $M$, כך ש $Mv = tv$, אנו בעצם צריכים להוכיח כי $t \geq 0$:
+		\begin{align*}
+			t \ang{v,v}
+			&= \ang{tv, v}
+			= \ang{Mv, v}
+			= \ang{(2A^tA + 3AA^t)v, v} \\
+			&= \ang{(2A^tA)v, v} + \ang{(3AA^t)v, v}
+			= 2\ang{A^t(Av), v} + 3\ang{A(A^t)v, v} \\
+			&\ontop{צמודה לעצמה}= 2\ang{Av, A^tv} + 3\ang{A^tv, Av}
+			\ontop{סימטרית}= 2\ang{Av, Av} + 3\ang{Av, Av} \ontop{חיוביות}\geq 0
+		\end{align*}
+		ז"א שקיבלנו כי $t \ang{v,v} \geq 0$ אך הגדרנו $v \neq 0$ ומתכונת החיוביות $\ang{v,v} > 0$ ולכן $t \geq 0$ כנדרש.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 4}
+	תהי $U$ מטריצה אוניטרית מסדר $n \times n$ כך ש $U + iI$ צמודה לעצמה.
+	הוכיחו כי $U = -iI$
+	\begin{proof}
+		נסמן $V = U + iI$, נתון לנו כי היא צמודה לעצמה, ז"א $V = V^{\ast}$
+		אנו צריכים להראות כי: $U = -iI$ ז"א $U + iI = 0$ ז"א $V = 0$:
+		\begin{align*}
+			&V = V^{\ast} \\
+			&\Rightarrow U + iI = (U + iI)^{\ast} \\
+			&\Rightarrow U + iI = U^{\ast} + (iI)^{\ast} \\
+			&\Rightarrow U + iI = U^{\ast} - iI
+			&&\big\backslash \cdot U \\
+			&\Rightarrow (U + iI)U = (U^{\ast} - iI)U \\
+			&\Rightarrow U^2 + iU = U^{\ast}U - iU \\
+			&\Rightarrow U^2 + iU = I - iU \\
+			&\Rightarrow U^2 + 2iU - I = 0 \\
+			&\Rightarrow (U + iI)^2 = 0 \\
+			&\Rightarrow V^2 = 0
+			&&\big\backslash \text{צמודה לעצמה} \\
+			&\Rightarrow V V^{\ast} = 0
+		\end{align*}
+		כעת נראה שלכל $x \in \CC^n$ לפי תכונות המכפלה הפנימית מתקיים והמטריצה הצמודה:
+		$\ang{Vx, Vx} = \ang{x, V^{\ast}Vx} = \ang{x, 0x} = \ang{x, 0} = 0$
+		ולכן לפי תכונת החיוביות של המכפלה הפנימית נובע כי אם $\ang{Vx, Vx} = 0$ אזי $Vx=0$,
+		וזה מתקיים לכל $x \in \CC^n$ שזה יכול להתקיים אם"ם $V=0$ כנדרש.
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 5}
+	תהי $A \in S^{\RR}_{n \times n} \subset M^{\RR}_{n \times n}$ ויהי $\lambda$ הע"ע המקסימאלי של $A$
+
+	\subsection*{סעיף א}
+	הוכיחו כי לכל $0 \neq x \in \RR^n$ מתקיים $\frac{\ang{Ax, x}}{\ang{x,x}} \leq \lambda$
+	\begin{proof}
+		ממשפט 3.2.1 נובע שמכיוון ש $A$ סימטרית אזי היא לכסינה אורתוגונלית, וממשפט 3.1.2 קיים בסיס אורתונורמלי $B = \set{b_1, \cdots, b_n}$ של וקטורים עצמיים, כך ש $Sp B = \RR^n$
+		ז"א ש $Ab_i = \lambda_i b_i$.
+		יהי $0 \neq x \in \RR^n$ קיימים $n$ מקדמים כך ש $x = \sum_{i=1}^n \alpha_i b_i$, ומתקיים:
+		\begin{align*}
+			\frac{\ang{Ax, x}}{x,x}
+			&= \frac{\ang{A\sum_{i=1}^n \alpha_i b_i, x }}{\ang{x,x}}
+			\overset{eigenvalues}= \frac{\ang{\sum_{i=1}^n \lambda_i\alpha_i b_i, x }}{\ang{x,x}}
+			\overset{linearity}= \frac{\sum_{i=1}^n \ang{ \lambda_i\alpha_i b_i, x}}{\ang{x,x}} \\
+			&= \frac{\sum_{i=1}^n \ang{ \lambda_i\alpha_i b_i, \sum_{j=1}^n \alpha_j b_j}}{\ang{x,x}}
+			\overset{hermite}= \frac{\sum_{i=1}^n \sum_{j=1}^n \ang{ \lambda_i\alpha_i b_i,  \alpha_j b_j}}{\ang{x,x}}
+			= \frac{\sum_{i=1}^n \sum_{j=1}^n \lambda_i\alpha_i\alpha_j\ang{b_i , \alpha_j b_j}}{\ang{x,x}}
+		\end{align*}
+		($\dagger$)	כעת מכיוון ש $B$ הינו אורתונורמלי, אזי לכל $j \neq i$ מתקיים $\ang{b_i, b_j} = 0$ ולכל $j=i$ מתקיים $\ang{b_i, b_j} = 1$ ולכן:
+		\begin{align*}
+			\frac{\ang{Ax, x}}{x,x}
+			&= \frac{\sum_{i=1}^n \sum_{j=1}^n \lambda_i\alpha_i\alpha_j\ang{b_i , \alpha_j b_j}}{\ang{x,x}}
+			= \frac{\sum_{i=1}^n \lambda_i\alpha_i^2}{\ang{x,x}}
+			= \frac{\sum_{i=1}^n \lambda_i\alpha_i^2}{\ang{\sum_{i=1}^n \alpha_i b_i,\sum_{j=1}^n \alpha_j b_j}} \\
+			&= \frac{\sum_{i=1}^n \lambda_i\alpha_i^2}{\sum_{i=1}^n\ang{\alpha_i b_i,\sum_{j=1}^n \alpha_j b_j}}
+			= \frac{\sum_{i=1}^n \lambda_i\alpha_i^2}{\sum_{i=1}^n\sum_{j=1}^n\ang{\alpha_i b_i, \alpha_j b_j}}
+			= \frac{\sum_{i=1}^n \lambda_i\alpha_i^2}{\sum_{i=1}^n\sum_{j=1}^n\alpha_i \alpha_j \ang{ b_i,  b_j}} \\
+			&\overset{\dagger}= \frac{\sum_{i=1}^n \lambda_i\alpha_i^2}{\sum_{i=1}^n\alpha_i^2}
+			\overset{\lambda = max\set{\lambda_i}, \alpha^2 \geq 0}\leq  \frac{\sum_{i=1}^n \lambda\alpha_i^2}{\sum_{i=1}^n\alpha_i^2}
+			=  \lambda\frac{\sum_{i=1}^n \alpha_i^2}{\sum_{i=1}^n\alpha_i^2}
+			=  \lambda
+		\end{align*}
+		ובסה"כ קיבלנו ש $\frac{\ang{Ax, x}}{x,x} \leq \lambda$.
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	הוכיחו כי לכל $0 \neq x \in \RR^n$ המקיים $\frac{\ang{Ax, x}}{\ang{x,x}} = \lambda$ הוא וקטור עצמי של A.
+	\begin{proof}
+		בסעיף הקודם הגענו לנוסחה:
+		\begin{align*}
+			\frac{\ang{Ax, x}}{x,x}
+			= \frac{\sum_{i=1}^n \lambda_i\alpha_i^2}{\sum_{i=1}^n\alpha_i^2}
+			\leq  \frac{\sum_{i=1}^n \lambda\alpha_i^2}{\sum_{i=1}^n\alpha_i^2}
+			\Rightarrow \ang{Ax, x} \leq \sum_{i=1}^n \lambda\alpha_i^2
+		\end{align*}
+		ניתן לראות כי האי שוויון הופך לשוויון כאשר: $\sum_{i=1}^n \lambda\alpha_i^2= \sum_{i=1}^n \lambda_i\alpha_i^2$ ז"א כאשר:
+		\[
+			\sum_{i=1}^n \lambda\alpha_i^2 - \sum_{i=1}^n \lambda_i\alpha_i^2 = 0
+			\Rightarrow \sum_{i=1}^n \alpha_i^2(\lambda - \lambda_i) = 0
+		\]
+		כלומר לכל $\alpha_i \neq 0$ מתקיים $\lambda_i = \lambda$ ז"א ש $x$ הוא סכום של וקטורי $\lambda \cdot b_i$ ולכן שייך למרחב העצמי $V_\lambda$
+	\end{proof}
+\end{document}
