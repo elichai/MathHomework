@@ -1,0 +1,206 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage{amsmath,mathtools,enumerate,xparse,centernot,polyglossia,graphicx, aligned-overset}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=1.1in]{geometry}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the chA \mathcal{R} Acter \varnothing
+\usepackage[normalem]{ulem} % [normalem] prevents the package from changing the default behavior of `\emph` to underline.
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+\usepackage{fontspec}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\graphicspath{ {./} }
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{טענת עזר}
+
+\DeclareMathOperator{\Img}{Im}
+\title{תורת הקבוצות - ממ"ן 13}
+\author{אליחי טורקל \ID}
+\date\today
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+	%Section and subsection automatically number unless you put the asterisk next to them.
+
+\begin{document}
+	\maketitle %This command prints the title based on information entered above
+
+
+	\section*{שאלה 1}
+	תהי $\ang{A, \prec}$ קבוצה סדורה. לכל $a \in A$ נסמן $S_a = \set{x \in A| x \prec a}$
+	ונסמן $B = \set{S_a | a \in A}$.
+	הוכיחו כי $\ang{B, \subset}$ היא קבוצה סדורה שדומה ל $\ang{A, \prec}$.
+	\begin{proof}
+		נסמן $f: A \rightarrow B$ ונגדירה $f(a) = S_a$ קל לראות שהיא על, מכיוון ש $B$ מכילה איבר יחיד בעבור כל $a \in A$. \\
+		יהי $a, b \in A$ כך ש $a \prec b$ אזי לכל $x \in S_a$ מתקיים $x \prec a \prec b$ ולכן לפי הגדרת $S_b$ מתקיים $x \in S_b$
+		וקיבלנו כי $S_a \subseteq S_b$ אך מכיוון ש $a \not\in S_a$ אבל $a \in S_b$ אזי נקבל כי $S_a \subset S_b$. \\
+		נראה כי $\subset$ על $B$ הוא יחס סדר מלא:
+		\begin{enumerate}
+			\item $\subset$ הוא תמיד טנזיטיבי ותמיד אי רפלקסיבי
+			\item מכיוון ש $\prec$ הוא יחס סדר מלא, אזי לכל $a, b \in A$ ו $S_a, S_b \in B$ בהתאמה,
+			מתקיים $a \prec b \lor b \prec a \lor a = b$ ולכן אם $a=b$ אזי בוודאי $S_a = S_b, \land S_a \not\subset S_b \land S_b \not\subset S_a$
+			ואם $a \prec b$ אזי לכל $x \in S_a$ מתקיים $x \prec a \prec b$ ולכן $x \in S_b$ ז"א $S_a \subset S_b$
+			ובצורה דומה אם $b \prec a$ אזי לכל $x \in S_b$ מתקיים $x \prec b \prec a$ ולכן $x \in S_a$ ז"א $S_b \subset S_a$
+		\end{enumerate}
+		והראינו ש $\subset$ הוא יחס סדר מלא על $B$ וגם כי לכל $a,b \in A$ שמקיימים $a \prec b$ מתקיים $S_a \subset S_b$ ז"א $f(a) \subset f(b)$
+		ולכן לפי שאלה 18 $f$ היא פונקציית דימיון מ $\ang{A, \prec}$ על $\ang{B, \subset}$ ולכן הן קבוצות סדורות דומות.
+	\end{proof}
+
+	\section*{שאלה 2}
+	נגדיר את היחס $\prec$ על הקבוצה $\NN \times \NN$ כדלהלן:
+	$\ang{m_1, n_1} \prec \ang{m_2, n_2}$ אם"א $m_1 < m_2$ או $n_1 > n_2 \land m_1 = m_2$
+
+	\subsection*{סעיף א}
+	הוכיחו כי $\prec$ הוא יחס סדר מלא על $\NN \times \NN$
+	\begin{proof}
+		\begin{enumerate}
+			\item \textbf{טרנזיטיביות:} יהי $\ang{a,b}, \ang{c,d}, \ang{e,f} \in \NN \times \NN$ כך ש: $\ang{a,b} \prec \ang{c,d}$ וגם $\ang{c,d} \prec \ang{e,f}$, \\
+			אם $c > a$ אזי $e \geq c$ ולכן $e > a$ ומכאן ש $\ang{a,b} \prec \ang{e,f}$, \\
+			ואם $c=a$ אזי $b > d$ ואם $e > c$ אזי $e > a = c$ ולכן $\ang{a,b} \prec \ang{e,f}$
+			אך אם $e=c=a$ אזי $b > d > f$ וקיבלנו ש $e=a \land b > f$ ולכן $\ang{a,b} \prec \ang{e,f}$.
+
+			\item \textbf{אי רפלקסיביות} יהי $\ang{a,b} \in \NN \times \NN$ את התנאי הראשון הוא לא מקיים על עצמו מכיוון ש $a=a$ והתנאי השני גם לא מתקיים מכיוון ש $b \not> b$ ולכן $\ang{a,b} \not\prec \ang{a,b}$
+
+			\item \textbf{משווה} יהי $\ang{a,b}, \ang{c,d} \in \NN \times \NN$ אם $c > a$ אזי $\ang{a,b} \prec \ang{c,d}$
+			ואם $a > c$ אזי $\ang{c,d} \prec \ang{a,b}$ ואם $a=c$ וגם $b>d$ אזי $\ang{a,b} \prec \ang{c,d}$ ואם $b>d$ אזי $\ang{c,d} \prec \ang{a,b}$
+			ואם $b=d$ וגם $a=c$ אזי $\ang{a,b} = \ang{c,d}$
+		\end{enumerate}
+	\end{proof}
+
+	\subsection*{סעיף ב}
+	הראו שבקבוצה הסדורה  $\ang{\NN \times \NN, \prec}$ אין איבר ראשון או אחרון, ולכל איבר בה יש קודם מיידי.
+	\begin{proof}
+		יהי $\ang{a,b} \in \NN \times \NN$ אזי $\ang{a,b} \prec \ang{a+1, b}$ (מכיוון ש $a < a+1$)
+		ולכן $\ang{a,b}$ אינו אחרון. בנוסף $\ang{a, b+1} \prec \ang{a,b}$ (מכיוון ש $a=a \land b+1 > b$) ולכן $\ang{a,b}$ אינו ראשון.
+		וקיבלנו שלא קיים איבר ראשון או אחרון בקבוצה הסדורה. \\
+		נניח בשלילה ש $\ang{a, b+1}$ אינו הקודם המיידי ל $\ang{a,b}$ ז"א שקיים $\ang{x,y} \in \NN \times \NN$
+		כך ש $\ang{a, b+1} \prec \ang{x,y} \prec \ang{a,b}$
+		נשים לב שלפי הגדרת היחס או ש $m_1 < m_2$ או ש $m_1 = m_2$, ביחד בהכרח מתקיים $m_1 \leq m_2$
+		ולכן בהכרח מתקיים $a \leq x \leq a$ ומכאן ש $x=a$.
+		ולכן צריך להתקיים $b+1 > y > b$ אך מכיוון שמדובר במספרים טבעיים זה לא אפשרי, כי אין מספר טבעי בין $b+1$ ל $b$.
+		ולכן בהכרח $\ang{a, b+1}$ הוא הקודם המיידי ל $\ang{a,b}$ ומכיוון שזה זוג סדור כלשהו, אזי לכל איבר יש קודם מיידי.
+	\end{proof}
+
+	\subsection*{סעיף ג}
+	בדקו לאילו איברים של $\NN \times \NN$ יש עוקב מיידי, ולאילו אין.
+	\begin{proof}
+		מהסעיף הקודם קל לראות כי לכל $\ang{a,b} \in \NN \times \NN$ כאשר $b > 0$ יש עוקב מיידי שהוא $\ang{a, b-1}$
+		נניח בשלילה של $\ang{a,0}$ יש עוקב מיידי שהוא $\ang{x,y} \in \NN \times \NN$
+		ז"א $\ang{a,0} \prec \ang{x,y}$ ולכן או ש $a < x$ או ש $a=x \land 0 > y$ שלא יכול להתקיים מכיוון שלא קיים מספר טבעי הקטן מאפס.
+		ולכן $a < x$ אך מכאן אנו מסיקים ש $\ang{a,0} \prec \ang{x,y+1} \prec \ang{x,y}$ ובעצם ישנם אינסוף איברים בין כל עוקב של $\ang{a,0}$ אליו, ולכן לא קיים לו עוקב מיידי.
+	\end{proof}
+
+	\subsection*{סעיף ד}
+	מצאו תת-קבוצה סדורה של $\ang{\NN \times \NN, \prec}$ הדומה ל $\ang{\ZZ, <}$.
+	\begin{proof}
+		נסתכל על התת קבוצה הבאה: $A = \set{\ang{a,b} \in \NN \times \NN | a = 0 \lor b = 0}$,
+		קל לראות כי $\ang{A, \prec}$ הינה קבוצה סדורה כי כל הטיעונים בסעיף א עובדים גם כאן.
+		נוכיח שהיא דומה ל $\ZZ$ ע"י הצגת פונקציה על $f: \ZZ \rightarrow A$ המשמרת סדר:
+		\[
+		f(a) = \begin{cases}
+			\ang{a, 0} \text{ if } x \geq 0 \\
+			\ang{0, -a} \text{ if } x < 0 \\
+		\end{cases}
+		\]
+		\begin{enumerate}
+			\item יהיו $a, b \in \ZZ$ כך ש $0 \leq b < a$ ולכן $f(b) = \ang{b,0} \prec \ang{a,0} = f(a)$ מכיוון ש $b<a$
+			\item יהיו $a, b \in \ZZ$ כך ש $b < a < 0$ ולכן $f(b) = \ang{0, -b} \prec \ang{0, -a} = f(a)$ מכיוון ש $0=0 \land -a < -b$.
+			\item יהיו $a, b \in \ZZ$ כך ש $b < 0 < a$ ולכן $f(b) = \ang{0, -b} \prec \ang{a,0} = f(a)$ מכיוון ש $0<a$
+		\end{enumerate}
+		וקיבלנו שלפי שאלה 18 $f$ היא פונקציית דמיון מ $\ang{\ZZ, <}$ על $\ang{A, \prec}$.
+	\end{proof}
+
+	\subsection*{סעיף ה}
+	האם $\ang{\NN \times \NN, \prec}$ ניחנה בתכונת החסם עליון?
+	\begin{proof}
+		נוכיח שהיא ניחנה בתכונה, יהי $A$ תת קבוצה חסומה מלעיל ולא ריקה של $\ang{\NN \times \NN, \prec}$
+		ויהי $\ang{a,b} \in \NN \times \NN$ החסם העליון. נסתכל על האיבר הראשון בכל זוג סדור בקבוצה, ונקבל קבוצת מספרים טבעיים חסומה, ולכן יש לה איבר אחרון נסמן אותו $c \in \NN$
+		וניווכח ש $c \leq a$ מכיוון ש $\ang{a,b}$ חסם עליון. \\
+		בנוסף, נסתכל על הקבוצה $\set{x | \ang{x,c} \in A}$ גם זו קבוצה חסומה של מספרים טבעיים ולכן יש לה איבר ראשון, נסמן אותו $d \in \NN$
+		וניווכח שבמידה ו $c=a$ אזי $b \leq d$.
+		וקיבלנו ש $\ang{c,d} \in A$ והוא האיבר האחרון, כי לא קיים $\ang{x,y} \in A$ כך ש $x > c$ או $y < d \land x=c$.
+	\end{proof}
+
+	\subsection*{סעיף ו}
+	מצאו פונקציית דמיון מ $\ang{\NN \times \NN, \prec}$ לתת קבוצה סדורה של $\ang{\QQ, <}$
+	\begin{proof}
+		נסתכל על התת קבוצה הבאה: $A = \set{a + \frac{1}{b+2} | a,b \in \NN}$ פשוט לראות כי $\ang{A, <}$ היא תת קבוצה סדורה של $\ang{\QQ, <}$,
+		נציג פונקציה על $f: \NN \times \NN \rightarrow A$ שמשמרת את יחסי הסדר המתאימים:
+		\[
+		f(\ang{a,b}) = a + \frac{1}{b+2}
+		\]
+		יהיו $\ang{a,b}, \ang{c,d} \in \NN \times \NN$ כך ש $\ang{a,b} \prec \ang{c,d}$
+		\begin{enumerate}
+			\item אם $a < c$ אזי $f(\ang{a, b}) = a + \frac{1}{b+2} < a + 1 \leq c < c + \frac{1}{d+2} = f(\ang{c,d})$.
+			\item אם $b > d \land a=c$ אזי $f(\ang{a,b}) = a + \frac{1}{b+2} = c + \frac{1}{b+2} < c + \frac{1}{d+2} = f(\ang{c,d})$.
+		\end{enumerate}
+		ובסה"כ קיבלנו ש $f(\ang{a,b}) < f(\ang{c,d})$ ולכן לפי שאלה 18 הפונקציה $f$ היא פונקציית דמיון מ $\ang{\NN \times \NN, \prec}$ על $\ang{A, <}$
+	\end{proof}
+
+	\pagebreak
+	\section*{שאלה 3}
+	תהי $\ang{A, \prec}$ קבוצה סדורה. הוכיחו כי $\ang{A, \prec}$ דומה לתת קבוצה סדורה של $\ang{\ZZ, <}$
+	אם"ם כל תת קבוצה של $A$ החסומה ב $\ang{A, \prec}$ היא קבוצה סופית.
+	\begin{proof}
+		\begin{enumerate}
+			\item כיוון אחד: תהי $\ang{A, \prec}$ קבוצה סדורה הדומה לתת קבוצה של $\ang{\ZZ, \prec}$ כל תת קבוצה חסומה של $\ZZ$ היא סופית, ולכן גם כל תת קבוצה סדורה חסומה של $A$ היא סופית.
+			\item כיוון שני: תהי $\ang{A, \prec}$ קבוצה סדורה וכל תת קבוצה של היא סופית
+			\begin{enumerate}
+				\item \textbf{אם A ריקה:} אזי היא תת קבוצה של $\ZZ$ ודומה לעצמה.
+				\item \textbf{A אינה ריקה אך אין לה ראשון/אחרון:} מההנחה שכל תת קבוצה חסומה שלה היא סופית מתקיים שלכל $a,b \in A$
+				קבוצת האיברים החסומים ביניהם סופית, ולכן משאלה 25 נובע כי $\overline{\ang{A, \prec}} = \omega^{\downarrow} + \omega$, ז"א דומה ל $\ang{\ZZ, <}$
+
+				\item \textbf{אם יש ב A ראשון ואין אחרון:} נסמן את הראשון ב $c \in A$ ולכל $x \in A$ מתקיים ש $\set{a \in A | a \prec x}$ חסומה ($c \leq a \prec x$) ולכן סופית, ולכן לפי משפט 6.17 נקבל ש: $\overline{\ang{A, \prec}} = \omega$ שנבלע בטיפוס הסדר של $\ZZ$ ולכן דומה לתת קבוצה של $\ZZ$
+				\item \textbf{אם יש ב A אחרון ואין ראשון:} נסמן את האחרון ב $c \in A$ ולכל $x \in A$ מתקיים ש $\set{a \in A | x < a}$ חסומה ($x < a < c$) ולכן סופית וכל תנאי שאלה 24 מתקיימים ולכן: $\overline{\ang{A, \prec}} = \omega^{\downarrow}$ שנלע בטיפוס הסדר של $\ZZ$ ולכן דומה לתת קבוצה שלה.
+				\item \textbf{יש ב A ראשון ואחרון:} אזי $A$ חסומה, וכמובן ש $A \subseteq A$ ולכן היא סופית ולכן בוודאי דומה לתת קבוצה של $\ZZ$ שבאותה העוצמה.
+			\end{enumerate}
+		\end{enumerate}
+	\end{proof}
+
+	\section*{שאלה 4}
+	תהי $\ang{A, \prec}$ קבוצה סדורה בצפיפות שהיא בת מניה עם איבר אחרון וללא איבר ראשון.
+	הוכיחו כי $\ang{A, \prec}$ דומה לקבוצה הסדורה $\ang{\QQ \cap [0, \infty), >}$
+	\begin{proof}
+		 יהי $a \in A$ האיבר האחרון ב $A$, נסמן:
+		 $B = \QQ \cap [0, \infty)$, $\widehat{B} = B \sub \set{0} = \QQ \cap (0, \infty)$, $\widehat{A} = A \sub \set{a}$ \\
+		 נסתכל על $\ang{\widehat{B}, >}$ לקבוצה זו אין ראשון ואחרון מכיוון שמדובר בקטע פתוח, והיא צפופה מכיוון שהרציונלים צפופים. בנוסף היא בת מניה כי מדובר בקבוצה אינסופית של רציונלים, ולכן ממשפט קנטור 6.18 נקבל כי $\overline{\ang{\widehat{B}, >}} = \eta$
+		 בצורה דומה גם $\overline{\ang{\widehat{A}, \prec}}=\eta$ מכיוון שנתון לנו ש $A$ צפופה, ולכן גם $\widehat{A}$ צפופה, ובת מניה, וב $\widehat{A}$ אין איבר ראשון או אחרון, ולכן עומד בתנאי משפט קנטור. \\
+		 מכאן נסיק שקיימת פונקציית דמיון $f: \widehat{A} \rightarrow \widehat{B}$ שהיא חח"ע ועל ונגדיר $g: A \rightarrow B$ פונקציית דמיון חח"ע בצורה הבאה:
+		 $g(x) = \begin{cases}
+			f(x) \text{ if } x \neq a \\
+			0 \text{ if } x = a
+		 \end{cases}$
+		  ניתן לראות כי היא גם חח"ע ועל כי הוספנו איבר יחיד למקור ולתמונה,
+		  והוא שומר סדר כי $f$ שומרת סדר ו $g$ שולחת את האיבר האחרון האחרון של $A$ לאיבר האחרון של $B$.
+
+		  \section*{שאלה 5}
+		  תהי $A$ תת קבוצה בת מניה ולא ריקה של קבוצת המספרים הממשיים $\RR$.
+		  הוכיחו שהקבוצה הסדורה $\ang{\RR \sub A, <}$ אינה דומה לקבוצה הסדורה $\ang{\RR, <}$
+
+		  \begin{proof}
+			יהי $a \in A$ נסמן $B = (-\infty, a) \sub A \subset \RR$, $C = \RR \sub A$ קבוצה זו חסומה מלעיל אך נראה כי אין לה חסם עליון ב $C$: \\
+			יהי $I = (x, y)$ מקטע ממשי כלשהו, נתחיל בלהראות ש $I \sub A \neq \emptyset^{\dagger}$ אם $I \sub A = \emptyset$ אזי $I \subseteq A$ אך $\pip{A} = \aleph_0 < \aleph = \pip{I}$ ולכן זה לא אפשרי. \\
+			כעת נניח בשלילה כי $x$ הוא החסם העליון והוא נמצא ב $C$ אזי $x \neq a$ מכיוון ש $a \not\in C$
+			אם $x < a$, נסתכל על $(x, a) \sub A$ קבוצה זו לא ריקה מתוך$^{\dagger}$ ולכן קיים $c \in (x, a) \sub A \subseteq C$ כך ש $x < c < a$ ולכן $x$ אינו חסם מלעיל כלל,
+			לכן $x > a$, ומכיוון ש $x \neq a$ אזי קיים $c \in C \cap (a, x) \neq^{\dagger} \emptyset$ ומכאן ש $a < c < x$ ולכן גם $c$ הוא חסם מלעיל של $C$ אך הוא קטן מ $x$ בסתירה להיותו חסם עליון.
+			ובכל האפשרויות הגענו לסתירה ולכן אין ל $C$ חסם עליון. \\
+			ולכן היא לא עומדת בתנאי ד של משפט קנטור 6.19 ומכאן ש $\overline{\ang{C, <}} \neq \rho$ ומאידך $\overline{\ang{\RR, <}} = \rho$ ולכן הן אינן דומות.
+		  \end{proof}
+
+	\end{proof}
+\end{document}
