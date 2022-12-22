@@ -1,0 +1,472 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{polyglossia}
+\usepackage{fontspec}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\newfontface\niceee{Brush Script MT}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\newtheorem{lemma}{טענת עזר}
+\title{אלגברה לינארית 2 - ממ"ן 13}
+\author{אליחי טורקל \ID}
+\date\today
+
+\DeclareFontFamily{OT1}{cmrx}{}
+\DeclareFontShape{OT1}{cmrx}{m}{n}{<->cmr10}{}
+\let\saveLongrightarrow\Longrightarrow
+\makeatletter
+\renewcommand*{\Longrightarrow}{%
+    \mathrel{\rlap{\fontfamily{cmrx}\fontencoding{OT1}\selectfont=}%
+    \hphantom{\saveLongrightarrow}%
+    \llap{$\m@th\Rightarrow$}}}
+    \makeatother
+
+
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+%Section and subsection automatically number unless you put the asterisk next to them.
+
+
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+
+\section*{שאלה 1}
+מצאו בסיס שבו התבנית הריבועית בעל צורה אלכסונית וציין את הצורה האלכסונית.
+
+\subsection*{סעיף א}
+\[
+q_1: \RR^3 \rightarrow \RR, q_1(x_1, x_2, x_3) = x_1^2 + 4x_2^2 + 3_x3^2 - 8x_1x_2 + 2x_1x_3 - 4x_2x_3
+\]
+\begin{proof}
+    נתחיל בלהשתמש בשיטת לגראנז' ע"מ למצוא תבנית ריבועית:
+    \begin{align*}
+        q_1(x_1, x_2, x_3)
+        &= x_1^2 + 4x_2^2 + 3_x3^2 - 8x_1x_2 + 2x_1x_3 - 4x_2x_3 \\
+        &= (x_1 - 4x_2 +2x_3)^2 - (x_3 - 4x_2)^2  + 4x_2^2 + 3_x3^2 - 4x_2x_3 \\
+        &= (x_1 - 4x_2 +2x_3)^2 - x_3^2 + 8x_3x_2 - 16x_2^2  + 4x_2^2 + 3_x3^2 - 4x_2x_3 \\
+        &= (x_1 - 4x_2 +2x_3)^2 + 2x_3^2 - 12x_2^2 + 4x_2x_3 \\
+        &= (x_1 - 4x_2 +2x_3)^2 + 2(x_3+x_2)^2 - 2x_2^2 - 12x_2^2 \\
+        &= (x_1 - 4x_2 +2x_3)^2 + 2(x_3+x_2)^2 - 14x_2^2 \\
+        &\begin{cases}
+            t_1 = x_1 - 4x_2 + x_3 \\
+            t_2 = x_3 + x_2 \\
+            t_3 = x_2
+            \end{cases} \Rightarrow
+            \begin{cases}
+                x_1 = t_1 - t_2 + 5t_3 \\
+                x_2 = t_3 \\
+                x_3 = t_2 - t_3
+                \end{cases}
+                \end{align*}
+                וקיבלנו את מטריצת המעבר הבאה:
+                \begin{align*}
+                    M^{-1} = \begin{pmatrix}
+                        1 & -4 & 1 \\
+                        0 & 1 & 1 \\
+                        0 & 1 & 0
+                \end{pmatrix},
+                M = \begin{pmatrix}
+                    1 & -1 & 5 \\
+                    0 & 0 & 1 \\
+                    0 & 1 & -1
+                    \end{pmatrix}
+        \end{align*}
+        והבסיס הינו עמודות המטריצה: $\set{(1,0,0), (-1,0,1), (5,1,-1)}$
+    \end{proof}
+
+    \pagebreak
+    \subsection*{סעיף ב}
+    \[
+     q_2: \RR^3 \rightarrow \RR, q_2(x_1, x_2, x_3) = x_1 x_2 + x_1 x_3 + x_2 x_3
+    \]
+    \begin{proof}
+        \begin{align*}
+            [q_2]_E =
+            &\begin{pmatrix}
+                0           & \frac{1}{2}   & \frac{1}{2} \\
+                \frac{1}{2} & 0             & \frac{1}{2} \\
+                \frac{1}{2} & \frac{1}{2}   & 0
+            \end{pmatrix}
+            \overset{R_1 = R_1 + R_2}\Rightarrow
+            \begin{pmatrix}
+                \frac{1}{2} & \frac{1}{2}   & 1 \\
+                \frac{1}{2} & 0             & \frac{1}{2} \\
+                \frac{1}{2} & \frac{1}{2}   & 0
+            \end{pmatrix}
+            \overset{C_1 = C_1 + C_2}\Rightarrow
+            \begin{pmatrix}
+                1           & \frac{1}{2}   & 1 \\
+                \frac{1}{2} & 0             & \frac{1}{2} \\
+                1           & \frac{1}{2}   & 0
+            \end{pmatrix} \\
+            \overset{R_2 = R_2 - \frac{1}{2}R_1}\Rightarrow
+            &\begin{pmatrix}
+                1           & \frac{1}{2}   & 1 \\
+                0           & -\frac{1}{4}  & 0 \\
+                1           & \frac{1}{2}   & 0
+            \end{pmatrix}
+            \overset{C_2 = C_2 - \frac{1}{2}C_1}\Rightarrow
+            \begin{pmatrix}
+                1           & 0             & 1 \\
+                0           & -\frac{1}{4}  & 0 \\
+                1           & 0             & 0
+            \end{pmatrix}
+            \overset{R_3 = R_3 - R_1}\Rightarrow
+            \begin{pmatrix}
+                1           & 0             & 1 \\
+                0           & -\frac{1}{4}  & 0 \\
+                0           & 0             & -1
+            \end{pmatrix} \\
+            \overset{C_3 = C_3 - C_1}\Rightarrow
+            &\begin{pmatrix}
+                1           & 0             & 0 \\
+                0           & -\frac{1}{4}  & 0 \\
+                0           & 0             & -1
+            \end{pmatrix}
+        \end{align*}
+        וקיבלנו שהמטריצה האלכסונית היא:
+        \[
+        D_{q_2} =             \begin{pmatrix}
+            1           & 0             & 0 \\
+            0           & -\frac{1}{4}  & 0 \\
+            0           & 0             & -1
+            \end{pmatrix}
+        \]
+        כעת נעשה רק את פעולות השורה על מטריצת היחידה ע"מ לקבל את מטריצת המעבר:
+        \begin{align*}
+            &M^t =
+            \begin{pmatrix}
+                1 & 0  & 0 \\
+                0 & 1  & 0 \\
+                0 & 0  & 1
+            \end{pmatrix}
+            \overset{R_1 = R_1 + R_2}\Rightarrow
+            \begin{pmatrix}
+                1 & 1  & 0 \\
+                0 & 1  & 0 \\
+                0 & 0  & 1
+            \end{pmatrix}
+            \overset{R_2 = R_2 - \frac{1}{2}R_1}\Rightarrow
+            \begin{pmatrix}
+                1 & 1  & 0 \\
+                -\frac{1}{2} & \frac{1}{2}  & 0 \\
+                0 & 0  & 1
+            \end{pmatrix}
+            \overset{R_3 = R_3 - R_1}\Rightarrow
+            \begin{pmatrix}
+                1 & 1  & 0 \\
+                -\frac{1}{2} & \frac{1}{2}  & 0 \\
+                -1 & -1  & 1
+            \end{pmatrix} \\
+            &M =  \begin{pmatrix}
+                1 & -\frac{1}{2}  & -1 \\
+                1 & \frac{1}{2}   & -1 \\
+                0 & 0             & 1
+                \end{pmatrix}
+        \end{align*}
+        ואיברי הבסיס הם עמודות המטריצה המייצגת: $\set{(1,1,0), (-\frac{1}{2}, \frac{1}{2}, 0), (-1, -1, 1)}$
+    \end{proof}
+
+    \pagebreak
+    \subsection*{סעיף ג}
+    יהי $q = q_1 \lor q = q_2$. האם קיים בסיס אורתונורמלי של $\RR^3$ שבו ל $q$ יש צורה אלכסונית?
+
+    \begin{proof}
+        מכיוון ששתיהן תבניות לינאריות ריבועיות, אזי קיימת תבנית בילינארית סימטרית המתאימה לה, נסמן את המטריצה המתאימה $A$
+        ונקבל שלכל $x \in \RR^3$ מתקיים $q(x) = x^t A x$ וממשפט הליכסון האוניטרי/אוקלידי נקבל כי היא לכסינה אורתוגונלית.
+        ז"א קיימת מטריצה:
+        \[
+        M =  \begin{pmatrix}
+            \vdots & \vdots & \vdots\\
+            v_1    & v_2    & v_3 \\
+            \vdots & \vdots & \vdots
+        \end{pmatrix}
+        \] כך ש: $M^{-1}AM = M^t A M = D$ כאשר $D$ היא אלכסונית. ז"א $A = M D M^t$
+        ממשפט 2.3.6 נובע כי עמודות המטריצה $M$ הן בסיס אורתונורמלי של $\RR^3$, ולכן $B = \set{v_1, v_2, v_3}$
+        הינו בסיס אורתונורמלי של $\RR^3$ כעת נסתכל על $[x]_B = M^tx$ וקטור קואורדינטות של $x$ לפי הבסיס $B$
+        ונשים לב ש:
+        \[
+        q(x) = x^t A x = x^t M D M^t x \overset{x^t M = (M^t x)^t}= (M^t x)^t D M^t x = [x]_B^t D [x]_B
+         \]
+         וקיבלנו ש $q(x) = [x]_B^t D [x]_B$ ז"א קיים בסיס אורתונורמלי שבעבורו ל $q$ יש מטריצה מייצגת אלכסונית
+    \end{proof}
+
+
+
+    \pagebreak
+    \section*{שאלה 2}
+    תהי $f: \RR^3 \times \RR^3 \rightarrow \RR$ מוגדרת ע"י:
+    \[
+    f((x_1, x_2, x_3), (y_1, y_2, y_3)) = 4x_1y_1 + x_2y_2 + x_3y_3 - 2x_1y_2 -2x_2y_1 + 2x_1y_3 + 2x_3y_1 -1.5x_2y_3 - 1.5x_3y_2
+    \]
+
+    \subsection*{סעיף א}
+    הוכיחו ש $f$ תבנית בילינארית סימטרית. מצאו את התבנית הריבועית $q_f$ המסומכת ל $f$ ומצאו בסיס שבו $f$ מיוצגת ע"י מטריצה אלכסונית.
+    מצאו צורה אלכסונית של $q_f$
+    \begin{proof}
+    נסמן את המטריצה המתאימה:
+    \[
+    [f]_E = \begin{pmatrix}
+    4 & -2 & 2 \\
+    -2 & 1 & -\frac{1}{2} \\
+    2 & -\frac{1}{2} & 1
+    \end{pmatrix}
+    \]
+    ניתן לראות כי $[f]_E = [f]_E^t$ ז"א המטריצה סימטרית ולכן מ 4.2.2 נובע ש $f$ סימטרית.
+    כעת נשתמש בשיטת לגראנז' ע"מ למצוא את התבנית הריבועית:
+    \begin{align*}
+        &q_f(x_1, x_2, x_3) = f((x_1,x_2,x_3), (x_1,x_2,x_3)) \\
+        &= 4x_1^2 + x_2^2 + x_3^2 -2x_1x_2 - 2x_1x_2 + 2x_1x_3 + 2x_3x_1 - 1.5x_2x_3 - 1.5x_3x_2 \\
+        &= 4x_1^2 + x_2^2 + x_3^2 - 4x_1x_2 + 4x_1x_3 - 3x_2x_3 \\
+        &= (2x_1 - x_2 + x_3)^2 - (x_3 - x_2)^2 + x_2^2 + x_3^2 - 3x_2x_3 \\
+        &= (2x_1 - x_2 + x_3)^2 -x_3^2 + 2x_3x_2 -x_2^2 + x_2^2 + x_3^2 - 3x_2x_3 \\
+        &= (2x_1 - x_2 + x_3)^2 - x_2x_3 \\
+    \end{align*}
+    נהפוך את הביטוי האחרון גם הוא לביטוי ריבועי ע"י הצבה:
+    \begin{align*}
+        \begin{cases}
+            x_2 = t_1 - t_2 \\
+            x_3 = t_1 + t_2
+        \end{cases}
+        \Rightarrow
+        \begin{cases}
+            t_1 = \frac{1}{2}(x_2 + x_3) \\
+            x_3 = \frac{1}{2}(x_3 - x_2)
+        \end{cases} \\
+        x_2x_3 = (t_1 - t_2)(t_1 + t_2) = (t_1^2 - t_2^2) = \frac{1}{4}(x_2 + x_3)^2 - \frac{1}{4}(x_3 - x_2)^2
+    \end{align*}
+    נציב חזרה ונקבל:
+    \[ q_f(x_1, x_2, x_3) = (2x_1 - x_2 + x_3)^2 - \frac{1}{4}(x_2 + x_3)^2 + \frac{1}{4}(x_3 - x_2)^2 \]
+    נציב משתנים חדשים:
+    \[
+    \begin{cases}
+        y_1 = 2x_1 - x_2 + x_3 \\
+        y_2 = x_2 + x_3 \\
+        y_3 = x_3 - x_2
+    \end{cases} \Rightarrow
+    \begin{cases}
+        x_1 = \frac{1}{2}y_1 - \frac{1}{2}y_3 \\
+        x_2 = \frac{1}{2}y_2 - \frac{1}{2}y_3 \\
+        x_3 = \frac{1}{2}y_2 + \frac{1}{2}y_3
+    \end{cases}
+    \]
+    וקיבלנו את התבנית הריבועית: $q(y_1, y_2, y_3) = y_1^2 - \frac{1}{4}y_2^2 + \frac{1}{4}y_3^2$
+    לכל $x_i$ נציב את המקדמים של $y_i$ כשורה במטריצה ונקבל את מטריצת המעבר:
+    \[
+    M =
+    \begin{pmatrix}
+        \frac{1}{2} & 0 & - \frac{1}{2} \\
+        0 & \frac{1}{2} & - \frac{1}{2} \\
+        0 & \frac{1}{2} & \frac{1}{2}
+    \end{pmatrix}
+    \]
+    עמודות המטריצה הם וקטורי הבסיס: $\set{(\frac{1}{2}, 0, 0), (0, \frac{1}{2}, \frac{1}{2}), (-\frac{1}{2}, -\frac{1}{2}, \frac{1}{2})}$
+    \end{proof}
+
+    \subsection*{סעיף ב}
+    בדקו את נכונות נוסחת המעבר מן הבסיס הסטנדרטי לבסיס שמצאתם בסעיף הקודם
+    \begin{proof}
+        \begin{align*}
+        M^t \cdot A \cdot M &=
+        \begin{pmatrix}
+            \frac{1}{2} & 0 & 0 \\
+            0 & \frac{1}{2} & \frac{1}{2} \\
+            -\frac{1}{2} & -\frac{1}{2} & \frac{1}{2}
+        \end{pmatrix} \cdot
+        \begin{pmatrix}
+            4 & -2 & 2 \\
+            -2 & 1 & -\frac{1}{2} \\
+            2 & -\frac{1}{2} & 1
+        \end{pmatrix} \cdot
+        \begin{pmatrix}
+            \frac{1}{2} & 0 & - \frac{1}{2} \\
+            0 & \frac{1}{2} & - \frac{1}{2} \\
+            0 & \frac{1}{2} & \frac{1}{2}
+        \end{pmatrix} \\
+        &=
+        \begin{pmatrix}
+            2 & -1 & 1 \\
+            0 & \frac{1}{4} & \frac{1}{4} \\
+            0 & \frac{1}{4} & - \frac{1}{4}
+            \end{pmatrix}\cdot
+            \begin{pmatrix}
+                \frac{1}{2} & 0 & - \frac{1}{2} \\
+                0 & \frac{1}{2} & - \frac{1}{2} \\
+                0 & \frac{1}{2} & \frac{1}{2}
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                1 & 0 & 0 \\
+                0 &  \frac{1}{4} & 0 \\
+                0 & 0 & -\frac{1}{4}
+            \end{pmatrix}
+        \end{align*}
+        וקיבלנו את מקדמי $q_f$ שמצאנו כאיברי האלכסון במטריצה, כנדרש.
+    \end{proof}
+
+    \section*{שאלה 3}
+    נתון שדה $F$ שמקיים $char F \neq 2$ יהיו $\ell_1, \ell_2$ תבניות לינאריות על מרחב $V$.
+
+    \subsection*{סעיף א}
+    נניח כי לכל $v \in V$ מתקיים $\ell_1(v) \ell_2(v) = 0$ הוכיחו ש $\ell_1 = 0 \lor \ell_2 = 0$
+    \begin{proof}
+    נניח בשלילה כי קיימים $u, w \in V$ כך ש $\ell_1(u) \neq 0 \land \ell_2(w) \neq 0$
+    ונתון כי $\ell_1(u)\ell_2(u) = \ell_1(w)\ell_2(u) = 0$ ז"א ש $\ell_1(w) = \ell_2(u) = 0$
+    וגם $\ell_1(u+w)\ell_2(u+w) = 0$
+    ומלינאריות של $\ell_i$:
+    \[
+    0 = \ell_1(u+w)\ell_2(u+w)
+    = (\ell_1(u) + \ell_1(w))(\ell_2(u) + \ell_2(w))
+    = (\ell_1(u) + 0)(0 + \ell_2(w))
+    = \ell_1(u)\ell_2(w)
+    \]
+    וקיבלנו ש $\ell_1(u)\ell_2(w)=0$ ז"א ש $\ell_1(u) = 0 \lor \ell_2(w) = 0$ בסתירה לזה שהגדרנו $\ell_1(u) \neq 0 \land \ell_2(w) \neq 0$.
+    ולכן בהכרח $\ell_1 = 0 \lor \ell_2 = 0$.
+    \end{proof}
+
+    \subsection*{סעיף ב}
+    הוכיחו שאם $f$ תבנית בילינארית אנטי סימטרית ו $f \neq 0$ אז לא יתכן כי $f(u, v) = \ell_1(u) \ell_2(v)$ לכל $u, v \in V$
+    \begin{proof}
+        נניח בשלילה ש $f(u,v) = \ell_1(u)\ell_2(v)$
+    יהי $0 \neq w \in V$ מהאנטי סימטריות אנו מקבלים ש $f(w,w) = -f(w,w) = 0$ ז"א ש $\ell_1(w)\ell_2(w) = 0$
+    ומסעיף א נקבל כי $\ell_1 = 0 \lor \ell_2 = 0$ ומכאן ש $f(u,v) = \ell_1(v)\ell_2(u)=0$ בסתירה לנתון ש $f \neq 0$.
+    \end{proof}
+
+
+    \pagebreak
+    \section*{שאלה 4}
+    תהי $\ell \neq 0$ תבנית ליניארית על מרחב $n$ מימדי $V$.
+    הוכיחו כי קיים $B = \set{v_1, \cdots, v_n}$ בסיס של $V$ כך שלכל $v \in V$
+    \[
+    v = \sum_{i=1}^n \alpha_i v_i \Rightarrow
+    \ell(v) = \alpha_1
+    \]
+    \begin{proof}
+    נתון ש $\ell \neq 0 \land Im \ell \subseteq F$ ז"א ש $0 < dim \ell \leq dim F = 1 \Leftrightarrow dim \ell = 1$
+    ולכן $dim Ker \ell = n-1$
+    יהי $\tilde{v}_1 \in V$ כך ש $\ell(\tilde{v}_1) = \alpha_1 \neq 0$ (קיים כי $dim Im \ell=1$)
+    ונסמן $v_1 = \frac{\tilde{v}_1}{\alpha_1}$ מלינאריות נקבל כי:
+    \[
+    \ell(v_1) = \ell(\frac{\tilde{v}_1}{\alpha_1}) = \frac{1}{\alpha_1} \ell(\tilde{v}_1) = \frac{1}{\alpha_1} \cdot \alpha_1 = 1
+    \]
+    ובנוסף ניקח $C = \set{v_2, \cdot v_n}$ בסיס כךשהו לקרנל, ונקבל ש: $B = C \cup \set{v_1}$ בסיס ל $V$ וגם:
+    \[
+    \forall v \in V, \ell(v) = \ell(\sum_{i=1}^n \alpha_i v_i) = \sum_{i=1}^n \alpha_i \ell(v_i) = \alpha_1 \cdot \ell(v1) = \alpha_1 \cdot 1 = \alpha_1
+    \]
+    $\forall 1 < i \leq n, \ell(v_i) = 0$ מכיוון שהם בקרנל של $\ell$. \\
+    וקיבלנו ש $B$ הוא בסיס כנדרש.
+    \end{proof}
+
+    \pagebreak
+    \section*{שאלה 5}
+    תהי $f: \RR^n \times \RR^n \rightarrow \RR$ פונקציה מוגדרת לפי $f(x,y) = n \cdot \sum_{i=1}^n (x_i - m_x)(y_i - m_y)$
+    כאשר $x = (x_1, \dotsc, x_n), y = (y_1, \dotsc, y_n), m_x = \frac{x_1 + \dotsc + x_n}{n}, m_y = \frac{y_1 + \dotsc + y_n}{n}$
+
+    \subsection*{סעיף א}
+    בדוק שפונקציה זו היא תבנית בילינארית סימטרית
+    \begin{proof}
+        נשים לב כי $f(x,y) = n(n-1) \cdot cov(x,y)$ כאשר $cov(x,y)$ היא התבנית הבילינארית בשם קווריאנס מעמוד 16.
+        באותה דוגמא מראים כי המטריצה המתאימה לתבנית $cov(x,y)$ היא סימטרית, ולכן $cov(x,y) = cov(y,x)$.
+        ומכאן ש:
+        \[ f(x,y) = n(n-1) \cdot cov(x,y) = n(n-1) \cdot cov(y,x) = f(y,x) \]
+        וקיבלנו כי $f$ היא תבנית בילינארית סימטרית.
+    \end{proof}
+
+    \subsection*{סעיף ב}
+    מצאו את המטריצה המייצגת של $f$ לפי הבסיס הסטנדרטי של $\RR^n$
+    \begin{proof}
+        לפי אותה דוגמא בספר נתון כי:
+    \[
+    [cov]_E = \frac{1}{n(n-1)}
+    \begin{pmatrix}
+        n-1    & -1     & \dotsc & -1 \\
+        -1     & n-1    & \dotsc & -1 \\
+        \dotsc & \dotsc & \dotsc & \dotsc \\
+        -1     & -1     & \dotsc & n-1
+    \end{pmatrix}
+    \]
+    ולכן נקבל ש:
+    \[
+    [f]_E = n(n-1) \cdot [cov]_E =
+    \begin{pmatrix}
+        n-1    & -1     & \dotsc & -1 \\
+        -1     & n-1    & \dotsc & -1 \\
+        \dotsc & \dotsc & \dotsc & \dotsc \\
+        -1     & -1     & \dotsc & n-1
+    \end{pmatrix}
+    \]
+    \end{proof}
+
+    \pagebreak
+    \subsection*{סעיף ג}
+    בדקו ש \( 0 \leq f(x,x) \leq n \norm{x}^2 \) לכל $x \in \RR^n$ האם קיימים $x',x'' \in \RR^n \sub \set{0}$ כך ש
+    \(f(x'', x'') = 0, f(x', x') = n \norm{x'}^2\)
+
+    \begin{proof}
+        נחשב את הערכים העצמיים של $[f]_E$ בעזרת פולינום אופייני:
+            \begin{align*}
+                \pip{tI - [f]_E} =
+                &\pip{\begin{pmatrix}
+                    t + 1 - n  & 1         & \dotsc & 1 \\
+                    1          & t + 1 - n & \dotsc & 1 \\
+                    \dotsc     & \dotsc    & \dotsc & \dotsc \\
+                    1          & 1         & \dotsc & t + 1 - n
+                \end{pmatrix}} \\
+                \overset{R_1 = \sum_{i=1}^n R_i}\Rightarrow
+                &\pip{\begin{pmatrix}
+                    t          & t         & \dotsc & t \\
+                    1          & t + 1 - n & \dotsc & 1 \\
+                    \dotsc     & \dotsc    & \dotsc & \dotsc \\
+                    1          & 1         & \dotsc & t + 1 - n
+                \end{pmatrix}} =
+                t \cdot \pip{\begin{pmatrix}
+                    1          & 1         & \dotsc & 1 \\
+                    1          & t + 1 - n & \dotsc & 1 \\
+                    \dotsc     & \dotsc    & \dotsc & \dotsc \\
+                    1          & 1         & \dotsc & t + 1 - n
+                \end{pmatrix}} \\
+                \overset{\forall 1 < i \leq n, R_i = R_i - R_1}\Rightarrow
+                t \cdot &\pip{\begin{pmatrix}
+                    1          & 1         & \dotsc & 1 \\
+                    0          & t - n & \dotsc & 0 \\
+                    \dotsc     & \dotsc    & \dotsc & \dotsc \\
+                    0          & 0         & \dotsc & t - n
+                \end{pmatrix}}
+                \ontop{מטריצה משולשית}= t \cdot 1 \cdot (t-n)^{n-1}
+            \end{align*}
+            וקיבלנו בעצם כי ישנם 2 ע"ע, $0, n$ כאשר $0$ עם ר"א $1$ ו $n$ עם ר"א $n-1$. \\
+            ולכן לפי שאלה 5 בממן הקודם נקבל כי \( \forall x \in \RR^n, \frac{\ang{[f]_E \cdot x, x}}{\ang{x,x}} = \frac{f(x,x)}{\ang{x,x}} \leq n \) \\
+            ז"א \( f(x,x) \leq n \ang{x,x} = n \cdot \norm{x}^2 \)
+            ובצורה דומה נסתכל על $-f$ ונקבל כי: \\
+            \( \forall x \in \RR^n, \frac{-f(x,x)}{\ang{x,x}} \leq 0 \)
+            ז"א $-f(x,x) \leq 0 \cdot \ang{x,x} = 0$ ולכן $f(x,x) \geq 0$
+            וביחד קיבלנו ש:
+            \[
+            0 \leq f(x,x) \leq n \cdot \norm{x}^2
+            \]
+            ויהי $x' \neq 0$ וקטור עצמי של $n$ ו $x'' \neq 0$ וקטור עצמי של $0$ נקבל כי: \\
+            \( f(x', x') = \ang{nx', x'} = n \norm{x'}^2 \)
+            וגם:
+            \( f(x'', x'') = \ang{0 \cdot x'', x''} = 0 \) כנדרש.
+    \end{proof}
+
+\end{document}
