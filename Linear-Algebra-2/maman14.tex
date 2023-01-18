@@ -1,0 +1,282 @@
+% !TEX program = xelatex
+\input{../macros.tex}
+\documentclass{article}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage{amsmath}
+\usepackage[a4paper, margin=1.1in]{geometry}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{xparse}
+\usepackage[makeroom]{cancel}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{polyglossia}
+\usepackage{fontspec}
+% \usepackage[frak=mma]{mathalfa}
+\setdefaultlanguage{hebrew}
+\setotherlanguage{english}
+%\setmainfont{Frank Ruehl CLM}
+\setmainfont{David CLM}
+\setmonofont{Miriam Mono CLM}
+\setsansfont{Simple CLM}
+\newfontface\niceee{Brush Script MT}
+\DeclarePairedDelimiter\set\{\}
+% Use the following if you only want to change the font for Hebrew
+%\newfontfamily\hebrewfont[Script=Hebrew]{David CLM}
+%\newfontfamily\hebrewfonttt[Script=Hebrew]{Miriam Mono CLM}
+%\newfontfamily\hebrewfontsf[Script=Hebrew]{Simple CLM}
+\getenv[\ID]{ID}
+\newtheorem{lemma}{טענת עזר}
+\title{אלגברה לינארית 2 - ממ"ן 14}
+\author{אליחי טורקל \ID}
+\date\today
+
+\DeclareFontFamily{OT1}{cmrx}{}
+\DeclareFontShape{OT1}{cmrx}{m}{n}{<->cmr10}{}
+\let\saveLongrightarrow\Longrightarrow
+\makeatletter
+\renewcommand*{\Longrightarrow}{%
+    \mathrel{\rlap{\fontfamily{cmrx}\fontencoding{OT1}\selectfont=}%
+    \hphantom{\saveLongrightarrow}%
+    \llap{$\m@th\Rightarrow$}}}
+    \makeatother
+
+
+
+%\clearpage %Gives us a page break before the next section. Optional.
+%\selectlanguage{english}
+%Section and subsection automatically number unless you put the asterisk next to them.
+
+
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+
+\section*{שאלה 1}
+\subsection*{סעיף א}
+מצאו את הדרגה ואת הסימנית של התבנית הריבועית:
+\[
+q: \RR^3 \rightarrow \RR, \quad q(x_1, x_2, x_3) = 2x_1^2 + 3x_2^2 - x_3^2 + 2x_1x_2 + 2x_1x_3
+\]
+מצאו בסיס שבו $q$ בעלת צורה אלכסונית וציינו את הצורה האלכסונית.
+האם קיים בסיס שבו $q$ מיוצגת ע"י מטריצת היחידה? נמקו.
+\begin{proof}
+    נתחיל בלהשתמש בשיטת לגראנז' ע"מ למצוא תבנית ריבועית:
+    \begin{align*}
+        q(x_1, x_2, x_3)
+        &= 2x_1^2 + 3x_2^2 - x_3^2 + 2x_1x_2 + 2x_1x_3 \\
+        &= 2\brac{x_1 + \frac{x_2}{2} + \frac{x_3}{2}}^2 - \frac{x_2^2}{2} - \frac{x_3^2}{2} - x_2x_3 + 3x_2^2 - x_3^2 \\
+        &= 2\brac{x_1 + \frac{x_2}{2} + \frac{x_3}{2}}^2 - \frac{5x_2^2}{2} - \frac{3x_3^2}{2} - x_2x_3 \\
+        &= 2\brac{x_1 + \frac{x_2}{2} + \frac{x_3}{2}}^2 + \frac{5}{2}\brac{x_2 - \frac{x_3}{5}}^2 - \frac{8x_3^2}{5} \\
+        &\begin{cases}
+            t_1 = x_1 + \frac{x_2}{2} + \frac{x_3}{2} \\
+            t_2 = x_2 - \frac{x_3}{5} \\
+            t_3 = x_3
+            \end{cases} \Rightarrow
+            \begin{cases}
+                x_1 = t_1 - \frac{t_2}{2} - \frac{2t_3}{5} \\
+                x_2 = t_2 + \frac{t_3}{5} \\
+                x_3 = t_3
+            \end{cases} \\
+            &\Rightarrow q(t_1, t_2, t_3) = 2t_1^2 + \frac{5}{2}t_2^2 - \frac{8}{5}t_3^2
+                \end{align*}
+                וקיבלנו את מטריצת המעבר הבאה:
+                \begin{align*}
+                    M^{-1} = \begin{pmatrix}
+                        1 & \frac{1}{2} & \frac{1}{2} \\
+                        0 & 1 & -\frac{1}{5} \\
+                        0 & 0 & 1
+                \end{pmatrix},
+                M = \begin{pmatrix}
+                    1 & -\frac{1}{2} & -\frac{3}{5} \\
+                    0 & 1 & \frac{1}{5} \\
+                    0 & 0 & 1
+                    \end{pmatrix}
+        \end{align*}
+        והבסיס הינו עמודות המטריצה: $\set{\brac{1,0,0}, \brac{-\frac{1}{2},1,0}, \brac{-\frac{3}{5},\frac{1}{5},1}}$. \\
+        ע"מ לבדוק את הסימנית או החתימה של התבנית, נשים לב כי בצורה האלכסונית יש 2 איברים חיוביים ואחד שלילי, ולכן: $\pi=2$, $\nu=1$ \\
+        קיבלנו שדרגת $q$ היא $\rho = 2 + 1 = 3$ והסימנית היא: $\sigma = 2 - 1 = 1$
+        לפי משפט ההתמדה הסימנית של התבנית נשמרת בבסיסים שונים, מכיוון שהסימנית של מטריצת היחידה היא 3(שלושה איברים חיוביים)
+        והסימנית של $q$ היא 1 אזי לא קיים בסיס שבו $q$ מיוצגת ע"י מטריצת היחידה.
+    \end{proof}
+
+
+    \pagebreak
+    \subsection*{סעיף ב}
+    מצאו תת מרחב של $\RR^3$ ממימד מקסימאלי שעליו $q$ שלילית לחלוטין. נמקו.
+    \begin{proof}
+        נסתכל על הבסיס שמצאנו וננסה לבנות תת מרחב: $b_1 = \brac{1,0,0}, b_2 = \brac{-\frac{1}{2},1,0}, b_3 = \brac{-\frac{3}{5},\frac{1}{5},1}$ \\
+        נתחיל בלהסתכל על $W = Sp\set{b_1, b_2}$ כל $0 \neq v \in W$ שמיוצג לפי הבסיס $B$ הוא בעצם צ"ל של הראשון והשני ז"א $[v]_B = (\lambda_1, \lambda_2, 0)$
+        ולכן $q(v) = 2\lambda_1^2 + \frac{5}{2}\lambda_2^2 - \frac{8}{5} \cdot 0^2$ וניתן לראות שבתת מרחב זה $q$ חיובית לחלוטין. \\
+        במקביל אם נסתכל על $U = Sp\set{b_3}$ ובצורה דומה כל $0 \neq v \in U$ הוא צ"ל של $v_3$ ז"א $[v]_B = \brac{0,0, \lambda}$
+        ולכן $q(v) = 2\cdot 0^2 + \frac{5}{2}\cdot 0^2 - \frac{8}{5} \cdot \lambda^2$ וניתן לראות כי $q$ כעת שלילית לחלוטין. \\
+        נשים לב כי $\RR^3 = W \bigoplus U$ ז"א $W$ ו $U$ אורתוגנלים זה לזה, החיתוך שלהם ריק, ואיחודם שווה למרחב $\RR^3$ כולו.
+        ולכן אם קיים תת מרחב אחר ממימד גדול יותר מ $U$ שבו $q$ שלילית לחלוטין, אזי כל וקטור בו יהיה סכום של וקטורים מ $U$ ו $W$ אך בראשון $q$ שלילית לחלוטין ובאחרון היא חיובית לחלוטין, בסתירה לזה ש $q$ צריכה להיות שלילית לחלוטין במרחב הזה. \\
+        ובסה"כ קיבלנו ש $U = Sp\set{b_1} \subset \RR^3$ הוא תת מרחב ממימד מקסימלי שעליו $q$ שלילית לחלטין.
+    \end{proof}
+
+\section*{שאלה 2}
+    יהיו $q_1, q_2$ תבניות ריבועיות מעל $\RR^n$ עם מטריצות סימטריות מייצגות $A, B$ בהתאמה.
+    הוכיחו כי אם עבור המטריצה $A$ מתקיים:
+    $\Delta_1 < 0$ ו $\Delta_{i-1} \cdot \Delta_i < 0$ לכל $i \in [2,n] \cap \ZZ$ אז ל $A$ ול $B$ יש לכסון סימולטאני.
+
+    \begin{proof}
+        מכיוון ש $\Delta_{i-1} \cdot \Delta_i < 0$ אזי הסימן של $\Delta_i$ הפוך משל $\Delta_{i-1}$ ולכן לכל $i$ אי זוגי $\Delta_i < 0$ ולכן $i$ זוגי $\Delta_i > 0$. \\
+        נסמן $\Delta_0 = 1$ ונקבל ש: $q_1 = \frac{1}{\Delta_1}y_1^2 + \frac{\Delta_1}{\Delta_2}y_2^2 + \dotsb + \frac{\Delta_{n-1}}{\Delta_n}y_n^2$ היא הצגת יעקובי של $q$.
+        נשים לב כי כל המקדמים שליליים מכיוון ש $\Delta_i$ מחליף סימנים ו $\Delta_1 < 0$.
+        כעת נתאים את הוכחת משפט 6.5.1' למטריצה שלילית לחלוטין: \\ \\
+        תהינה $A,B$ מטריצות סימטריות ממשיות מאותו הסדר, כך ש $A$ שלילית לחלוטין. \\
+        ממסקנה 6.2.1 נקבל שקיימת מטריצה הפיכה $P$ כך ש $P^tAP = -I$, \\
+        נסתכל על המטריצה $S = P^tBP$ גם היא סימטרית וממשית
+        ולכן לפי למה 3.2.4 הפולינום האופייני שלה מתפרק לגורמים ממשיים, ז"א הע"עים שלה ממשיים. \\
+        ולכן ממשפט 3.2.1 קיימת מטריצה אורתוגונלית $Q$ כך ש $Q^tSQ = S^t(P^tAP)Q = diag \set{\delta_1, \cdots, \delta_n}$, \\
+        נסמן $M=PQ$ ונקבל: $M^tBM = diag \set{\delta_1, \cdots, \delta_n}$
+        וגם
+        \[ M^tAM = (PQ)^tA(PQ) = Q^t (P^tAP)Q = Q^t(-I)Q = -Q^tQ \overset{(\perp)}= -I \]
+        במילים אחרות, מכיוון ששתיהן סימטריות ו $A$ שלילית לחלוטין אזי קיימת מטריצה $M$ המלכסנת גם את $A$ וגם את $B$.
+    \end{proof}
+
+\pagebreak
+\section*{שאלה 3}
+    קבעו האם קיים בסיס שבו שתי התבניות הריבועיות $q_1, q_2$ הן בעלות צורה אלכסונית:
+    \begin{equation}
+        q_1(x_1, x_2) = -x_1^2 + 4x_1x_2 - 5x_2^2, \qquad q_2(x_1, x_2) = x_1^2 + 6x_1x_2 + 5x_2^2
+    \end{equation}
+    \begin{equation}
+        q_1(x_1, x_2) = x_1^2 + x_1x_2 - x_2^2, \qquad q_2(x_1, x_2) = x_1^2 - 2x_1x_2
+    \end{equation}
+
+    \begin{proof}
+        \begin{enumerate}
+            \item נשתמש בשיטת לגראנז' ע"מ למצוא את הצורה האלכסונית:
+            \begin{align*}
+                q_1(x_1, x_2)
+                = -x_1^2 + 4x_1x_2 - 5x_2^2
+                = - (x_1 - 2x_2)^2 + 4x_2^2 - 5x_2^2
+                = \boxed{- (x_1 - 2x_2)^2 - x_2^2}
+            \end{align*}
+            וניתן לראות כי כל המקדמים שליליים ולכן $q_1$ שלילית לחלוטין.
+            ולפי שאלה 2 נקבל בצורה שקולה למטריצות, שיש לנו 2 מטריצות סימטריות (תבניות בילינאריות) ואחת מהן שלילית לחלוטין.
+            ולכן קיימת מטריצה $M$ שמלכסנת את שתיהן,
+            או במילים אחרות קיים בסיס בו שתיהן בעלות צורה אלכסונית.
+
+            \item נציב משתנים ע"מ להביא את שתיהן לצורות ריבועיות לפי אותו הבסיס:
+            \begin{align*}
+                &\begin{cases}
+                    q_1(x_1, x_2) = x_1^2 + x_1x_2 - x_2^2 \\
+                    q_2(x_1, x_2) = x_1^2 - 2x_1x_2
+                \end{cases},
+                \begin{cases}
+                    t_1 = x_1 - x_2 \\
+                    t_2 = x_2
+                \end{cases} \Rightarrow
+                \begin{cases}
+                    x_1 = t_1 + t_2 \\
+                    x_2 = t_2
+                \end{cases} \\
+                \Rightarrow
+                &\begin{cases}
+                    q_1(t_1, t_2) = (t_1 + t_2)^2 + (t_1 + t_2)t_2 - t_2^2 \\
+                    q_2(t_1, t_2) = (t_1 + t_2)^2 - 2(t_1 + t_2)t_2
+                \end{cases}
+                = \begin{cases}
+                    q_1(t_1, t_2) = t_1^2 + 2t_1t_2 + t_2^2 + t_1t_2 + t_2^2 - t_2^2 \\
+                    q_2(t_1, t_2) = t_1^2 + 2t_1t_2 + t_2^2 - 2t_1t_2 - 2t_2^2
+                \end{cases} \\
+                = &\begin{cases}
+                    q_1(t_1, t_2) = t_1^2 + t_2^2 + 3t_1t_2 \\
+                    q_2(t_1, t_2) = t_1^2 - t_2^2
+                \end{cases}
+            \end{align*}
+            ולכן קיבלנו את המטריצות המייצגות הסימטריות הבאות:
+            \begin{align*}
+                A = [q_1] =
+                \begin{pmatrix}
+                    1 & \frac{3}{2} \\
+                    \frac{3}{2} & 1
+                \end{pmatrix},
+                B = [q_2] =
+                \begin{pmatrix}
+                    1 & 0 \\
+                    0 & -1
+                \end{pmatrix}
+            \end{align*}
+            כעת נניח כי קיים בסיס שבו יש להן צורות אלכסוניות, ז"א קיימת מטריצה הפיכה $M$ שמלכסנת את שתיהן.
+            כעת נלכסן אותן ונקבל:
+            \begin{align*}
+                M^tAM &=
+                \begin{pmatrix}
+                    \lambda_1 & M_{11}M_{12} + M_{21}M_{22} + \frac{3}{2}(M_{12}M_{21} + M_{11}M{22}) \\
+                    \frac{3}{2}(M_{12}M_{21} + M_{11}M{22}) & \lambda_2
+                \end{pmatrix} \\
+                M^tBM &=
+                \begin{pmatrix}
+                    \lambda_3 & M_{11}M_{12} - M_{21}M_{22} \\
+                    M_{11}M_{12} - M_{21}M_{22} & \lambda_4
+                \end{pmatrix}
+            \end{align*}
+            מכיוון שהן אלכסוניות נקבל:
+            \begin{align*}
+                \begin{cases}
+                    M_{11}M_{12} - M_{21}M_{22} = 0
+                    \Rightarrow M_{11}M_{12} = M_{21}M_{22} \\
+                    M_{11}M_{12} + M_{21}M_{22} + \frac{3}{2}(M_{12}M_{21} + M_{11}M_{22})  = 0
+                \end{cases}
+            \end{align*}
+            אם $M_{12} = 0$ אזי $M_{21} = 0 \lor M_{22} = 0$ אם $M_{22} = 0$ אזי ישנה עמודת אפסים,
+            ואם $M_{21}=0$ אזי מהמשוואה השניה: $0 = M_{11}M_{22}$ ואנו מקבלים ש $M_{11} = 0 \lor M_{22} = 0$
+            וקיבלנו שורת אפסים. שתיהם בסתירה להפיכותה של $M$. ומכאן ש $M_{12} \neq 0$. \\
+            מהמשוואה הראשונה נגיע ל $M_{11} = \frac{M_{21}M_{22}}{M_{12}}$ ונציב זאת במשוואה השניה: \\
+
+            כעת, אם $M_{21} = 0$ אזי: $0 = M_{11}M_{22}$ ולכן $M_{22} = 0$ ושוב קיבלנו שורת אפסים וסתירה. ולכן גם $M_{21} \neq 0$. \\
+            \[
+            0
+            = M_{21}M_{22} + M_{21}M_{22} + \frac{3}{2} (M_{12}M_{21} + \frac{M_{21}M_{22}^2}{M_{12}} )
+            = M_{21} (2M_{22} + \frac{3}{2}M_{12} + \frac{3}{2}\frac{M_{22}^2}{M_{12}} )
+            \]
+            אם $M_{21} = 0$ נקבל ש $M_{11}M_{12} = 0 \Rightarrow M_{12} = 0$ (מכיוון ש $M_{11} \neq 0$)
+            ובצורה דומה להתחלה נקבל שורת אפסים בסתירה.
+            ולכן בהכרח:
+            \[
+            0 = 2M_{22} + \frac{3}{2}M_{12} + \frac{3}{2}\frac{M_{22}^2}{M_{12}}
+            = 2M_{22}M_{12} + \frac{3}{2}M_{12}^2+ \frac{3}{2}M_{22}^2
+            = (M_{12} + M_{12})^2 + \frac{1}{2}M_{12}^2+ \frac{1}{2}M_{22}^2
+            \]
+            כל האיברים ריבועיים ולכן כולם חיוביים, וע"מ שהביטוי יהיה שווה לאפס כל המחוברים שלו הינם אפס
+            ובפרט $M_{12} = 0$
+            בסתירה לזה שמקודם הראינו כי $M_{12} \neq 0$.
+            ומכאן שהן שלא קיים בסיס בו שתי התבניות בעלות צורה אלכסונית.
+    \end{enumerate}
+    \end{proof}
+
+
+\section*{שאלה 4}
+    מצאו את כל הערכים של הפרמטר $a \in \RR$ שעבורם התבנית $q: \RR^3 \rightarrow \RR$:
+    \[ q(x_1, x_2, x_3) = 5x_1^2 + x_2^2 + ax_3^2 + 4x_1x_2 - 2x_1x_3 - 2x_2x_3 \]
+    היא חיובית לחלוטין.
+    \begin{proof}
+        נשתמש בשיטת לגרנז' ע"מ להגיע לצורה אלכסונית:
+        \begin{align*}
+            q(x_1, x_2, x_3)
+            &= 5x_1^2 + x_2^2 + ax_3^2 + 4x_1x_2 - 2x_1x_3 - 2x_2x_3 \\
+            &= \frac{1}{5}(5x_1 + 2x_2 - x_3)^2 - \frac{1}{5}(2x_2 - x_3)^2 + x_2^2 + ax_3^2 - 2x_2x_3 \\
+            &= \frac{1}{5}(5x_1 + 2x_2 - x_3)^2 - \frac{4}{5}x_2^2 + \frac{4}{5}x_2x_3 - \frac{1}{5}x_3^2 + x_2^2 + ax_3^2 - 2x_2x_3 \\
+            &= \frac{1}{5}(5x_1 + 2x_2 - x_3)^2 + \frac{1}{5}x_2^2 - \frac{6}{5}x_2x_3 + (a - \frac{1}{5})x_3^2 \\
+            &= \frac{1}{5}(5x_1 + 2x_2 - x_3)^2 + 5(\frac{1}{5}x_2 - \frac{3}{5}x_3)^2 - \frac{9}{5}x_3^2  + (a - \frac{1}{5})x_3^2 \\
+            &= \frac{1}{5}(5x_1 + 2x_2 - x_3)^2 + 5(\frac{1}{5}x_2 - \frac{3}{5}x_3)^2 + (a - 2)x_3^2 \\
+        \end{align*}
+        כעת ניתן לראות כי בצורה האלכסונית 2 המקדמים הראשונים חיוביים, והמקדם השלישי חיובי אם"ם $a > 2$ זה נכון לכל בסיס בו התבנית אלכסונית לפי מסקנה 6.2.1.
+        ולכן התבנית חיובית לחלוטין אם"ם $a > 2$.
+    \end{proof}
+
+\pagebreak
+\section*{שאלה 5}
+    תהיינה $\ell_1, \ell_2$ העתקות לינאריות: $\ell_i: \RR^n \rightarrow \RR$ לכל $i = 1,2$.
+    נגדיר תבנית ריבועית: $q(x) = l_1(x) \cdot l_2(x)$ מצאו את כל הסימניות האפשריות של $q$.
+    \begin{proof}
+        הטווח של ההעתקות הללו הוא $\RR$ ולכן מימד התמונה שלהן הוא לכל היותר 1, \\
+        ומכאן ש $\dim Ker(\ell_i) \in \set{n, n-1}$
+        וקל לראות כי לכל $v \in Ker(\ell_i)$ מתקיים $q(v) = \ell_1(v) \cdot \ell_2(v) = 0$, \\
+        ולכן בהכרח $\dim ker(q) \in \set{n, n-1}$ (מימדו $n$ אם"ם קיים $\ell_i \equiv 0$).
+        ומכאן ש $\rho = \dim Im(q) \in \set{0,1}$
+        ולכן לפי משפט ההתמדה $\pi + \nu \in \set{0,1}$ ומכאן שנקבל שהאופציות לחתימה הן $\sigma \in \set{0, 1, -1}$
+    \end{proof}
+\end{document}
